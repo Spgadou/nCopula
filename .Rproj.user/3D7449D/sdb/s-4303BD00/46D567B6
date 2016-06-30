@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' Copula derivative\n#'\n#' Take the derivative of any copula.\n#' @param nest The copula function\n#' @param parameters Number of copulas (if nested)\n#' @return The symbolical derivative\n#' @export\n\nCopulaDeriv <- function(nest, parameters = 1)\n{\n  ui <- head(names(formals(nest)), -parameters)\n  der <- list()\n  der[[1]] <- Deriv(nest, ui[1], cache.exp = FALSE)\n  for (i in 2:length(ui))\n    der[[i]] <- Deriv(der[[i - 1]], ui[i], cache.exp = FALSE)\n  res <- Simplify(der[[length(ui)]])\n  res\n}\n",
+    "created" : 1467243986331.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1949554958",
+    "id" : "46D567B6",
+    "lastKnownWriteTime" : 1467244510,
+    "last_content_update" : 1467244510963,
+    "path" : "~/nCopula/R/CopulaDeriv.R",
+    "project_path" : "R/CopulaDeriv.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

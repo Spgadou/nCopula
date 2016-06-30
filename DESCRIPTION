@@ -1,0 +1,11 @@
+Package: nCopula
+Type: Package
+Title: Derivatives of Copulas and their Applications
+Version: 0.1.0
+Author: Simon-Pierre Gadoury
+Description: Compute symbolical derivatives for any type of copula.
+License: What license is it under?
+Depends:
+    Deriv
+LazyData: TRUE
+RoxygenNote: 5.0.1
