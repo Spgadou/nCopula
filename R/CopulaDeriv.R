@@ -34,7 +34,7 @@ BiClayton <- function(u1, u2, alpha) (u1^(-alpha) + u2^(-alpha) - 1)^(-1/alpha)
 #' @details Clayton, Frank.
 #' @export
 
-BivCopulaDeriv <- function(cop)
+BivDeriv <- function(cop)
 {
   Deriv(Deriv(cop, "u1", cache.exp = FALSE), "u2", cache.exp = FALSE)
 }
