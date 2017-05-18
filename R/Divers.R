@@ -330,7 +330,8 @@ setClass("Log_Child",
               PGFInv = "character",
               simul = "function",
               theta = "numeric",
-              LTheta = "character"),
+              LTheta = "character",
+              cop = "function"),
          contains = "Child", sealed = TRUE)
 
 #' Log-Mother Class
@@ -354,7 +355,8 @@ setClass("Log_Mother",
               PGFInv = "character",
               simul = "function",
               theta = "numeric",
-              PM = "character"),
+              PM = "character",
+              cop = "function"),
          contains = "Mother", sealed = TRUE)
 
 #' Sibuya-Child Class
@@ -426,7 +428,8 @@ setClass("Geo_Mother",
               simul = "function",
               theta = "numeric",
               plot = "function",
-              PM = "character"),
+              PM = "character",
+              cop = "function"),
          contains = "Mother", sealed = TRUE)
 
 #' Geo-Child Class
@@ -449,7 +452,8 @@ setClass("Geo_Child",
               PGFInv = "character",
               simul = "function",
               theta = "numeric",
-              LTheta = "character"),
+              LTheta = "character",
+              cop = "function"),
          contains = "Child", sealed = TRUE)
 
 

@@ -3,6 +3,8 @@
 export(AMH)
 export(Chil)
 export(Clayton)
+export(CompCopBootstrap)
+export(CompCopEstim)
 export(Frank)
 export(GAMMA)
 export(GEO)

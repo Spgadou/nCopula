@@ -19,6 +19,6 @@ f.mult(FUN, dim, data, prob = "CDF")
 The probability
 }
 \description{
-Porbability computation
+Probability computation
 }
 

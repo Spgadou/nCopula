@@ -47,13 +47,25 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
       t <- new("Log_Mother", parameter = par, dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
   }
 
-  t@Param <- "gamma"
-  t@Laplace <- "log(1 - (gamma) * exp(-(z))) / log(1 - (gamma))"
-  t@LaplaceInv <- "-log((1 - (1 - (gamma))^(z)) / (gamma))"
-  t@PGF <- "log(1 - (gamma)*(z)) / log(1 - (gamma))"
-  t@PGFInv <- "((1 - (1 - (gamma))^(z))/(gamma))"
+  if (t@type == "Mother")
+  {
+    t@Param <- "gamma"
+    t@Laplace <- "log(1 - (gamma) * exp(-(z))) / log(1 - (gamma))"
+    t@LaplaceInv <- "-log((1 - (1 - (gamma))^(z)) / (gamma))"
+    t@PGF <- "log(1 - (gamma)*(z)) / log(1 - (gamma))"
+    t@PGFInv <- "((1 - (1 - (gamma))^(z))/(gamma))"
+  }
+  else
+  {
+    t@Param <- "alpha"
+    t@Laplace <- "log(1 - (alpha) * exp(-(z))) / log(1 - (alpha))"
+    t@LaplaceInv <- "-log((1 - (1 - (alpha))^(z)) / (alpha))"
+    t@PGF <- "log(1 - (alpha)*(z)) / log(1 - (alpha))"
+    t@PGFInv <- "((1 - (1 - (alpha))^(z))/(alpha))"
+  }
   t@simul <- function(z, gamma) copula::rlog(z, gamma)
   t@theta <- vector("numeric")
+  t@cop <- function(gamma, dim) Frank(gamma, dim)
 
   t
 })
@@ -86,13 +98,25 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
 
   }
 
-  t@Param <- "gamma"
-  t@Laplace <- "(gamma)*exp(-(z)) / (1 - (1 - (gamma)) * exp(-(z)))"
-  t@LaplaceInv <- "-log(1 / (((gamma)/(z)) + (1 - (gamma))))"
-  t@PGF <- "(gamma)*(z) / (1 - (1-(gamma))*(z))"
-  t@PGFInv <- "1 / (((gamma)/(z)) + (1 - (gamma)))"
+  if (t@type == "Mother")
+  {
+    t@Param <- "gamma"
+    t@Laplace <- "(gamma)*exp(-(z)) / (1 - (1 - (gamma)) * exp(-(z)))"
+    t@LaplaceInv <- "-log(1 / (((gamma)/(z)) + (1 - (gamma))))"
+    t@PGF <- "(gamma)*(z) / (1 - (1-(gamma))*(z))"
+    t@PGFInv <- "1 / (((gamma)/(z)) + (1 - (gamma)))"
+  }
+  else
+  {
+    t@Param <- "alpha"
+    t@Laplace <- "(alpha)*exp(-(z)) / (1 - (1 - (alpha)) * exp(-(z)))"
+    t@LaplaceInv <- "-log(1 / (((alpha)/(z)) + (1 - (alpha))))"
+    t@PGF <- "(alpha)*(z) / (1 - (1-(alpha))*(z))"
+    t@PGFInv <- "1 / (((alpha)/(z)) + (1 - (alpha)))"
+  }
   t@simul <- function(z, gamma) rgeom(z, gamma) + 1
   t@theta <- vector("numeric")
+  t@cop <- function(gamma, dim) AMH(gamma, dim)
 
   t
 })
@@ -207,9 +231,9 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
   if (!is.integer(verif) || dim <= 1)
     stop("The dimension must be an integer greater than or equal to 2")
 
-  phi <- "-log(exp(-(z)) * (exp(-alpha) - 1) + 1)/alpha"
-  phi.inv <- "-log((exp(-alpha*(z)) - 1) / (exp(-alpha) - 1))"
-  dep.param <- "1 - exp(-alpha)"
+  phi <- "log(1 - (alpha) * exp(-(z))) / log(1 - (alpha))"
+  phi.inv <- "-log((1 - (1 - (alpha))^(z)) / (alpha))"
+  dep.param <- "alpha"
   rBiv <- function(n, alpha, u) -log(1 - (runif(n) * (exp(-alpha) - 1)) / (runif(n) * (exp(-alpha * u) - 1) - exp(-alpha * u))) / alpha
   th <- function(z, alpha) copula::rlog(z, alpha)
 
@@ -240,7 +264,7 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
   phi <- "(1 - alpha) / (exp(z) - alpha)"
   phi.inv <- "log((1 - alpha*(1 - (z)))/(z))"
   dep.param <- "1 - alpha"
-  th <- function(z, alpha) rgeom(z, alpha)
+  th <- function(z, alpha) rgeom(z, alpha) + 1
 
   new("amh",
       phi = phi,
@@ -396,9 +420,9 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE, express = FALSE, code =
 
   ui <- paste("x", 1:dim, sep = "")
   ui2 <- paste("x[", 1:dim, "]", sep = "")
-  expr1 <- stringr::str_replace(phi.inv, "z", ui)
+  expr1 <- stringr::str_replace_all(phi.inv, "z", ui)
   expr1 <- paste(expr1, collapse = " + ")
-  expr2 <- stringr::str_replace(phi, "z", expr1)
+  expr2 <- stringr::str_replace_all(phi, "z", expr1)
 
   if (vector == FALSE && express == TRUE)
   {
@@ -415,7 +439,7 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE, express = FALSE, code =
     t1 <- "function(z)"
     t2 <- paste(ui, collapse = ", ")
     t3 <- paste(c(t2, "alpha"), collapse = ", ")
-    input <- stringr::str_replace(t1, "z", t3)
+    input <- stringr::str_replace_all(t1, "z", t3)
     input2 <- paste(c(input, res), collapse = " ")
     res2 <- parse(text = input2)
     return(eval(res2))
@@ -427,7 +451,7 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE, express = FALSE, code =
     expr2 <- stringr::str_replace_all(expr2, ui[j], ui2[j])
   }
 
-  expr2 <- stringr::str_replace(expr2, "dim", dim)
+  expr2 <- stringr::str_replace_all(expr2, "dim", dim)
   expr2 <- Deriv::Simplify(expr2)
 
   if (express)
@@ -469,7 +493,7 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE, express = FALSE, code =
   {
     t1 <- "function(z)"
     t3 <- paste(c("x", "alpha"), collapse = ", ")
-    input <- stringr::str_replace(t1, "z", t3)
+    input <- stringr::str_replace_all(t1, "z", t3)
     input2 <- paste(c(input, expr2), collapse = " ")
     res2 <- parse(text = input2)
     return(eval(res2))
@@ -1248,7 +1272,7 @@ rCompCop2 <- compiler::cmpfun(function(n, FUN, level){
 
 #' Bounded Probability for Random Vectors
 #'
-#' Porbability computation
+#' Probability computation
 #' @param FUN Multivariate CDF/Survival function
 #' @param dim Dimension of the random vector
 #' @param data Matrix of bounds (by row)
@@ -1294,4 +1318,158 @@ f.mult <- compiler::cmpfun(function(FUN, dim, data, prob = "CDF")
   sum(sub1 * sign)
 })
 
+#' Estimation for one level hierarchical copulas
+#'
+#'
+#' @param data Data used for the estimation
+#' @param struc Known structure (S4)
+#' @param lower Lower bound vector for optimization (from left to right, per level)
+#' @param upper Upper bound vector for optimization (from left to right, per level)
+#' @param der List of derivatives (from left to right, per level)
+#' @export
+
+CompCopEstim <- compiler::cmpfun(function(data, struc, lower, upper, der)
+{
+  res <- data
+  kk <- 1 ## Compteur pour les bornes
+
+  ## lower: Borne inf. pour l'optimization -> de gauche à droite, par niveau
+  ## upper: Borne sup. pour l'optimization -> de gauche à droite, par niveau
+
+  ## 1: Sortir le nombre d'éléments dans chaque sous-groupe
+  n <- numeric(length(struc@structure))
+  for (i in 1:length(struc@structure))
+    n[i] <- length(struc@structure[[i]]@arg)
+
+  uu <- paste("x", 1:length(n), sep = "")
+
+  MAT1 <- list()
+  for (i in 1:length(n))
+  {
+    for (b in 1:length(struc@structure[[i]]@arg))
+      MAT1[[i]] <- struc@structure[[i]]@arg
+  }
+
+  ini <- paste("1:n[", 1:length(n), "]", sep = "", collapse = ", ")
+  out <- "expand.grid(z)"
+  MAT <- eval(parse(text = stringr::str_replace_all(out, "z", ini)))
+
+  grp <- length(n)
+  xx1 <- paste("x", 1:length(n), sep = "")
+  xx <- paste(xx1, collapse = ", ")
+  test <- "function(z)"
+  test <- paste(stringr::str_replace_all(test, "z", xx), " c(z)", sep = "")
+  xx2 <- paste("MAT1[[", 1:length(n), "]][", xx1, "]", sep = "")
+  xx2 <- paste(xx2, collapse = ", ")
+  test <- stringr::str_replace_all(test, "z", xx2)
+  test <- parse(text = test)
+
+  input <- paste("MAT[,", 1:length(MAT[1,]), "]", collapse = ", ", sep = "")
+  final <- "mapply(eval(test), z)"
+  final <- stringr::str_replace_all(final, "z", input)
+  MAT <- t(eval(parse(text = final)))
+
+  ## 4: Optimiser pour le param de M
+  l <- list()
+  for (i in 1:length(MAT[,1]))
+    l[[i]] <- res[,MAT[i,]]
+
+  logvM <- function(par, data)
+  {
+    alpha <- par
+    res <- rep(1, length(data[[1]][,1]))
+    #ini <- paste("data[[i]][,", 1:length(n), "]", sep = "", collapse = ", ")
+    for (i in 1:length(data))
+    {
+      for (b in 1:length(uu))
+        eval(parse(text = paste("x", b, " <- data[[i]][,", b, "]", sep = "")))
+      res <- res * eval(der[[1]])
+    }
+    -sum(log(res))
+  }
+
+  alpha0 <- optimize(logvM, c(lower[kk], upper[kk]), data = l)$minimum
+  kk <- kk + 1
+
+  ## 5: Estimer les paramètres des sous-groupes
+  test <- struc
+  gamma <- numeric(length(n))
+  for (j in 1:length(n))
+  {
+    logvB <- function(par, data)
+    {
+      gamma <- alpha0
+      alpha <- par
+      for (b in 1:length(test@structure[[2]]@arg))
+        eval(parse(text = paste("u", b, " <- data[,", b, "]", sep = "")))
+      -sum(log(eval(der[[j + 1]])))
+    }
+
+    gamma[j] <- suppressWarnings(optimize(logvB, c(lower[kk], upper[kk]), data = res[,MAT1[[j]]])$minimum)
+    kk <- kk + 1
+  }
+  list("M" = alpha0,
+       "B" = gamma)
+})
+
+#' Estimation and bootstrap for one level hierarchical copulas
+#'
+#'
+#' @param m Number of bootstraps
+#' @param nn size of the sample per bootstrap
+#' @param struc Known structure (S4)
+#' @param lower Lower bound vector for optimization (from left to right, per level)
+#' @param upper Upper bound vector for optimization (from left to right, per level)
+#' @param data Data used for the estimation if their is no bootstrap
+#' @export
+
+CompCopBootstrap <- function(m, nn, struc, lower, upper, data = NULL)
+{
+  vk <- 1:length(struc@structure)
+  uB <- paste("B", vk, sep = "")
+  ll <- list()
+
+  ## M ##
+  expr <- pCop(struc@cop(0.99, length(vk)), vector = F, express = T) ## 0.99 a aucun impact
+  uu <- paste("x", 1:length(uB), sep = "")
+  for (i in 1:length(uB))
+    expr <- Deriv::Deriv(expr, uu[i], cache.exp = F)
+  ll[[1]] <- expr
+
+  ## B ##
+  for (j in 1:length(uB))
+  {
+    Phi <- stringr::str_replace_all(struc@PGF, "z", struc@structure[[j]]@Laplace)
+    yy <- paste("y", 1:length(struc@structure[[j]]@arg), sep = "")
+    uu <- paste("u", 1:length(struc@structure[[j]]@arg), sep = "")
+    ini <- paste(yy, collapse = " + ")
+    PhiInv <- stringr::str_replace_all(struc@structure[[j]]@LaplaceInv, "z", struc@PGFInv)
+    for (b in 1:length(struc@structure[[j]]@arg))
+    {
+      ini <- stringr::str_replace_all(ini, yy[b], PhiInv)
+      ini <- stringr::str_replace_all(ini, "z", uu[b])
+    }
+
+    cop <- parse(text = stringr::str_replace_all(Phi, "z", ini))
+    tt <- eval(parse(text = paste("{for (b in 1:length(struc@structure[[", j, "]]@arg))
+                                  cop <- Deriv::Deriv(cop, uu[b], cache.exp = F)}", sep = "")))
+    ll[[j + 1]] <- cop
+}
+
+  if (is.null(data) == FALSE)
+    CompCopEstim(data, struc, lower, upper, ll)
+  else
+  {
+    M <- numeric(m)
+    B <- matrix(NA, ncol = length(struc@structure), nrow = m)
+    for (i in 1:m)
+    {
+      x <- CompCopEstim(rCompCop2(nn, struc, 1), struc, lower, upper, der = ll)
+      M[i] <- x$M
+      B[i,] <- x[[2]]
+    }
+    list("M" = M,
+         "B" = B)
+  }
+}
 
