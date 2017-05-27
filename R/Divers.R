@@ -429,7 +429,9 @@ setClass("Geo_Mother",
               theta = "numeric",
               plot = "function",
               PM = "character",
-              cop = "function"),
+              cop = "function",
+              Der = "function",
+              FUN = "function"),
          contains = "Mother", sealed = TRUE)
 
 #' Geo-Child Class
@@ -453,7 +455,9 @@ setClass("Geo_Child",
               simul = "function",
               theta = "numeric",
               LTheta = "character",
-              cop = "function"),
+              cop = "function",
+              Der = "function",
+              FUN = "function"),
          contains = "Child", sealed = TRUE)
 
 
@@ -477,7 +481,9 @@ setClass("Gamma_Child",
               PGFInv = "character",
               simul = "function",
               theta = "numeric",
-              LTheta = "character"),
+              LTheta = "character",
+              Der = "function",
+              FUN = "function"),
          contains = "Child", sealed = TRUE)
 
 

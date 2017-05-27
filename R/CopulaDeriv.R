@@ -105,6 +105,39 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
     t@LaplaceInv <- "-log(1 / (((gamma)/(z)) + (1 - (gamma))))"
     t@PGF <- "(gamma)*(z) / (1 - (1-(gamma))*(z))"
     t@PGFInv <- "1 / (((gamma)/(z)) + (1 - (gamma)))"
+    t@Der <- function(tt, k, type)
+    {
+      if (type == "PGF")
+      {
+        ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
+                                        t@PGF)
+        ini <- stringr::str_replace_all(ini, "k", k)
+        ini <- stringr::str_replace_all(ini, "uu", tt)
+        stringr::str_replace_all(ini, "z", tt)
+      }
+      else if (type == "PGFInv")
+      {
+        ini <- "(gamma) / (gamma + (z) * (1 - gamma))^2"
+        stringr::str_replace_all(ini, "z", tt)
+      }
+    }
+    t@FUN <- function(type)
+    {
+      if (type == "PGF")
+        function(tt, gamma) gamma * (tt) / (1 - (1 - gamma) * (tt))
+      else if (type == "PGFInv")
+        function(tt, gamma) (tt) / (gamma + (tt) * (1 - gamma))
+      else if (type == "PGF.Der")
+      {
+        function(tt, gamma, k)
+          factorial(k) / (tt)^(k - 1) / gamma * (t@FUN("PGF")(tt, gamma) / (tt))^2 * (t@FUN("PGF")(tt, gamma) / ((tt) * gamma) - 1)^(k - 1)
+      }
+      else if (type == "PGFInv.Der")
+      {
+        function(tt, gamma)
+          gamma / (gamma + (tt) * (1 - gamma))^2
+      }
+    }
   }
   else
   {
@@ -113,10 +146,44 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
     t@LaplaceInv <- "-log(1 / (((alpha)/(z)) + (1 - (alpha))))"
     t@PGF <- "(alpha)*(z) / (1 - (1-(alpha))*(z))"
     t@PGFInv <- "1 / (((alpha)/(z)) + (1 - (alpha)))"
+    t@Der <- function(tt, k, type)
+    {
+      if (type == "PGF")
+      {
+        ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
+                                 t@PGF)
+        ini <- stringr::str_replace_all(ini, "k", k)
+        ini <- stringr::str_replace_all(ini, "uu", tt)
+        stringr::str_replace_all(ini, "z", tt)
+      }
+      else if (type == "PGFInv")
+      {
+        ini <- stringr::str_replace_all("(1 - gamma) * (z)^2", "z",
+                                 t@PGFInv)
+        stringr::str_replace_all(ini, "z", tt)
+      }
+    }
   }
   t@simul <- function(z, gamma) rgeom(z, gamma) + 1
   t@theta <- vector("numeric")
   t@cop <- function(gamma, dim) AMH(gamma, dim)
+  t@FUN <- function(type)
+  {
+    if (type == "PGF")
+      function(tt, gamma) gamma * (tt) / (1 - (1 - gamma) * (tt))
+    else if (type == "PGFInv")
+      function(tt, gamma) (tt) / (gamma + (tt) * (1 - gamma))
+    else if (type == "PGF.Der")
+    {
+      function(tt, gamma, k)
+        factorial(k) / (tt)^(k - 1) / gamma * (t@FUN("PGF")(tt, gamma) / (tt))^2 * (t@FUN("PGF")(tt, gamma) / ((tt) * gamma) - 1)^(k - 1)
+    }
+    else if (type == "PGFInv.Der")
+    {
+      function(tt, gamma)
+        gamma / (gamma + (tt) * (1 - gamma))^2
+    }
+  }
 
   t
 })
@@ -142,6 +209,44 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
   t@LaplaceInv <- "((z)^(-1/(alpha)) - 1)"
   t@simul <- function(z, alpha) rgamma(z, alpha, 1)
   t@theta <- vector("numeric")
+  t@Der <- function(tt, k, type)
+  {
+    if (type == "Laplace")
+    {
+      expr1 <- paste("(", 0:(k - 1), " + alpha)", collapse = " * ", sep = "")
+      ini <- paste("(-1)^(k) * ", expr1, " * (1 + (z))^(-alpha - (k))", sep = "")
+      ini <- stringr::str_replace_all(ini, "z", tt)
+      stringr::str_replace_all(ini, "k", k)
+    }
+    else if (type == "LaplaceInv")
+    {
+      stringr::str_replace_all("-1/(alpha) * (z)^(-1/(alpha)-1)", "z", tt)
+    }
+  }
+  t@FUN <- function(type)
+  {
+    if (type == "Laplace")
+      function(tt, alpha) (1 + (tt))^(-alpha)
+    else if (type == "LaplaceInv")
+      function(tt, alpha) (tt)^(-1/alpha) - 1
+    else if (type == "Laplace.Der")
+    {
+      function(tt, alpha, k, expon = 1)
+      {
+        if (expon == 0)
+          0
+        else
+        {
+          (-1)^k * prod((0:(k-1) + (alpha * expon))) * (1 + (tt))^(-(alpha * expon) - k)
+        }
+      }
+    }
+    else if (type == "LaplaceInv.Der")
+    {
+      function(tt, alpha)
+        -(1/alpha) * (tt)^(-1/alpha - 1)
+    }
+  }
 
   t
 })
@@ -1400,7 +1505,7 @@ CompCopEstim <- compiler::cmpfun(function(data, struc, lower, upper, der)
     {
       gamma <- alpha0
       alpha <- par
-      for (b in 1:length(test@structure[[2]]@arg))
+      for (b in 1:length(test@structure[[j]]@arg))
         eval(parse(text = paste("u", b, " <- data[,", b, "]", sep = "")))
       -sum(log(eval(der[[j + 1]])))
     }
