@@ -334,6 +334,7 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 
     expr2 <- stringr::str_replace_all(tt@Laplace, "z", nu)
     densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
+    densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
 
     new("clayton",
         phi = phi,
