@@ -7,7 +7,7 @@
 \alias{Gumbel}
 \title{Construction of an Archimedean Copula Class Object}
 \usage{
-Clayton(param, dim = 2L)
+Clayton(param, dim = 2L, density = FALSE)
 
 Frank(param, dim = 2L)
 

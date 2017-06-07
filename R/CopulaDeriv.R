@@ -301,7 +301,7 @@ SIBUYA <- compiler::cmpfun(function(par, unif, struc)
 #' @importFrom copula rlog
 #' @export
 
-Clayton <- compiler::cmpfun(function(param, dim = 2L)
+Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 {
   if (param < 0)
     stop("Wrong 'param' input")
@@ -317,15 +317,47 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L)
   rBiv <- function(n, alpha, u) (u^(-alpha) * (runif(n)^(-alpha / (alpha + 1)) - 1) + 1)^(-1/alpha)
   th <- function(z, alpha) rgamma(z, alpha, 1)
 
-  new("clayton",
-      phi = phi,
-      phi.inv = phi.inv,
-      rBiv = rBiv,
-      theta = th,
-      depend = dep.param,
-      dimension = dim,
-      parameter = param,
-      name = "Clayton copula")
+  if (density)
+  {
+    tt <- GAMMA(1/10, 1:dim, NULL)
+
+    uu <- paste("u", 1:dim, sep = "")
+    expr1 <- numeric(dim)
+    for (i in 1:dim)
+      expr1[i] <- stringr::str_replace_all(tt@Der("z", 1, "LaplaceInv"), "z", uu[i])
+    expr1 <- paste("(", expr1, ")", sep = "", collapse = " * ")
+
+    nu <- numeric(dim)
+    for(i in 1:dim)
+      nu[i] <- stringr::str_replace_all(tt@LaplaceInv, "z", uu[i])
+    nu <- paste("(", nu, ")", sep = "", collapse = " + ")
+
+    expr2 <- stringr::str_replace_all(tt@Laplace, "z", nu)
+    densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
+
+    new("clayton",
+        phi = phi,
+        phi.inv = phi.inv,
+        rBiv = rBiv,
+        theta = th,
+        depend = dep.param,
+        dimension = dim,
+        parameter = param,
+        dens = densit,
+        name = "Clayton copula")
+  }
+  else
+  {
+    new("clayton",
+        phi = phi,
+        phi.inv = phi.inv,
+        rBiv = rBiv,
+        theta = th,
+        depend = dep.param,
+        dimension = dim,
+        parameter = param,
+        name = "Clayton copula")
+  }
 })
 
 #' @rdname Clayton
