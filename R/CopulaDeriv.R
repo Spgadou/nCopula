@@ -109,11 +109,16 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
     {
       if (type == "PGF")
       {
-        ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
-                                        t@PGF)
-        ini <- stringr::str_replace_all(ini, "k", k)
-        ini <- stringr::str_replace_all(ini, "uu", tt)
-        stringr::str_replace_all(ini, "z", tt)
+        if (k >= 1)
+        {
+          ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
+                                          t@PGF)
+          ini <- stringr::str_replace_all(ini, "k", k)
+          ini <- stringr::str_replace_all(ini, "uu", tt)
+          stringr::str_replace_all(ini, "z", tt)
+        }
+        else
+          t@PGF
       }
       else if (type == "PGFInv")
       {
@@ -366,9 +371,9 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
   if (!is.integer(verif) || dim <= 1)
     stop("The dimension must be an integer greater than or equal to 2")
 
-  phi <- "(1 - alpha) / (exp(z) - alpha)"
-  phi.inv <- "log((1 - alpha*(1 - (z)))/(z))"
-  dep.param <- "1 - alpha"
+  phi <- "(alpha) / (exp(z) - (1 - alpha))"
+  phi.inv <- "log((alpha + (z) * (1 - alpha)) / (z))"
+  dep.param <- "alpha"
   th <- function(z, alpha) rgeom(z, alpha) + 1
 
   new("amh",
@@ -1559,7 +1564,7 @@ CompCopBootstrap <- function(m, nn, struc, lower, upper, data = NULL)
     tt <- eval(parse(text = paste("{for (b in 1:length(struc@structure[[", j, "]]@arg))
                                   cop <- Deriv::Deriv(cop, uu[b], cache.exp = F)}", sep = "")))
     ll[[j + 1]] <- cop
-}
+  }
 
   if (is.null(data) == FALSE)
     CompCopEstim(data, struc, lower, upper, ll)
@@ -1578,3 +1583,244 @@ CompCopBootstrap <- function(m, nn, struc, lower, upper, data = NULL)
   }
 }
 
+#' Obtain a node with its genetic code
+#'
+#' @param path Genetic code of the node
+#' @param str Structure
+#'
+#' @export
+
+Node <- function(path, str)
+{
+  if (length(path) == 1)
+    str
+  else
+  {
+    if (path[2] == 0)
+      stop("There is no node associated to 0")
+
+    struc <- str@structure[[path[2]]]
+    Node(path[-2], struc)
+  }
+}
+
+#' Derivative of the power of a pgf
+#'
+#' @param tt What should be the expression evaluated to ? (the variable)
+#' @param n The number of derivatives
+#' @param s The power
+#' @param str The structure
+#'
+#' @export
+
+PGF.Power <- function(tt, n, s, str)
+{
+  ## Trouver les combinaisons
+  comb <- "test <- expand.grid(z)"
+  ini <- numeric(s)
+  for (i in 1:s)
+    ini[i] <- "0:n"
+  ini <- paste(ini, collapse = ", ")
+  eval(parse(text = stringr::str_replace_all(comb, "z", ini)))
+
+  test <- as.matrix(test)
+  test2 <- matrix(NA, ncol = s, nrow = length(test[,1]))
+  kk <- 1
+  for (i in 1:length(test[,1]))
+  {
+    if (sum(test[i,]) == n)
+    {
+      test2[kk,] <- test[i,]
+      kk <- kk + 1
+    }
+  }
+  test2 <- test2[-(kk:length(test[,1])),]
+  test2 <- as.matrix(test2)
+
+  ## Construire la dérivée
+  ini <- numeric(length(test2[,1]))
+  xx2 <- paste("x", s:1, sep = "")
+  for (i in 1:length(test2[,1]))
+  {
+    xx1 <- paste("(x", s:1, ")", sep = "", collapse = " * ")
+    for (j in 1:s)
+    {
+      xx1 <- stringr::str_replace_all(xx1, xx2[j], str@Der(tt, test2[i, j], "PGF"))
+    }
+    res1 <- factorial(n) / prod(sapply(1:s, function(t) factorial(test2[i, t])))
+    res2 <- xx1
+
+    ini[i] <- paste("(", res1, ") * (", res2, ")", sep = "")
+  }
+
+  paste("(", ini, ")", sep = "", collapse = " + ")
+}
+
+#' Expression for the density of a Theta (level 1)
+#'
+#' @param str Structure
+#' @param grp Position of the group
+#' @param dim Dimension of the group
+#' @param simplify Should the expression be simply ? (may take time)
+#'
+#' @details The goal is to soon introduce genetic codes to simplify the process
+#'
+#' @export
+
+density_level1_EXPR <- function(str, grp, dim, simplify = FALSE)
+{
+  uu <- paste("u", 1:dim, sep = "")
+  yy <- paste("y", 1:dim, sep = "")
+  expr1 <- paste("y", 1:dim, sep = "", collapse = " * ")
+  nu <- paste(yy, collapse = " + ")
+  for (i in 1:dim)
+  {
+    ini <- paste("(", stringr::str_replace_all(str@structure[[grp]]@Der(str@PGFInv, 1, "LaplaceInv"), "z", uu[i]), ")", sep = "")
+    ini <- paste(ini, " * (", str@Der(uu[i], 1, "PGFInv"), ")", sep = "")
+    expr1 <- stringr::str_replace_all(expr1, yy[i], ini)
+
+    ini <- stringr::str_replace_all(str@structure[[grp]]@LaplaceInv, "z", str@PGFInv)
+    nu <- stringr::str_replace_all(nu, yy[i], ini)
+    nu <- stringr::str_replace_all(nu, "z", uu[i])
+  }
+
+  res1 <- numeric(dim)
+  for (r in 1:dim)
+  {
+    expr2 <- str@Der(stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), r, "PGF")
+    res2 <- numeric(r)
+    for (s in 1:r)
+    {
+      res2[s] <- paste("((-1)^(", r - s, ") / (", factorial(s) * factorial(r - s), ") * (",
+                       stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), ")^(", r - s, ") * (",
+                       stringr::str_replace_all(stringr::str_replace_all(str@structure[[grp]]@Der("z", dim, "Laplace"), "alpha", paste("(alpha * ", s, ")", sep = "")),
+                                                "z", nu), "))", sep = "")
+    }
+    res1[r] <- paste("(", expr2, ") * (", paste(res2, collapse = " + "), ")", sep = "")
+  }
+  res <- paste(res1, collapse = " + ")
+
+  expr.final <- paste("(", expr1, ") * (", res, ")", sep = "")
+
+  if (simplify == TRUE)
+    Deriv::Simplify(expr.final)
+  else
+    expr.final
+}
+
+#' Expression for the density of a Theta (level 2)
+#'
+#' @param str Structure
+#' @param grpM Position of the M
+#' @param grpB Position of the Theta (under M)
+#' @param dim Dimension of the group
+#' @param simplify Should the expression be simply ? (may take time)
+#'
+#' @details The goal is to soon introduce genetic codes to simplify the process
+#'
+#' @export
+
+density_level2_EXPR <- function(str, grpM, grpB, dim, simplify = FALSE)
+{
+  dimm <- dim
+  M0 <- str
+  M1 <- M0@structure[[grpM]]
+  B11 <- M1@structure[[grpB]]
+
+  ini1 <- B11@Der(stringr::str_replace_all(M1@PGFInv, "gamma", "gamma1"),
+                  1, "LaplaceInv")
+  ini1 <- stringr::str_replace_all(ini1, "z",
+                                   stringr::str_replace_all(M0@PGFInv, "gamma", "gamma0"))
+  ini2 <- stringr::str_replace_all(M1@Der("z", 1, "PGFInv"), "gamma", "gamma1")
+  ini2 <- stringr::str_replace_all(ini2, "z",
+                                   stringr::str_replace_all(M0@PGFInv, "gamma", "gamma0"))
+  ini3 <- stringr::str_replace_all(M0@Der("z", 1, "PGFInv"), "gamma", "gamma0")
+  ini <- paste("(", ini1, ") * (", ini2, ") * (", ini3, ")", sep = "")
+
+  uu <- paste("u", 1:dimm, sep = "")
+
+  expr1 <- numeric(dimm)
+  for (i in 1:dimm)
+    expr1[i] <- stringr::str_replace_all(ini, "z", uu[i])
+
+  expr1 <- paste("(", expr1, ")", sep = "", collapse = " * ")
+  expr1 <- Deriv::Simplify(expr1)
+
+  ## BLEU ET ROUGE ##
+
+  nu <- stringr::str_replace_all(B11@LaplaceInv, "z",
+                                 stringr::str_replace_all(M1@PGFInv, "gamma", "gamma1"))
+  nu <- stringr::str_replace_all(nu, "z",
+                                 stringr::str_replace_all(M0@PGFInv, "gamma", "gamma0"))
+  nuu <- numeric(dimm)
+  for (i in 1:dimm)
+    nuu[i] <- stringr::str_replace_all(nu, "z", uu[i])
+  nu <- paste("(", nuu, ")", sep = "", collapse = " + ")
+  nu <- Deriv::Simplify(nu)
+
+  input1 <- stringr::str_replace_all(M1@PGF, "gamma", "gamma1")
+  input1 <- stringr::str_replace_all(input1, "z", B11@Laplace)
+  input1 <- stringr::str_replace_all(input1, "z", nu)
+
+  vec1 <- numeric(dimm)
+  for (r in 1:dimm)
+  {
+    vec21 <- numeric(r)
+    for (i in 1:r)
+    {
+      ini <- stringr::str_replace_all(M0@Der("z", i, "PGF"),
+                                      "gamma", "gamma0")
+      ini <- stringr::str_replace_all(ini, "z", input1)
+
+      vec3 <- numeric(i)
+      for (j in 1:i)
+      {
+        coeff1 <- (-1)^(i - j) / factorial(j) / factorial(i - j)
+
+        coeff2 <- input1
+        coeff2 <- paste("(", coeff2, ")^(", i - j, ")", sep = "")
+
+        coeff3 <- PGF.Power("z", r, j, M1)
+        coeff3 <- stringr::str_replace_all(coeff3, "gamma", "gamma1")
+        coeff3 <- stringr::str_replace_all(coeff3, "z",
+                                           stringr::str_replace_all(B11@Laplace, "z", nu))
+        coeff <- paste("(", coeff1, ") * (", coeff2, ") * (", coeff3, ")", sep = "")
+
+        vec3[j] <- coeff
+      }
+
+      vec21[i] <- paste("(", ini, ") * (",
+                        paste("(", vec3, ")", sep = "", collapse = " + "), ")", sep = "")
+    }
+
+    allo1 <- paste("(", vec21, ")", sep = "", collapse = " + ")
+
+    vec22 <- numeric(r)
+    for (s in 1:r)
+    {
+      coeff1 <- (-1)^(r - s) / factorial(s) / factorial(r - s)
+
+      coeff2 <- paste("(", stringr::str_replace_all(B11@Laplace, "z", nu), ")^(",
+                      r - s, ")", sep = "")
+
+      coeff3 <- B11@Der("z", dimm, "Laplace")
+      coeff3 <- stringr::str_replace_all(coeff3, "alpha", paste("(alpha", " * ", s, ")", sep = ""))
+      coeff3 <- stringr::str_replace_all(coeff3, "z", nu)
+
+      coeff <- paste("(", coeff1, ") * (", coeff2, ") * (", coeff3, ")", sep = "")
+
+      vec22[s] <- coeff
+    }
+
+    allo2 <- paste("(", vec22, ")", sep = "", collapse = " + ")
+    vec1[r] <- paste("(", allo1, ") * (", allo2, ")", sep = "")
+  }
+
+  final <- paste("(", vec1, ")", sep = "", collapse = " + ")
+  final <- paste("(", expr1, ") * (", final, ")", sep = "")
+
+  if (simplify)
+    Deriv::Simplify(final)
+  else
+    final
+}
