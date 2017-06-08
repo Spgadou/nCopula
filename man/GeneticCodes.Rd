@@ -2,17 +2,15 @@
 % Please edit documentation in R/CopulaDeriv.R
 \name{GeneticCodes}
 \alias{GeneticCodes}
-\title{Get the genetic codes of a structure}
+\title{#' Derivative of the power of a pgf
+#'
+#' @param tt What should be the expression evaluated to ? (the variable)
+#' @param n The number of derivatives
+#' @param s The power
+#' @param str The structure
+#'
+#' @export}
 \usage{
 GeneticCodes(str)
-}
-\arguments{
-\item{str}{The structure}
-}
-\value{
-A list of genetic codes
-}
-\description{
-Get the genetic codes of a structure
 }
 
