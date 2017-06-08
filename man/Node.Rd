@@ -2,15 +2,7 @@
 % Please edit documentation in R/CopulaDeriv.R
 \name{Node}
 \alias{Node}
-\title{#' Estimation for one level hierarchical copulas
-#'
-#'
-#' @param data Data used for the estimation
-#' @param struc Known structure (S4)
-#' @param lower Lower bound vector for optimization (from left to right, per level)
-#' @param upper Upper bound vector for optimization (from left to right, per level)
-#' @param der List of derivatives (from left to right, per level)
-#' @export}
+\title{Obtain a node with its genetic code}
 \usage{
 Node(path, str)
 }
@@ -18,5 +10,8 @@ Node(path, str)
 \item{path}{Genetic code of the node}
 
 \item{str}{Structure}
+}
+\description{
+Obtain a node with its genetic code
 }
 

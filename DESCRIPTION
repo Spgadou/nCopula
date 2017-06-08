@@ -3,9 +3,9 @@ Type: Package
 Title: Copula Construction Tools
 Version: 0.1.0
 Authors@R: as.person("Simon-Pierre Gadoury <spgadou@me.com> [aut, cre]")
-Description: Compute symbolical derivatives for any type of copula.
+Description: Construct and use hiearchical Archimedean copulas with multivariate compound distributions
 Depends: R (>= 3.3), copula
-Imports: Deriv, gtools, mgcv, stringr, stringi, compiler, gsl, magrittr, Ryacas, Kendall, graphics, methods, stats4, Matrix, lattice, colorspace, ADGofTest, stabledist, mvtnorm, pspline, ggplot2, microbenchmark, Rcpp, iterators, plyr, XML, foreach, doParallel, stats
+Imports: Deriv, gtools, mgcv, stringr, stringi, compiler, gsl, Ryacas, graphics, methods, Matrix, stabledist, stats
 License: GPL (>= 2)
 LazyData: FALSE
 RoxygenNote: 5.0.1
