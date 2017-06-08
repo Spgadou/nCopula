@@ -34,7 +34,4 @@ The copula
 \description{
 Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
 }
-\details{
-rCop2 merges rCop and rCompCop2 in one function.
-}
 

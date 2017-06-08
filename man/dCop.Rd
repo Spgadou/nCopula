@@ -4,7 +4,6 @@
 \alias{dCop}
 \alias{pCop}
 \alias{rCop}
-\alias{rCop2}
 \title{Density, Cdf, and Random Number Generator for Copulas}
 \usage{
 dCop(copula, vector = TRUE, express = FALSE, code = FALSE,
@@ -14,8 +13,6 @@ pCop(copula, vector = TRUE, express = FALSE, code = FALSE,
   operator = "")
 
 rCop(n, copula)
-
-rCop2(n, copula, level = "", max.dim = 2000)
 }
 \arguments{
 \item{copula}{An Archimedean copula class object}
