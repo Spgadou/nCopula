@@ -3,9 +3,17 @@
 \docType{class}
 \name{archm-class}
 \alias{archm-class}
-\title{Archimedean copulas family}
-\description{
-Archimedean copulas
-}
+\title{#' Shuffle of Min for the Frechet Lower Bound Uniforms
+#'
+#' Shuffle of min uniforms
+#' @param n Number of simulations (numeric)
+#' @param a Lower bounds (vector)
+#' @param b Upper bounds (vector)
+#' @param seed set.seed value
+#' @param unif If true, returns the shuffles uniforms as well
+#' @importFrom graphics lines
+#' @importFrom graphics plot
+#' @importFrom graphics points
+#' @export}
 \keyword{internal}
 

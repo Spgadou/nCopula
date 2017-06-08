@@ -1413,54 +1413,6 @@ rCompCop2 <- compiler::cmpfun(function(n, FUN, level){
   do.call(cbind, res)
 })
 
-#' Bounded Probability for Random Vectors
-#'
-#' Probability computation
-#' @param FUN Multivariate CDF/Survival function
-#' @param dim Dimension of the random vector
-#' @param data Matrix of bounds (by row)
-#' @param prob FUN is a 'CDF' or 'Survival' function ? (either 'CDF' or 'Survival')
-#' @return The probability
-#' @importFrom mgcv uniquecombs
-#' @importFrom gtools permutations
-#' @export
-
-f.mult <- compiler::cmpfun(function(FUN, dim, data, prob = "CDF")
-{
-  d <- dim
-  L <- list()
-
-  for(i in 0:d)
-  {
-    L[[i+1]] <- mgcv::uniquecombs(gtools::permutations(d, d, set = FALSE, v = c(rep(1, i), rep(2, d - i))))
-  }
-  pos <- do.call(rbind, L)
-
-  sign <- list()
-  for (y in 0:d)
-    sign[[y + 1]] <- (-1)^((y + 1) %% 2 == 0) * rep(1, choose(d, y))
-
-  if (prob == "Survival")
-    sign <- unlist(sign) * (-1)^(dim %% 2 != 0) ## À VÉRIFIER
-  if (prob == "CDF")
-    sign <- unlist(sign)
-  else
-    stop("Wrong 'prob' input")
-
-  sub1 <- numeric(length(sign))
-  for (z in 1:length(sign))
-  {
-    position <- pos[z,]
-
-    sub2 <- numeric(d)
-    for (k in 1:d)
-      sub2[k] <- data[k,][position[k]]
-    sub1[z] <- FUN(sub2)
-  }
-
-  sum(sub1 * sign)
-})
-
 #' Estimation for one level hierarchical copulas
 #'
 #'
@@ -1856,4 +1808,59 @@ density_level2_EXPR <- function(str, grpM, grpB, dim, simplify = FALSE)
     Deriv::Simplify(final)
   else
     final
+}
+
+#' Get the genetic codes of a structure
+#'
+#' @param str The structure
+#'
+#' @return A list of genetic codes
+#'
+#' @export
+
+GeneticCodes <- function(str)
+{
+
+  e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
+
+  e1$ll <- list()
+  e1$k <- 1
+  e1$v <- list(c(0))
+
+  FUN <- function(str, l = 1)
+  {
+    vk <- length(str@structure)
+    type <- numeric(vk)
+    for (i in 1:vk)
+      type[i] <- str@structure[[i]]@type
+
+    if (sum(type == "Mother") == 0)
+    {
+      for (i in 1:vk)
+      {
+        e1$ll[[e1$k]] <- c(e1$v[[l]], i)
+        e1$k <- e1$k + 1
+      }
+      e1$ll
+    }
+    else
+    {
+      for (i in 1:vk)
+      {
+        if (type[i] == "Child")
+        {
+          e1$ll[[e1$k]] <- c(e1$v[[l]], i)
+          e1$k <- e1$k + 1
+        }
+        else
+        {
+          e1$v[[l + 1]] <- c(e1$v[[l]], i)
+          FUN(str@structure[[i]], l + 1)
+        }
+      }
+    }
+  }
+
+  FUN(str)
+  e1$ll
 }

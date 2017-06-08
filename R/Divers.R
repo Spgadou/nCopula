@@ -1,91 +1,3 @@
-#' Automatic assigner
-#'
-#' Assign vector of values to variables automatically.
-#' @param type Type of attribution: 0 = vector, 1 = row and 2 = column
-#' @param data Data used (has to be the same as input)
-#' @param output Desired variable for attribution
-#' @param input Data variable: vector (0) or matrix (1 or 2)
-#' @return Vector of attribution (expression)
-#' @keywords internal
-#' @export
-
-var.attrib <- compiler::cmpfun(function(type, data, output = "x", input = "k", use = "param")
-{
-  output.length = length(output)
-
-  if (type == 1) ## Row attrib.
-  {
-    dim <- length(data[,1])
-    in1 <- paste(input, "[", 1:dim, ",]", sep = "")
-    if (use != "param")
-      out1 <- paste(output, 1:dim, sep = "")
-    else
-      out1 <- output[1:output.length]
-  }
-
-  if (type == 2) ## Column attrib.
-  {
-    dim <- length(data[1,])
-    in1 <- paste(input, "[,", 1:dim, "]", sep = "")
-    if (use != "param")
-      out1 <- paste(output, 1:dim, sep = "")
-    else
-      out1 <- output[1:output.length]
-  }
-
-  if (type == 0)
-  {
-    dim <- length(data)
-    in1 <- paste(input, "[", 1:dim, "]", sep = "")
-    if (use != "param")
-      out1 <- paste(output, 1:dim, sep = "")
-    else
-      out1 <- output[1:output.length]
-  }
-
-  expr <- "zzzzz <- zzzzzz"
-  expr2 <- numeric(dim)
-  for (i in 1:dim)
-  {
-    rep1 <- stringr::str_replace(expr, "zzzzz", out1[i])
-    expr2[i] <- stringr::str_replace(rep1, "zzzzzz", in1[i])
-  }
-  parse(text = expr2)
-})
-
-#' MLE for copulas
-#'
-#' Estimate the parameters of a copula.
-#' @param start Initial parameter
-#' @param data Data used for the estimation
-#' @param gradient (Not yet included)
-#' @param low Lower bound for the research
-#' @param up Upper bound fo the research
-#' @param FUN The density of the copula to estimate (an expression)
-#' @param param.type The parameters to estimate (character)
-#' @importFrom stats nlminb
-#' @return The estimation.
-#' @seealso \code{\link{var.attrib}}
-#' @export
-
-maxvCopula <- compiler::cmpfun(function(start, data, low, up, FUN, gradient = NULL, param.type = "alpha")
-{
-  k <- data
-  eval(var.attrib(2, k, input = "k", output = "x", use = "var"))
-  xi <- paste("x", 1:length(k[1,]), sep = "")
-  exp1 <- eval(parse(text = paste(xi, collapse = " * ")))
-
-
-  logv <- function(param)
-  {
-    eval(var.attrib(0, param, input = "param", output = param.type))
-    exp2 <- eval(FUN)
-    -sum(log(exp1 * exp2))
-  }
-
-  nlminb(start, logv, lower = low, upper = up)
-})
-
 #' Copula Phi templates
 #'
 #' Copula Phi templates
@@ -146,94 +58,94 @@ pairs2 <- compiler::cmpfun(function(x, cex = 1, labels = paste("u", 1:length(x[1
   pairs(x, upper.panel = panel.cor, labels = labels, cex.labels = cex.labels, cex = cex)
 })
 
-#' Shuffle of Min for the Frechet Lower Bound Uniforms
+#' #' Shuffle of Min for the Frechet Lower Bound Uniforms
+#' #'
+#' #' Shuffle of min uniforms
+#' #' @param n Number of simulations (numeric)
+#' #' @param a Lower bounds (vector)
+#' #' @param b Upper bounds (vector)
+#' #' @param seed set.seed value
+#' #' @param unif If true, returns the shuffles uniforms as well
+#' #' @importFrom graphics lines
+#' #' @importFrom graphics plot
+#' #' @importFrom graphics points
+#' #' @export
 #'
-#' Shuffle of min uniforms
-#' @param n Number of simulations (numeric)
-#' @param a Lower bounds (vector)
-#' @param b Upper bounds (vector)
-#' @param seed set.seed value
-#' @param unif If true, returns the shuffles uniforms as well
-#' @importFrom graphics lines
-#' @importFrom graphics plot
-#' @importFrom graphics points
-#' @export
-
-
-shuff <- compiler::cmpfun(function(n, a, b, seed = sample(1:200000, 1), unif = FALSE){
-
-  set.seed(seed)
-  par(pch = 16, cex = 0.8)
-  x <- runif(n)
-  y <- 1 - x
-
-  x2.1 <- x[which({x >= a[1] & x <= b[1]})]
-
-  x2.2 <- x[-which({x >= a[1] & x <= b[1]})]
-  y2.2 <- 1 - x2.2
-  res.x2 <- x2.1
-  res.y2 <- 1 - res.x2 + runif(1, -min(1 - res.x2), 1 - max(1 - res.x2))
-
-  res.x.ini <- c(res.x2)
-  res.y.ini <- c(res.y2)
-
-  if (unif == FALSE){
-  if (length(a) == 1)
-  {
-    plot(x2.2, y2.2, type = "p")
-    points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
-  }
-
-  else
-    plot(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
-
-  #lines(x = c(min(res.x2), min(res.x2)), y = c(0, 1))
-  lines(x = c(min(res.x2), min(res.x2)), y = c(min(1 - a[1], max(res.y2)), max(1 - a[1], max(res.y2))), lty = 3)
-  lines(x = c(max(res.x2), max(res.x2)), y = c(min(1 - b[1], min(res.y2)), max(1 - b[1], min(res.y2))), lty = 3)}
-
-  #lines(x = c(max(res.x2), max(res.x2)), y = c(0, 1))
-
-  if (length(a) >= 2){
-
-    for (i in 2:length(a))
-    {
-      x <- x2.2
-      y <- 1 - x2.2
-
-      x2.1 <- x[which({x >= a[i] & x <= b[i]})]
-
-      x2.2 <- x[-which({x >= a[i] & x <= b[i]})]
-
-      y2.2 <- 1 - x2.2
-      res.x2 <- x2.1
-      res.y2 <- 1 - res.x2 + runif(1, -min(1 - res.x2), 1 - max(1 - res.x2))
-
-      res.x.ini <- c(res.x.ini, res.x2)
-      res.y.ini <- c(res.y.ini, res.y2)
-
-      if (unif == FALSE){
-      if (i == length(a))
-      {
-        points(x2.2, y2.2, type = "p")
-        points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
-      }
-      else
-        points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
-
-      #lines(x = c(min(res.x2), min(res.x2)), y = c(0, 1), lty = 3)
-      lines(x = c(min(res.x2), min(res.x2)), y = c(min(1 - a[i], max(res.y2)), max(1 - a[i], max(res.y2))), lty = 3)
-      lines(x = c(max(res.x2), max(res.x2)), y = c(min(1 - b[i], min(res.y2)), max(1 - b[i], min(res.y2))), lty = 3)}
-
-      #lines(x = c(max(res.x2), max(res.x2)), y = c(0, 1), lty = 3)
-    }}
-
-  if (unif)
-  {
-    res.x.ini <- c(res.x.ini, x2.2)
-    res.y.ini <- c(res.y.ini, y2.2)
-    return(cbind(res.x.ini, res.y.ini))
-  }
-})
+#'
+#' shuff <- compiler::cmpfun(function(n, a, b, seed = sample(1:200000, 1), unif = FALSE){
+#'
+#'   set.seed(seed)
+#'   par(pch = 16, cex = 0.8)
+#'   x <- runif(n)
+#'   y <- 1 - x
+#'
+#'   x2.1 <- x[which({x >= a[1] & x <= b[1]})]
+#'
+#'   x2.2 <- x[-which({x >= a[1] & x <= b[1]})]
+#'   y2.2 <- 1 - x2.2
+#'   res.x2 <- x2.1
+#'   res.y2 <- 1 - res.x2 + runif(1, -min(1 - res.x2), 1 - max(1 - res.x2))
+#'
+#'   res.x.ini <- c(res.x2)
+#'   res.y.ini <- c(res.y2)
+#'
+#'   if (unif == FALSE){
+#'   if (length(a) == 1)
+#'   {
+#'     plot(x2.2, y2.2, type = "p")
+#'     points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
+#'   }
+#'
+#'   else
+#'     plot(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
+#'
+#'   #lines(x = c(min(res.x2), min(res.x2)), y = c(0, 1))
+#'   lines(x = c(min(res.x2), min(res.x2)), y = c(min(1 - a[1], max(res.y2)), max(1 - a[1], max(res.y2))), lty = 3)
+#'   lines(x = c(max(res.x2), max(res.x2)), y = c(min(1 - b[1], min(res.y2)), max(1 - b[1], min(res.y2))), lty = 3)}
+#'
+#'   #lines(x = c(max(res.x2), max(res.x2)), y = c(0, 1))
+#'
+#'   if (length(a) >= 2){
+#'
+#'     for (i in 2:length(a))
+#'     {
+#'       x <- x2.2
+#'       y <- 1 - x2.2
+#'
+#'       x2.1 <- x[which({x >= a[i] & x <= b[i]})]
+#'
+#'       x2.2 <- x[-which({x >= a[i] & x <= b[i]})]
+#'
+#'       y2.2 <- 1 - x2.2
+#'       res.x2 <- x2.1
+#'       res.y2 <- 1 - res.x2 + runif(1, -min(1 - res.x2), 1 - max(1 - res.x2))
+#'
+#'       res.x.ini <- c(res.x.ini, res.x2)
+#'       res.y.ini <- c(res.y.ini, res.y2)
+#'
+#'       if (unif == FALSE){
+#'       if (i == length(a))
+#'       {
+#'         points(x2.2, y2.2, type = "p")
+#'         points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
+#'       }
+#'       else
+#'         points(res.x2, res.y2, type = "p", xlim = c(0,1), ylim = c(0, 1), col = 2)
+#'
+#'       #lines(x = c(min(res.x2), min(res.x2)), y = c(0, 1), lty = 3)
+#'       lines(x = c(min(res.x2), min(res.x2)), y = c(min(1 - a[i], max(res.y2)), max(1 - a[i], max(res.y2))), lty = 3)
+#'       lines(x = c(max(res.x2), max(res.x2)), y = c(min(1 - b[i], min(res.y2)), max(1 - b[i], min(res.y2))), lty = 3)}
+#'
+#'       #lines(x = c(max(res.x2), max(res.x2)), y = c(0, 1), lty = 3)
+#'     }}
+#'
+#'   if (unif)
+#'   {
+#'     res.x.ini <- c(res.x.ini, x2.2)
+#'     res.y.ini <- c(res.y.ini, y2.2)
+#'     return(cbind(res.x.ini, res.y.ini))
+#'   }
+#' })
 
 #' Archimedean copulas family
 #'
@@ -260,8 +172,6 @@ setClass("clayton",
               rBiv = "function",
               dimension = "numeric", parameter = "numeric", name = "character"),
          contains = "archm", sealed = TRUE)
-
-
 
 
 #' Frank copula class
