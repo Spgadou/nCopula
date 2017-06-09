@@ -956,7 +956,7 @@ rCompCop <- compiler::cmpfun(function(n, FUN, level){
 #' Obtain a node with its genetic code
 #'
 #' @param path Genetic code of the node
-#' @param str Structure
+#' @param str The structure
 #'
 #' @export
 
@@ -973,6 +973,12 @@ Node <- function(path, str)
     Node(path[-2], struc)
   }
 }
+
+#' Obtain the genetic codes of a structure
+#'
+#' @param str The structure
+#'
+#' @export
 
 GeneticCodes <- function(str)
 {

@@ -9,7 +9,7 @@ Node(path, str)
 \arguments{
 \item{path}{Genetic code of the node}
 
-\item{str}{Structure}
+\item{str}{The structure}
 }
 \description{
 Obtain a node with its genetic code
