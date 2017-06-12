@@ -19,9 +19,14 @@ Gumbel(param, dim = 2L)
 \item{param}{Parameter of the copula}
 
 \item{dim}{Dimension of the copula (>= 2), which is, by default, 2}
+
+\item{density}{Should the expression of the density be computed ?}
 }
 \description{
 Constructs an archm class object with a given parameter and
 dimension.
+}
+\author{
+Simon-Pierre Gadoury
 }
 

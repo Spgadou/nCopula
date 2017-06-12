@@ -34,6 +34,8 @@
 #' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #'
+#' @author Simon-Pierre Gadoury
+#'
 #' @importFrom methods new
 #' @examples
 #' GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
@@ -316,6 +318,10 @@ SIBUYA <- compiler::cmpfun(function(par, unif, struc)
 #' dimension.
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
+#' @param density Should the expression of the density be computed ?
+#'
+#' @author Simon-Pierre Gadoury
+#'
 #' @importFrom copula rlog
 #' @export
 
@@ -350,7 +356,7 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
       nu[i] <- stringr::str_replace_all(tt@LaplaceInv, "z", uu[i])
     nu <- paste("(", nu, ")", sep = "", collapse = " + ")
 
-    expr2 <- stringr::str_replace_all(tt@Laplace, "z", nu)
+    expr2 <- stringr::str_replace_all(tt@Der("z", dim, "Laplace"), "z", nu)
     densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
     densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
 
@@ -691,7 +697,11 @@ rCop <- compiler::cmpfun(function(n, copula)
 #' @param func If true, returns a function
 #' @param code If true, copies the LaTeX code to the clipboard
 #' @param operator Type of cumputer used (only necessary in the case of internal problem)
-#' @return The copula
+#'
+#' @details rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+#'
+#' @author Simon-Pierre Gadoury
+#'
 #' @export
 
 pCompCop <- compiler::cmpfun(function(FUN, func = FALSE, code = FALSE, operator = ""){
@@ -953,10 +963,109 @@ rCompCop <- compiler::cmpfun(function(n, FUN, level){
   do.call(cbind, res)
 })
 
+#' @rdname pCompCop
+#' @export
+
+rCompCop2 <- compiler::cmpfun(function(n, str)
+{
+  e1 <- new.env()
+  e1$res <- list()
+  gen <- GeneticCodes(str)
+  e1$M0 <- str@simul(n, str@parameter)
+
+  for (i in 1:length(gen))
+  {
+    ## Ce bloc la est good je pense
+    if (length(gen[[i]]) == 2)
+    {
+      str2 <- Node(gen[[i]], str)
+      M.prec <- eval(parse(text = paste("e1$M", paste(gen[[i]][1], collapse = ""), sep = "")))
+      Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+                      ncol = length(str2@arg), nrow = n)
+      R <- matrix(rexp(length(str2@arg) * n, 1), ncol = length(str2@arg), nrow = n)
+
+      if (gen[[i]][length(gen[[i]])] == 0)
+      {
+        ini <- stringr::str_replace_all(str@Laplace, str@Param, str@parameter)
+        ff <- function(z) eval(parse(text = ini))
+        e1$res[[i]] <- ff(R / Theta)
+      }
+      else
+      {
+        ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+        ini <- stringr::str_replace_all(ini, "z",
+                                        stringr::str_replace_all(str2@Laplace, str2@Param, str2@parameter))
+        ff <- function(z) eval(parse(text = ini))
+        e1$res[[i]] <- ff(R / Theta)
+      }
+    }
+    else if (length(gen[[i]]) > 2)
+    {
+      ## Initialiser la Laplace du Theta final
+      Lap <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+
+      for (j in 2:(length(gen[[i]]) - 1))
+      {
+        ## Sous structure
+        str2 <- Node(gen[[i]][1:j], str)
+
+        ## Conditions pour bâtir la Laplace
+        if (gen[[i]][length(gen[[i]])] != 0)
+        {
+          ini <- stringr::str_replace_all(str2@PGF, str2@Param, str2@parameter)
+          Lap <- stringr::str_replace_all(Lap, "z", ini)
+        }
+        else
+        {
+          if (j == length(gen[[i]]) - 1)
+          {
+            ini <- stringr::str_replace_all(str2@Laplace, str2@Param, str2@parameter)
+            Lap <- stringr::str_replace_all(Lap, "z", ini)
+          }
+          else
+          {
+            ini <- stringr::str_replace_all(str2@PGF, str2@Param, str2@parameter)
+            Lap <- stringr::str_replace_all(Lap, "z", ini)
+          }
+        }
+
+        variable0 <- paste("M", paste(gen[[i]][1:(j - 1)], collapse = ""), sep = "") ## Le M au dessus du M
+        variable1 <- paste("M", paste(gen[[i]][1:j], collapse = ""), sep = "") ## Le M
+
+        if (!exists(variable1, envir = e1))
+        {
+          ## C'est important de bien le sentir
+          eval(parse(text = paste("e1$", variable1, " <- vapply(1:length(", paste("e1$", variable0, sep = ""), "),
+                                  function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "str2@parameter)), 0)", sep = "")))
+        }
+        }
+
+      str2 <- Node(gen[[i]], str)
+      M.prec <- eval(parse(text = paste("e1$M", paste(gen[[i]][1:(length(gen[[i]]) - 1)], collapse = ""), sep = "")))
+
+      if (gen[[i]][length(gen[[i]])] != 0)
+      {
+        ini <- stringr::str_replace_all(str2@Laplace, str2@Param, str2@parameter)
+        Lap <- stringr::str_replace_all(Lap, "z", ini)
+      }
+
+      Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+                      ncol = length(str2@arg), nrow = n)
+      R <- matrix(rexp(length(str2@arg) * n, 1), ncol = length(str2@arg), nrow = n)
+
+      ff <- function(z) eval(parse(text = Lap))
+      e1$res[[i]] <- ff(R / Theta)
+      }
+  }
+  do.call(cbind, e1$res)
+})
+
 #' Obtain a node with its genetic code
 #'
 #' @param path Genetic code of the node
 #' @param str The structure
+#'
+#' @author Simon-Pierre Gadoury
 #'
 #' @export
 
@@ -967,34 +1076,45 @@ Node <- function(path, str)
   else
   {
     if (path[2] == 0)
-      stop("There is no node associated to 0")
-
-    struc <- str@structure[[path[2]]]
-    Node(path[-2], struc)
+      str
+    else
+    {
+      struc <- str@structure[[path[2]]]
+      Node(path[-2], struc)
+    }
   }
 }
 
 #' Obtain the genetic codes of a structure
 #'
-#' @param str The structure
+#' @param strr The structure
+#'
+#' @return A list of of the structure's genetic codes.
+#'
+#' @author Simon-Pierre Gadoury
 #'
 #' @export
 
 GeneticCodes <- function(str)
 {
-
   e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
 
   e1$ll <- list()
   e1$k <- 1
   e1$v <- list(c(0))
 
-  FUN <- function(str, l = 1)
+  FUN <- function(strr, l = 1)
   {
     vk <- length(str@structure)
     type <- numeric(vk)
     for (i in 1:vk)
       type[i] <- str@structure[[i]]@type
+
+    if (sum(str@arg) != 0)
+    {
+      e1$ll[[e1$k]] <- c(e1$v[[l]], 0)
+      e1$k <- e1$k + 1
+    }
 
     if (sum(type == "Mother") == 0)
     {

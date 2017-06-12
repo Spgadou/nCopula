@@ -3,11 +3,14 @@
 \name{pCompCop}
 \alias{pCompCop}
 \alias{rCompCop}
+\alias{rCompCop2}
 \title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
 \usage{
 pCompCop(FUN, func = FALSE, code = FALSE, operator = "")
 
 rCompCop(n, FUN, level)
+
+rCompCop2(n, str)
 }
 \arguments{
 \item{FUN}{Object of class Mother}
@@ -27,5 +30,11 @@ The copula
 }
 \description{
 Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
+}
+\details{
+rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+}
+\author{
+Simon-Pierre Gadoury
 }
 

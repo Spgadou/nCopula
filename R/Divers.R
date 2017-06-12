@@ -29,35 +29,6 @@ gene.cop <- list("Clayton" = expression("phi" <- "exp(log((z) + 1)*(-1/alpha))",
                  "4.2.21" = expression("phi" <- "1 - (1 - (1 - (z))^alpha)^(1/alpha)",
                                        "phi.inv" <- "1 - (1 - (1 - (z))^alpha)^(1/alpha)"))
 
-#' Extension of pairs
-#'
-#' Matrix of scatterplots with respective Kendall's tau
-#' @param x Matrix of data
-#' @param labels Vector of character (names of the variables)
-#' @param cex Scale of the graph
-#' @param cex.labels Numeric. The size of the labels' font
-#' @param digits Number of digits to be shown for Kendall's tau
-#' @return The pair graphs with respective Kendall tau
-#' @importFrom graphics pairs par text
-#' @importFrom Kendall Kendall
-#' @seealso \code{\link{pairs}}
-#' @export
-
-pairs2 <- compiler::cmpfun(function(x, cex = 1, labels = paste("u", 1:length(x[1,]), sep = ""), cex.labels = 1, digits = 2)
-{
-  panel.cor <- function(x, y, cex.cor, ...)
-  {
-    usr <- par("usr"); on.exit(par(usr))
-    par(usr = c(0, 1, 0, 1))
-    # correlation coefficient
-    r <- Kendall::Kendall(x, y)
-    txt <- format(c(r, 0.123456789), digits = digits)[1]
-    expr <- substitute(hat(tau) ==  u, list(u = txt))
-    text(0.5, 0.6, expr, cex = 2)
-  }
-  pairs(x, upper.panel = panel.cor, labels = labels, cex.labels = cex.labels, cex = cex)
-})
-
 #' Archimedean copulas family
 #'
 #' Archimedean copulas

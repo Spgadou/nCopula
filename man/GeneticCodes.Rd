@@ -7,9 +7,15 @@
 GeneticCodes(str)
 }
 \arguments{
-\item{str}{The structure}
+\item{strr}{The structure}
+}
+\value{
+A list of of the structure's genetic codes.
 }
 \description{
 Obtain the genetic codes of a structure
+}
+\author{
+Simon-Pierre Gadoury
 }
 

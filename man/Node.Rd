@@ -14,4 +14,7 @@ Node(path, str)
 \description{
 Obtain a node with its genetic code
 }
+\author{
+Simon-Pierre Gadoury
+}
 
