@@ -5,5 +5,5 @@ Vignette
  - Link publication
 Verifier porté de gamma 
 Voir groupement des catégories pour help
-
+Correction compatibilité de stringr avec situation
 
