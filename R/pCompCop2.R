@@ -23,16 +23,16 @@ pCompCop2 <- function(str)
       if (lvl == 0)
       {
         e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
-        e1$M0 <- numeric(str@dimension + 1 * (sum(str@arg) != 0))
+        e1$M0 <- numeric(str@dimension - length(str@arg) + 1 * (sum(str@arg) != 0))
       }
       else
       {
         ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
         eval(parse(text = paste("e1$M", lvl - 1, "[j] <- ini", sep = "")))
-        eval(parse(text = paste("e1$M", lvl, " <- numeric(str@dimension + length(str@arg) * (sum(str@arg) != 0))", sep = "")))
+        eval(parse(text = paste("e1$M", lvl, " <- numeric(str@dimension - length(str@arg) + length(str@arg) * (sum(str@arg) != 0))", sep = "")))
       }
 
-      for (i in 1:str@dimension)
+      for (i in 1:(str@dimension - length(str@arg)))
       {
         FUN(str@structure[[i]], lvl + 1, i, v = c(v, i))
       }
@@ -46,7 +46,7 @@ pCompCop2 <- function(str)
           res[i] <- stringr::str_replace_all(charr, "z", uu[i])
         res <- paste("(", res, ")", collapse = " * ")
 
-        eval(parse(text = paste("e1$M", lvl, "[str@dimension + 1] <- res", sep = "")))
+        eval(parse(text = paste("e1$M", lvl, "[str@dimension - length(str@arg) + 1] <- res", sep = "")))
       }
 
       char1 <- paste("(", eval(parse(text = paste("e1$M", lvl, sep = ""))), ")", collapse = " * ")
