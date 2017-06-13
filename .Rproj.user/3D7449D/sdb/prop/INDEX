@@ -1,3 +1,4 @@
+="======"
 %2Fprivate%2Fvar%2Ffolders%2Ffv%2Fz1k255yd1gg810nssg9f5kh80000gn%2FT%2Fcom.microsoft.Outlook%2FOutlook%20Temp%2FHeleneChristian_Estimation_Copule_HAC_2017-05-26%20v1.tex="66A43CC"
 %2Fusr%2Flocal%2Ftexlive%2F2015%2Ftexmf-dist%2Ftex%2Flatex%2Fpgf%2Fbasiclayer%2Fpgfcore.sty="804D211F"
 ~%2FDesktop%2FArticle%204%2FNotation.tex="16C7B235"
@@ -106,6 +107,7 @@
 ~%2FnCopula%2F.Rbuildignore="6E3A2043"
 ~%2FnCopula%2F.Rhistory="D0A38C88"
 ~%2FnCopula%2F.gitignore="8BC95594"
+~%2FnCopula%2FCode_PDF_generator.R="B9CD2C7E"
 ~%2FnCopula%2FDESCRIPTION="78D0752D"
 ~%2FnCopula%2FFonctions_A_Ajouter_Plus_Tard.R="9B801ACD"
 ~%2FnCopula%2FNAMESPACE="D3F399E5"
@@ -123,11 +125,7 @@
 ~%2FnCopula%2FR%2FdCop.R="ACA1EA68"
 ~%2FnCopula%2FR%2Fhello.R="4D83C633"
 ~%2FnCopula%2FR%2FpCompCop.R="641D4A8C"
-<<<<<<< Updated upstream
 ~%2FnCopula%2FR%2FpCompCop2.R="846D1A5E"
-=======
-~%2FnCopula%2FR%2FpCompCop2.R="80E362BA"
->>>>>>> Stashed changes
 ~%2FnCopula%2FR%2FpCop.R="7883D246"
 ~%2FnCopula%2FR%2FrCompCop.R="972D57E"
 ~%2FnCopula%2FR%2FrCompCop2.R="DE23ED8"

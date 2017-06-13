@@ -2,24 +2,18 @@
 % Please edit documentation in R/pCompCop.R
 \name{pCompCop}
 \alias{pCompCop}
-\title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
+\title{Construction of the copula with a known structure}
 \usage{
-pCompCop(FUN, func = FALSE, code = FALSE, operator = "")
+pCompCop(str)
 }
 \arguments{
-\item{FUN}{Object of class Mother}
-
-\item{func}{If true, returns a function}
-
-\item{code}{If true, copies the LaTeX code to the clipboard}
-
-\item{operator}{Type of cumputer used (only necessary in the case of internal problem)}
+\item{str}{Object of class Mother}
+}
+\value{
+An expression in terms of u
 }
 \description{
-Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
-}
-\details{
-rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+Construction of the copula with a known structure
 }
 \author{
 Simon-Pierre Gadoury

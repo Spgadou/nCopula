@@ -7,7 +7,7 @@
 InvLap_Child(code, str, tt = "z")
 }
 \arguments{
-\item{code}{Genetic code of the child node}
+\item{code}{Genetic code of the child node (can be a leaf i.e. end by 0)}
 
 \item{str}{Object of class Mother (the structure)}
 
