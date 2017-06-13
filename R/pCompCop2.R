@@ -18,13 +18,13 @@ pCompCop2 <- function(str)
 
   FUN <- function(str, lvl = 0, j = 1, v = 0)
   {
+
     if (str@type == "Mother")
     {
       if (lvl == 0)
       {
         e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
         e1$M0 <- numeric(str@dimension)
-        e1$v <- 0
       }
       else
       {
@@ -41,7 +41,9 @@ pCompCop2 <- function(str)
       char1 <- paste("(", eval(parse(text = paste("e1$M", lvl, sep = ""))), ")", collapse = " * ")
 
       if (lvl > 0)
-        eval(parse(text = paste("e1$M", lvl - 1, "[j] <- stringr::str_replace_all(", paste("e1$M", lvl - 1, "[j]", sep = ""), ", 'z', ", char1, ")", sep = "")))
+      {
+        eval(parse(text = paste("e1$M", lvl - 1, "[j] <- stringr::str_replace_all(", paste("e1$M", lvl - 1, "[j]", sep = ""), ", 'z', '", char1, "')", sep = "")))
+      }
       else
         e1$C <- stringr::str_replace_all(e1$C, "z", char1)
     }
@@ -64,10 +66,3 @@ pCompCop2 <- function(str)
   FUN(str)
   e1$C
 }
-
-pCompCop2(str2)
-
-
-
-
-

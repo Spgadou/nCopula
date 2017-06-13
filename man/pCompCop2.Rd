@@ -4,7 +4,7 @@
 \alias{pCompCop2}
 \title{Construction of the copula with a known structure}
 \usage{
-pCompCop2(str, lvl = 0, j = 1)
+pCompCop2(str)
 }
 \arguments{
 \item{str}{Object of class Mother}
