@@ -1,0 +1,88 @@
+\documentclass[11pt, english]{article}
+\usepackage{amsmath,amssymb,latexsym}
+
+%\usepackage{palatino}
+%\usepackage{arev}
+\usepackage{fourier}
+%\usepackage{antpolt}
+
+\usepackage{graphicx}
+\usepackage{tikz-qtree}
+\usepackage{amscd}
+\usepackage{bbm}
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{rotating,amssymb,amsmath,amsfonts,delarray}
+\usepackage{geometry}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsthm}
+\newtheorem*{remark}{Remark}
+\geometry{hmargin=80pt, vmargin=70pt}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{cancel}
+\usepackage{scalerel,stackengine}
+
+\usepackage{forest}
+
+\colorlet{mygreen}{green!75!black}
+\colorlet{col1in}{red!30}
+\colorlet{col1out}{red!40}
+\colorlet{col2in}{mygreen!40}
+\colorlet{col2out}{mygreen!50}
+\colorlet{col3in}{blue!30}
+\colorlet{col3out}{blue!40}
+\colorlet{col4in}{mygreen!20}
+\colorlet{col4out}{mygreen!30}
+\colorlet{col5in}{blue!10}
+\colorlet{col5out}{blue!20}
+\colorlet{col6in}{blue!20}
+\colorlet{col6out}{blue!30}
+\colorlet{col7out}{orange}
+\colorlet{col7in}{orange!50}
+\colorlet{col8out}{orange!40}
+\colorlet{col8in}{orange!20}
+\colorlet{linecol}{blue!60}
+
+\hypersetup{
+  colorlinks=true,
+  citecolor=blue,
+  linkcolor=blue,
+  filecolor=magenta,
+  urlcolor=cyan,
+}
+
+\newtheorem{rem}{Remark}
+\newtheorem{deff}{Definition}
+\newtheorem{lem}{Lemma}
+\newtheorem{ex}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{algo}{Algorithm}
+
+\setlength{\parindent}{0cm}
+
+\setlength\parindent{0pt}
+
+\title{The \texttt{nCopula} package}
+\author{David Beauchemin \\ Simon-Pierre Gadoury}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is the abstract.
+\end{abstract}
+
+This is the beginning of the text.
+
+\end{document}

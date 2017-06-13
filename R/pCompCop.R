@@ -73,5 +73,6 @@ pCompCop <- function(str)
   }
 
   FUN(str)
+  beepr::beep("test.wav")
   e1$C
 }

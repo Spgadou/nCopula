@@ -1,34 +1,3 @@
-#' Copula Phi templates
-#'
-#' Copula Phi templates
-#' @keywords internal
-#' @export
-
-gene.cop <- list("Clayton" = expression("phi" <- "exp(log((z) + 1)*(-1/alpha))",
-                                        "phi.inv" <- "((z)^(-alpha) - 1)"),
-                 "4.2.2" = expression("phi" <- "1 - (z)^(1/alpha)",
-                                      "phi.inv" <- "(1 - (z))^alpha"),
-                 "AMH" = expression("phi" <- "(1 - alpha) / (exp(z) - alpha)",
-                                       "phi.inv" <- "log((1 - alpha*(1 - (z)))/(z))"),
-                 "Gumbel" = expression("phi" <- "exp(-(z)^(1/alpha))",
-                                       "phi.inv" <- "(-log(z))^alpha"),
-                 "Frank" = expression("phi" <- "-log(exp(-(z)) * (exp(-alpha) - 1) + 1)/alpha",
-                                      "phi.inv" <- "-log((exp(-alpha*(z)) - 1) / (exp(-alpha) - 1))"),
-                 "4.2.6" = expression("phi" <- "1 - (1 + (z))^(1/alpha)",
-                                      "phi.inv" <- "-log(1 - (1 - (z))^alpha)"),
-                 "4.2.7" = expression("phi" <- "(exp(-(z)) + alpha - 1) / alpha",
-                                      "phi.inv" <- "-log(alpha * (z) + (1 - alpha))"),
-                 "4.2.13" = expression("phi" <- "exp(1 - (1 - (z))^(1/alpha))",
-                                       "phi.inv" <- "(1 - log(z))^alpha"),
-                 "4.2.15" = expression("phi" <- "((z)^(1/alpha) - 1)^alpha",
-                                       "phi.inv" <- "(1 + (z)^(1/alpha))^alpha"),
-                 "4.2.17" = expression("phi" <- "(exp(-(z)) * (2^(-alpha) - 1) + 1)^(-1/alpha) - 1",
-                                       "phi.inv" <- "-log(((1 + (z))^(-alpha) - 1) / (2^(-alpha) - 1))"),
-                 "4.2.20" = expression("phi" <- "(log(z + exp(1)))^(-1/alpha)",
-                                       "phi.inv" <- "exp((t)^(-alpha)) - exp(1)"),
-                 "4.2.21" = expression("phi" <- "1 - (1 - (1 - (z))^alpha)^(1/alpha)",
-                                       "phi.inv" <- "1 - (1 - (1 - (z))^alpha)^(1/alpha)"))
-
 #' Archimedean copulas family
 #'
 #' Archimedean copulas

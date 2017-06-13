@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: as.person("Simon-Pierre Gadoury <spgadou@me.com> [aut, cre]")
 Description: Construct and use hiearchical Archimedean copulas with multivariate compound distributions
 Depends: R (>= 3.3), copula
-Imports: Deriv, gtools, mgcv, stringr, stringi, compiler, gsl, Ryacas, methods, Matrix, stabledist
+Imports: Deriv, gtools, mgcv, stringr, stringi, compiler, gsl, Ryacas, methods, Matrix, stabledist, beepr
 License: GPL (>= 2)
 LazyData: FALSE
 RoxygenNote: 5.0.1
