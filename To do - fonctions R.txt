@@ -1,0 +1,11 @@
+Trucs à faire
+
+pCompCop: À faire (on se gâte)
+dCompCop: À faire (cas spécial seulement -> les sous-groupes)
+
+dCop: Vérification
+pCop: Vérification
+
+rCompCop2: Optimization
+
+**Checker si on peut pas ajouter des fonctions utiles qui seraient nice**
