@@ -69,4 +69,8 @@ GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 \author{
 Simon-Pierre Gadoury
 }
+\seealso{
+Other mother.or.child.class.objects: \code{\link{GAMMA}},
+  \code{\link{GEO}}, \code{\link{LOG}}
+}
 

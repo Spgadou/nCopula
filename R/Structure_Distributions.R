@@ -34,6 +34,8 @@
 #' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #'
+#' @family mother or child class objects
+#'
 #' @author Simon-Pierre Gadoury
 #'
 #' @importFrom methods new
@@ -125,6 +127,8 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
 #' @slot cop Construct an Archimedean copula with this distribution
 #' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
+#'
+#' @family mother or child class objects
 #'
 #' @author Simon-Pierre Gadoury
 #'
@@ -293,7 +297,10 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
 #'
 #' @author Simon-Pierre Gadoury
 #'
+#' @family mother or child class objects
+#'
 #' @importFrom methods new
+#'
 #' @examples
 #' GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                     GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
@@ -395,6 +402,8 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
 #' @slot cop Construct an Archimedean copula with this distribution
 #' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
 #' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
+#'
+#' @family mother or child class objects
 #'
 #' @author Simon-Pierre Gadoury
 #'
