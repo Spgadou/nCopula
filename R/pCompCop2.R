@@ -1,10 +1,10 @@
 #' Construction of the copula with a known structure
 #'
 #' @param str Object of class Mother
-#' @param lvl Used internally
-#' @param j used internally
 #'
 #' @details This is a test.
+#'
+#' @return An expression in terms of u
 #'
 #' @author Simon-Pierre Gadoury
 #'
@@ -18,24 +18,35 @@ pCompCop2 <- function(str)
 
   FUN <- function(str, lvl = 0, j = 1, v = 0)
   {
-
     if (str@type == "Mother")
     {
       if (lvl == 0)
       {
         e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
-        e1$M0 <- numeric(str@dimension)
+        e1$M0 <- numeric(str@dimension + 1 * (sum(str@arg) != 0))
       }
       else
       {
         ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
         eval(parse(text = paste("e1$M", lvl - 1, "[j] <- ini", sep = "")))
-        eval(parse(text = paste("e1$M", lvl, " <- numeric(length(str@dimension))", sep = "")))
+        eval(parse(text = paste("e1$M", lvl, " <- numeric(str@dimension + length(str@arg) * (sum(str@arg) != 0))", sep = "")))
       }
 
       for (i in 1:str@dimension)
       {
         FUN(str@structure[[i]], lvl + 1, i, v = c(v, i))
+      }
+
+      if (sum(str@arg) != 0)
+      {
+        charr <- InvLap_Child(c(v, 0), str_ini)
+        uu <- paste("u", str@arg, sep = "")
+        res <- numeric(length(uu))
+        for (i in 1:length(uu))
+          res[i] <- stringr::str_replace_all(charr, "z", uu[i])
+        res <- paste("(", res, ")", collapse = " * ")
+
+        eval(parse(text = paste("e1$M", lvl, "[str@dimension + 1] <- res", sep = "")))
       }
 
       char1 <- paste("(", eval(parse(text = paste("e1$M", lvl, sep = ""))), ")", collapse = " * ")
