@@ -8,10 +8,9 @@ pCompCop2(str)
 }
 \arguments{
 \item{str}{Object of class Mother}
-
-\item{lvl}{Used internally}
-
-\item{j}{used internally}
+}
+\value{
+An expression in terms of u
 }
 \description{
 Construction of the copula with a known structure

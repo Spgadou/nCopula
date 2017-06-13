@@ -1,6 +1,6 @@
 #' Inverse LST of a Child Node
 #'
-#' @param code Genetic code of the child node
+#' @param code Genetic code of the child node (can be a leaf i.e. end by 0)
 #' @param str Object of class Mother (the structure)
 #' @param tt Output variable to be used ('z' by default)
 #'
