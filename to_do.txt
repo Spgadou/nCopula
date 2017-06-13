@@ -1,4 +1,5 @@
-
+separer le script par fonction
+verifier fichier namespace pour les objets
 Vignette
  - Introduction
  - 
@@ -7,3 +8,6 @@ Verifier porté de gamma
 Voir groupement des catégories pour help
 Correction compatibilité de stringr avec situation
 
+Commande création bash
+r CMD built
+r CMD check
