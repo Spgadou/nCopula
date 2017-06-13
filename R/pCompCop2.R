@@ -14,8 +14,9 @@ pCompCop2 <- function(str)
 {
   e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
   e1$gen <- GeneticCodes(str)
+  str_ini <- str
 
-  FUN <- function(str, lvl = 0, j = 1)
+  FUN <- function(str, lvl = 0, j = 1, v = 0)
   {
     if (str@type == "Mother")
     {
@@ -23,6 +24,7 @@ pCompCop2 <- function(str)
       {
         e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
         e1$M0 <- numeric(str@dimension)
+        e1$v <- 0
       }
       else
       {
@@ -33,7 +35,7 @@ pCompCop2 <- function(str)
 
       for (i in 1:str@dimension)
       {
-        FUN(str@structure[[i]], lvl + 1, i)
+        FUN(str@structure[[i]], lvl + 1, i, v = c(v, i))
       }
 
       char1 <- paste("(", eval(parse(text = paste("e1$M", lvl, sep = ""))), ")", collapse = " * ")
@@ -45,7 +47,16 @@ pCompCop2 <- function(str)
     }
     else
     {
+      argum <- str@arg
+      uu <- paste("u", argum, sep = "")
+      nu <- InvLap_Child(v, str_ini)
+      res <- numeric(length(argum))
+      for (y in 1:length(argum))
+        res[y] <- stringr::str_replace_all(nu, "z", uu[y])
+      res <- paste("(", res, ")", collapse = " + ")
+
       ini <- stringr::str_replace_all(str@Laplace, str@Param, str@parameter)
+      ini <- stringr::str_replace_all(ini, "z", res)
       eval(parse(text = paste("e1$M", lvl - 1, "[j] <- ini", sep = "")))
     }
   }
