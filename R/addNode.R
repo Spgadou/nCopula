@@ -1,6 +1,6 @@
 #' Add a distribution
 #'
-#' @description Creation of a class and ... in the global environment
+#' @description The function addNode() help create a class and ... in the global environment
 #' @param type the type of the node (either 'Mother', 'Child' or 'Both')
 #' @param pp the parameter of the distribution used in the character strings
 #' @param name_short the short name of the distribution (ex.: 'log' for the logarithmic distribution)

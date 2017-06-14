@@ -1,7 +1,7 @@
 #' Construction of a GAMMA Child Class Object
 #'
-#' @description Constructs a GAMMA Child class object for
-#' a given parameter and arguments
+#' @description The function GAMMA constructs a gamma Child class object for
+#' a given parameter and arguments.
 #'
 #' @param par Dimension of the distribution
 #' @param unif Uniform structure, a numeric vector of grouped
@@ -51,15 +51,15 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
 {
      if (length(unique(unif)) != length(unif))
           stop("The 'unif' argument must be composed of different values")
-     
+
      if (par < 0)
           stop("Wrong 'param' input")
-     
+
      if (!is.null(struc))
           stop("Argument 'struc' must be NULL for a 'Child' class")
-     
+
      t <- new("Gamma_Child", parameter = par, arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
-     
+
      t@Param <- "alpha"
      t@Laplace <- "(1 / (1 + (z)))^(alpha)"
      t@LaplaceInv <- "((z)^(-1/(alpha)) - 1)"
@@ -103,6 +103,6 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
                     -(1/alpha) * (tt)^(-1/alpha - 1)
           }
      }
-     
+
      t
 })

@@ -1,6 +1,6 @@
 #' Sampling for compound rvs
 #'
-#' @description Generate n sample for the compound rvs
+#' @description The function rStruc() generate n samples from the compound rvs.
 #' @param n Number of realisations
 #' @param str Object of class Mother (the structure)
 #'
