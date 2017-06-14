@@ -1,7 +1,6 @@
-
-
 #' Sampling for compound rvs
 #'
+#' @description Generate n sample for the compound rvs
 #' @param n Number of realisations
 #' @param str Object of class Mother (the structure)
 #'
