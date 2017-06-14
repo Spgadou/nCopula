@@ -34,6 +34,10 @@ Hofert, M. (2012).
 \newblock {\em Journal of Statistical Computation and Simulation},
   82(9):1239--1255.
 
+\bibitem[Hofert et~al., ]{hofert2011nested}
+Hofert, M., M{\"a}chler, M., et~al.
+\newblock Nested archimedean copulas meet r: The nacopula package.
+
 \bibitem[Joe, 1997]{joe1997}
 Joe, H. (1997).
 \newblock {\em Multivariate models and multivariate dependence concepts}.
