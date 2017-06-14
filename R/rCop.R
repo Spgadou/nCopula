@@ -1,10 +1,19 @@
-#' Density, Cdf, and Random Number Generator for Copulas
+#' Random Number Generator for Archimedean Copulas
+#'
+#' Compute samples from an archm class object.
 #'
 #' @param n Number of realisations
-#' @param copula An Archimedean copula class object
-#' @return Sampled data.
+#' @param copula An Archimedean copula (archm) class object
+#' @return A matrix of containing the samples
 #'
 #' @author Simon-Pierre Gadoury
+#'
+#' @examples
+#' cop <- Clayton(5, 3)
+#'
+#' rCop(1000, cop)
+#'
+#' @seealso \link{pCop}, \link{Clayton}, \link{AMH}, \link{Frank}, \link{Gumbel}
 #'
 #' @export
 

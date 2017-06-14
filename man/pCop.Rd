@@ -2,29 +2,31 @@
 % Please edit documentation in R/pCop.R
 \name{pCop}
 \alias{pCop}
-\title{Cdf, and Random Number Generator for Copulas}
+\title{Cdf function for Archimedean copulas (archm) class objects}
 \usage{
-pCop(copula, vector = TRUE, express = FALSE, code = FALSE,
-  operator = "")
+pCop(copula, vector = TRUE)
 }
 \arguments{
-\item{copula}{An Archimedean copula class object}
+\item{copula}{An Archimedean copula (archm) class object}
 
-\item{vector}{If false, returns a function with (x_1, x_2, ..., x_dim, alpha) as arguments.}
-
-\item{express}{If true, returns an expression.}
-
-\item{code}{If true, copies the LaTeX code to clipboard.}
-
-\item{operator}{Type of cumputer used (only necessary in the case of internal problem)}
+\item{vector}{If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else, just (u)}
 }
 \value{
-Either an expression, function, code, or sampled data.
+a function
 }
 \description{
-Cdf, and Random Number Generator for Copulas
+Cdf function for Archimedean copulas (archm) class objects
+}
+\examples{
+cop <- Clayton(5, 2)
+pCop(cop, vector = TRUE)(c(0.1, 1))
+pCop(cop, vector = FALSE)(0.1, 0.1)
+
 }
 \author{
 Simon-Pierre Gadoury
+}
+\seealso{
+\link{rCop}, \link{Clayton}, \link{AMH}, \link{Gumbel}, \link{Frank}
 }
 

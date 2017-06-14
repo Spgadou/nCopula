@@ -1,10 +1,17 @@
-#' Cdf, and Random Number Generator for Copulas
+#' Cdf function for Archimedean copulas (archm) class objects
 #'
-#' @param copula An Archimedean copula class object
+#' @param copula An Archimedean copula (archm) class object
 #' @param vector If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else, just (u)
-#' @return Either an expression, function, code, or sampled data.
+#' @return a function
 #'
 #' @author Simon-Pierre Gadoury
+#'
+#' @examples
+#' cop <- Clayton(5, 2)
+#' pCop(cop, vector = TRUE)(c(0.1, 1))
+#' pCop(cop, vector = FALSE)(0.1, 0.1)
+#'
+#' @seealso \link{rCop}, \link{Clayton}, \link{AMH}, \link{Gumbel}, \link{Frank}
 #'
 #' @export
 

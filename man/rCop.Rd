@@ -2,22 +2,31 @@
 % Please edit documentation in R/rCop.R
 \name{rCop}
 \alias{rCop}
-\title{Density, Cdf, and Random Number Generator for Copulas}
+\title{Random Number Generator for Archimedean Copulas}
 \usage{
 rCop(n, copula)
 }
 \arguments{
 \item{n}{Number of realisations}
 
-\item{copula}{An Archimedean copula class object}
+\item{copula}{An Archimedean copula (archm) class object}
 }
 \value{
-Sampled data.
+A matrix of containing the samples
 }
 \description{
-Density, Cdf, and Random Number Generator for Copulas
+Compute samples from an archm class object.
+}
+\examples{
+cop <- Clayton(5, 3)
+
+rCop(1000, cop)
+
 }
 \author{
 Simon-Pierre Gadoury
+}
+\seealso{
+\link{pCop}, \link{Clayton}, \link{AMH}, \link{Frank}, \link{Gumbel}
 }
 
