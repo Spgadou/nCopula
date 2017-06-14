@@ -80,9 +80,71 @@
 \maketitle
 
 \begin{abstract}
-This is the abstract.
+The \emph{nCopula} package aims to simplify the construction process and usage of hiearchical Archimedean copulas through compound distributions in \texttt{R}. Is is possible to build structures with clear representations, obtain expressions for Archimedean copulas, wether they are hiearchical or not, as well as other important functions (i.e. Laplace Stieltjes Transform, pgf, etc.), given a certain path and structure. Furthermore, the generation of random vectors is possible from any given structure.
 \end{abstract}
 
-This is the beginning of the text.
+\section{Introduction}
+
+Copulas are now well known tools used for dependence modeling purposes in
+many research topics. A $d$-dimensional copula is a $d$-variate probability
+distribution function for which the marginals are uniformly distributed on $%
+(0,1)$, with $d\geq 2$. One important class of copulas is the Archimedean
+copula family, popular for its simple construction procedure and
+multivariate generalization. A $d$-dimensional copula $C$ is said to be an \emph{Archimedean
+copula} if
+\begin{equation}
+C(u_{1},\ldots ,u_{d})=\psi \left( \psi ^{-1}(u_{1})+\ldots +\psi
+^{-1}(u_{d})\right) ,\,\,\text{for}\,\,(u_{1},\ldots ,u_{d})\in \lbrack
+0,1]^{d}.  \label{eq1}
+\end{equation}%
+The continuous and strictly decreasing function $\psi $ is called the
+generator of the copula, where $\psi :[0,\infty )\rightarrow \lbrack 0,1]$, $%
+\psi (0)=1$ and $\displaystyle\lim_{t\rightarrow \infty }\psi (t)=0$. In
+the same manner, $\psi ^{-1}:[0,1]\rightarrow \lbrack 0,\infty )$, for which
+  $\psi ^{-1}(0)=\inf
+\{t:\psi (t)=0\}$, where $\psi ^{-1}$ is the inverse of the generator $\psi $%
+. The set of all such functions is denoted by $\Psi_\infty$. In fact, from Kimberling's and Bernstein's theorems, see e.g. \cite%
+{kimberling}, \cite{feller}, and \cite{hofert}, representation (\ref{eq1})
+leads to a proper copula for all $d\geq 2$ if and only if $\psi $ is the
+Laplace-Stieltjes Transform (LST) of a strictly positive random variable (rv) $\Theta $ with cumulative distribution function (cdf) $F_{\Theta}$, where the LST of the rv $\Theta $ is given by
+\begin{equation}
+  \mathcal{L}_{\Theta}(t) = \int_{0}^{\infty} \mathrm{e}^{-t \, x} \, \mathrm{d} F_{\Theta}(x)=E\left[\mathrm{e}^{-t{\Theta}}\right].
+\end{equation}
+
+The use of multivariate Archimedean copulas in high dimension can be
+restrictive due to their exchangeability property. One can resort to
+another interesting class of copulas, namely vine copulas (see e.g. \cite{bedford2002} and \cite{joe1997}). They are pair copula constructions
+allowing a cascade decomposition of a multivariate distribution into the
+product of bivariate copulas. Vine copulas force the use of $\frac{d(d-1)}{2%
+}$ bivariate copulas which requires a high number of parameters when $d$,
+the dimension of the copula, increases. \\
+
+
+Hierarchical Archimedean copulas provide an interesting alternative to allow asymmetries.
+The first approach to construct hierarchical Archimedean copulas was proposed by \cite{joe1997} who introduced the so-called nested Archimedean copulas in three and four dimensions. They
+are obtained by nesting into each other Archimedean copulas.
+They are able to capture different dependence relations between and within different
+groups of risks with a relatively small number of parameters (see e.g. \cite{gorecki2016}). They were further studied by e.g. \cite{mcsample08}, \cite{hofert12eff}, and \cite{hofert11eff}, in a general setting.  For an Archimedean hierarchical structure to be a
+proper copula, a given nesting condition must be verified. For example, a
+3-dimensional fully nested Archimedean copula can be written as
+\begin{equation*}
+C(u_{1},u_{2},u_{3})=C(u_{1},C(u_{2},u_{3}))=\psi _{0}\Big(\psi
+_{0}^{-1}(u_{1})+\psi _{0}^{-1}\circ \psi _{1}\big(\psi
+_{1}^{-1}(u_{2})+\psi _{1}^{-1}(u_{3})\big)\Big).
+\end{equation*}
+
+For the hierarchical structure to be a proper copula, $\psi _{0}^{-1}\circ
+\psi _{1}$ must have completely monotone derivatives, where $\psi _{0}$ and $%
+\psi _{1}$ are generators of the parent and the child copulas respectively.
+If generators $\psi _{0}$ and $\psi _{1}$ belong to the same family, the
+verification of this sufficient nesting condition can be done without much
+problem, see \cite{hofert} for restrictions on the parameters. \\
+
+The \emph{copula} package implements serveral very effective functions to construct and use nested Archimedean copulas.
+
+\newpage
+
+\bibliographystyle{apalike}
+\bibliography{BibRRT}
 
 \end{document}
