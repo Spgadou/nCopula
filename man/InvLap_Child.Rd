@@ -14,9 +14,13 @@ InvLap_Child(code, str, tt = "z")
 \item{tt}{Output variable to be used ('z' by default)}
 }
 \description{
-Inverse LST of a Child Node
+With a specific path and a predefined structure (S4 class of a type 'Mother'), this function returns the inverse LST
+expression of the corresponding node with a specific variable.
 }
 \author{
 Simon-Pierre Gadoury
+}
+\seealso{
+\link{Lap_Child}
 }
 

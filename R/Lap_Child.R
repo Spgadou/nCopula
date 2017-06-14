@@ -1,8 +1,15 @@
 #' LST of a Child Node
 #'
+#' With a specific path and a predefined structure (S4 class of a type 'Mother'), this function returns the LST
+#' expression of the corresponding node with a specific variable.
+#'
 #' @param code Genetic code of the child node (can be a leaf i.e. end by 0)
 #' @param str Object of class Mother (the structure)
 #' @param tt Output variable to be used ('z' by default)
+#'
+#' @rdname Lap_Child
+#'
+#' @seealso \link{InvLap_Child}
 #'
 #' @author Simon-Pierre Gadoury
 #'

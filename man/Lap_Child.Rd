@@ -14,9 +14,13 @@ Lap_Child(code, str, tt = "z")
 \item{tt}{Output variable to be used ('z' by default)}
 }
 \description{
-LST of a Child Node
+With a specific path and a predefined structure (S4 class of a type 'Mother'), this function returns the LST
+expression of the corresponding node with a specific variable.
 }
 \author{
 Simon-Pierre Gadoury
+}
+\seealso{
+\link{InvLap_Child}
 }
 
