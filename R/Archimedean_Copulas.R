@@ -1,14 +1,13 @@
 #' Construction of an Archimedean Copula Class Object
 #'
-#' @description Constructs an archm class object with a given parameter and
-#' dimension.
+#' Constructs a Clayton Archimedean copula object with a given parameter and dimension
+#'
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
 #'
 #' @author Simon-Pierre Gadoury
 #'
-#' @importFrom copula rlog
 #' @export
 
 Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
@@ -73,8 +72,8 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 
 #' Construction of an Archimedean Copula Class Object
 #'
-#' @description Constructs an archm class object with a given parameter and
-#' dimension.
+#' Constructs Frank Archimedean copula object with a given parameter and dimension
+#'
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
@@ -113,15 +112,14 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
 
 #' Construction of an Archimedean Copula Class Object
 #'
-#' @description Constructs an archm class object with a given parameter and
-#' dimension.
+#' Constructs an AMH Archimedean copula object with a given parameter and dimension
+#'
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
 #'
 #' @author Simon-Pierre Gadoury
 #'
-#' @importFrom copula rlog
 #' @export
 
 AMH <- compiler::cmpfun(function(param, dim = 2L)
@@ -151,15 +149,15 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
 
 #' Construction of an Archimedean Copula Class Object
 #'
-#' @description Constructs an archm class object with a given parameter and
-#' dimension.
+#' Constructs a Gumbel Archimedean copula object with a given parameter and dimension
+#'
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
 #'
 #' @author Simon-Pierre Gadoury
 #'
-#' @importFrom copula rlog
+#' @importFrom copula rstable1
 #' @export
 
 Gumbel <- compiler::cmpfun(function(param, dim = 2L)
