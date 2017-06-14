@@ -8,6 +8,7 @@
 #'                                      GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                                      GAMMA(1/30, c(3,4), NULL))))))
 #'
+#' @return Return...
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
