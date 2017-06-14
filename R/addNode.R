@@ -15,17 +15,25 @@
 #'
 #' @examples
 #' addNode(type = "Child",
-#' pp = "gamma",
-#' name_short = "pois",
-#' name_long = "poisson",
-#' Laplace = "exp(gamma * (exp(-(z)) - 1))",
-#' LaplaceInv = "-log(log(z) / gamma + 1)",
-#' NULL,
-#' NULL,
-#' simul = function(n, gamma) rpois(n, gamma),
-#' NULL)
+#'         pp = "gamma",
+#'         name_short = "pois",
+#'         name_long = "poisson",
+#'         Laplace = "exp(gamma * (exp(-(z)) - 1))",
+#'         LaplaceInv = "-log(log(z) / gamma + 1)",
+#'         NULL,
+#'         NULL,
+#'         simul = function(n, gamma) rpois(n, gamma),
+#'         cop_name = "Poisson")
 #'
-#' POIS(5, 1:2, NULL)
+#' ## Construct a bivariate Archimedean copula with the distribution
+#'
+#' dist <- POIS(5, 1:2, NULL)
+#' dist@cop(5, 2)
+#'
+#' ## Add the distribution in a structure
+#'
+#' GEO(0.1, NULL, list(GAMMA(0.5, 1:2, NULL),
+#'                     POIS(5, 3:4, NULL)))
 #'
 #' @export
 
@@ -38,7 +46,7 @@ addNode <- function(type,
                     PGF = NULL,
                     PGFInv = NULL,
                     simul,
-                    cop = NULL)
+                    cop_name)
 {
   if (type != "Mother" && type != "Child")
     stop("The type should be either 'Child' or 'Mother'")
@@ -129,24 +137,17 @@ addNode <- function(type,
       char1[1] <- toupper(char1[1])
       char1 <- paste(char1, collapse = "")
       name_class <- paste(char1, "_", type, sep = "")
-      setClass(name_class,
-               list(name = "character",
-                    type = "character",
-                    dimension = "numeric",
-                    parameter = "numeric",
-                    arg = "numeric",
-                    obj = "character",
-                    Param = "character",
-                    Laplace = "character",
-                    LaplaceInv = "character",
-                    PGF = "character",
-                    PGFInv = "character",
-                    simul = "function",
-                    theta = "numeric",
-                    LTheta = "character",
-                    cop = "function"),
-               contains = type, where = .GlobalEnv)
     }
+
+    setClass(tolower(cop_name),
+             list(theta = "function",
+                  depend = "character",
+                  phi = "character",
+                  dens = "character",
+                  phi.inv = "character",
+                  rBiv = "function",
+                  dimension = "numeric", parameter = "numeric", name = "character"),
+             contains = "archm", where = .GlobalEnv)
 
     FF <- compiler::cmpfun(function(par, unif, struc)
     {
@@ -186,10 +187,22 @@ addNode <- function(type,
       t@simul <- simul
       t@theta <- vector("numeric")
 
-      if (is.null(cop))
-        t@cop <- function() "No known Archimedean copula related to this distribution"
-      else
-        t@cop <- cop
+      cop_name <- tolower(cop_name)
+      cop_name <- strsplit(cop_name, "")[[1]]
+      cop_name <- paste(toupper(cop_name[1]), paste(cop_name[-1], collapse = ""), sep = "", collapse = "")
+
+      t@cop <- function(param, dim)
+      {
+        new(tolower(cop_name),
+            phi = t@Laplace,
+            phi.inv = t@LaplaceInv,
+            rBiv = function() "not supported",
+            theta = t@simul,
+            depend = if (t@type == "Mother") "gamma" else "alpha",
+            dimension = dim,
+            parameter = param,
+            name = paste(cop_name, " copula", sep = ""))
+      }
 
       t
     })

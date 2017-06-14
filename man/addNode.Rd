@@ -5,7 +5,7 @@
 \title{Add a distribution}
 \usage{
 addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
-  PGFInv = NULL, simul, cop = NULL)
+  PGFInv = NULL, simul, cop_name)
 }
 \arguments{
 \item{type}{the type of the node (either 'Mother', 'Child' or 'Both')}
@@ -33,17 +33,25 @@ Add a distribution
 }
 \examples{
 addNode(type = "Child",
-pp = "gamma",
-name_short = "pois",
-name_long = "poisson",
-Laplace = "exp(gamma * (exp(-(z)) - 1))",
-LaplaceInv = "-log(log(z) / gamma + 1)",
-NULL,
-NULL,
-simul = function(n, gamma) rpois(n, gamma),
-NULL)
+        pp = "gamma",
+        name_short = "pois",
+        name_long = "poisson",
+        Laplace = "exp(gamma * (exp(-(z)) - 1))",
+        LaplaceInv = "-log(log(z) / gamma + 1)",
+        NULL,
+        NULL,
+        simul = function(n, gamma) rpois(n, gamma),
+        cop_name = "Poisson")
 
-POIS(5, 1:2, NULL)
+## Construct a bivariate Archimedean copula with the distribution
+
+dist <- POIS(5, 1:2, NULL)
+dist@cop(5, 2)
+
+## Add the distribution in a structure
+
+GEO(0.1, NULL, list(GAMMA(0.5, 1:2, NULL),
+                    POIS(5, 3:4, NULL)))
 
 }
 \author{
