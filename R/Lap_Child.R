@@ -13,6 +13,13 @@
 #'
 #' @author Simon-Pierre Gadoury
 #'
+#' @examples
+#'
+#' str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
+#'                            GAMMA(0.2, 3:4, NULL)))
+#'
+#' InvLap_Child(c(0,2), str)
+#'
 #' @export
 
 Lap_Child <- function(code, str, tt = "z")
