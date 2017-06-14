@@ -1,4 +1,4 @@
-#' Add a distribution
+#' Add a Distribution
 #'
 #' @description The function addNode() help create and add a class in the global environment.
 #' @param type the type of the node (either 'Mother', 'Child' or 'Both')

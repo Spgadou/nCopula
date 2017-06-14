@@ -1,11 +1,11 @@
 #' Construction of an Archimedean Copula Class Object
 #'
-#' Constructs a Clayton Archimedean copula object with a given parameter and dimension
-#'
+#' @description Constructs a Clayton Archimedean copula object with
+#' a given parameter and dimension
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
-#'
+#' @return ...
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
