@@ -2,7 +2,7 @@
 % Please edit documentation in R/rCompCop2.R
 \name{rCompCop2}
 \alias{rCompCop2}
-\title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
+\title{Random Number Generator for Copulas Constructed Through Compounding}
 \usage{
 rCompCop2(n, str)
 }
@@ -12,10 +12,16 @@ rCompCop2(n, str)
 \item{str}{Object of class Mother}
 }
 \description{
-Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
+Sample from a known structure (S4 class of type 'Mother').
 }
 \details{
 rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+}
+\examples{
+str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
+                        GEO(0.3, 4:5, NULL)))
+rCompComp2(1000, str)
+
 }
 \author{
 Simon-Pierre Gadoury
