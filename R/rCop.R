@@ -1,12 +1,10 @@
-#' Random Number Generator for Archimedean Copulas
 #'
-#' Compute samples from an archm class object.
-#'
+#' @description The function rCop is a random number generator for Archimedean copulas.
+#' Sample is compute from an archm class object.
 #' @param n Number of realisations
 #' @param copula An Archimedean copula (archm) class object
-#' @return A matrix of containing the samples
 #'
-#' @author Simon-Pierre Gadoury
+#' @return A matrix of containing the samples
 #'
 #' @examples
 #' cop <- Clayton(5, 3)
@@ -15,6 +13,7 @@
 #'
 #' @seealso \link{pCop}, \link{Clayton}, \link{AMH}, \link{Frank}, \link{Gumbel}
 #'
+#' @author Simon-Pierre Gadoury
 #' @export
 
 rCop <- compiler::cmpfun(function(n, copula)

@@ -1,8 +1,10 @@
 #' Cdf function for Archimedean copulas (archm) class objects
 #'
+#' @description The cdf function for Archimedean copulas (arcm) class objetcs.
 #' @param copula An Archimedean copula (archm) class object
-#' @param vector If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else, just (u)
-#' @return a function
+#' @param vector If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else,
+#' just (u)
+#' @return A function ...
 #'
 #' @author Simon-Pierre Gadoury
 #'

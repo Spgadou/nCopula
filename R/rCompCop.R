@@ -1,5 +1,7 @@
 #' Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
 #'
+#' @description The density, the CDF, and the random number generator for copulas construted
+#' through compounding.
 #' @param n Number of realisations
 #' @param FUN Object of class Mother
 #' @param level Number of imbrications

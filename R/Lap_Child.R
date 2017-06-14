@@ -1,8 +1,8 @@
 #' LST of a Child Node
 #'
-#' With a specific path and a predefined structure (S4 class of a type 'Mother'), this function returns the LST
-#' expression of the corresponding node with a specific variable.
-#'
+#' @description The function Lap_Child() with a specific path and a predefined structure
+#' (S4 calss of a type 'Mother'), returns the Laplace-Stieltjes transform expression of
+#' the corresponding node with a specific variable.
 #' @param code Genetic code of the child node (can be a leaf i.e. end by 0)
 #' @param str Object of class Mother (the structure)
 #' @param tt Output variable to be used ('z' by default)
@@ -11,7 +11,7 @@
 #'
 #' @seealso \link{InvLap_Child}
 #'
-#' @author Simon-Pierre Gadoury
+#' @return ...
 #'
 #' @examples
 #'
@@ -20,6 +20,7 @@
 #'
 #' InvLap_Child(c(0,2), str)
 #'
+#' @author Simon-Pierre Gadoury
 #' @export
 
 Lap_Child <- function(code, str, tt = "z")

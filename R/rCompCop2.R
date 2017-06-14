@@ -1,19 +1,19 @@
-#' Random Number Generator for Copulas Constructed Through Compounding
 #'
-#' Sample from a known structure (S4 class of type 'Mother').
-#'
+#' @description The function rCompcop() is a random number generator for copulas constructed
+#'  through compounding. It sample from a know structure (S4 class of type 'Mother')
 #' @param n Number of realisations
 #' @param str Object of class Mother
 #'
 #' @details rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
 #'
-#' @author Simon-Pierre Gadoury
+#' @return ...
 #'
 #' @examples
 #' str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
 #'                         GEO(0.3, 4:5, NULL)))
 #' rCompComp2(1000, str)
 #'
+#' @author Simon-Pierre Gadoury
 #' @export
 
 rCompCop2 <- compiler::cmpfun(function(n, str)

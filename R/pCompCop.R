@@ -1,8 +1,9 @@
 #' Construction of the copula with a known structure
 #'
+#' @description The function pCompCop() construct a copula with a know structure.
 #' @param str Object of class Mother
 #'
-#' @return An expression in terms of u
+#' @return An expression in terms of u.
 #'
 #' @author Simon-Pierre Gadoury
 #'
