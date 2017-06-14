@@ -1,11 +1,11 @@
 #' Obtain a node with its genetic code
 #'
-#' @description The function Node() ...
+#' @description Obtain a node with its genetic code.
 #' @param path Genetic code of the node
 #' @param str The structure
 #'
 #' @examples
-#' # We directly give the path
+#' # We directly give the path of the desired node.
 #' Node(c(0,2,2), LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                               LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                               GAMMA(1/30, c(3,4), NULL))))))
@@ -18,6 +18,7 @@
 #'                                  LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                                  GAMMA(1/30, c(3,4), NULL))))))
 #'
+#' @return The node distribution, the child dimension, the parameter and the composition.
 #' @author Simon-Pierre Gadoury
 #'
 #' @export

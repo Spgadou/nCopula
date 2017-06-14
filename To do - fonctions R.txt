@@ -1,4 +1,4 @@
-Trucs à faire
+﻿Trucs à faire
 
 dCompCop: À faire (cas spécial seulement -> les sous-groupes)
 
@@ -21,6 +21,8 @@ Vignette
 Verifier porté de gamma (namespace)
 Voir groupement des catégories pour help
 Correction compatibilité de stringr avec situation
+Retirer rCompCop et remplacer le nom de rCompCop2
+Retirer Sebuya
 
 Commande création bash
 r CMD built

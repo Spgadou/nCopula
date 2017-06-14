@@ -1,6 +1,6 @@
 #' Add a distribution
 #'
-#' @description The function addNode() help create a class and ... in the global environment
+#' @description The function addNode() help create and add a class in the global environment.
 #' @param type the type of the node (either 'Mother', 'Child' or 'Both')
 #' @param pp the parameter of the distribution used in the character strings
 #' @param name_short the short name of the distribution (ex.: 'log' for the logarithmic distribution)
@@ -12,6 +12,7 @@
 #' @param simul function to sample from the distribution
 #' @param cop function to create a corresponding Archimedean copula class (ex.: for a GEO, it is an AMH copula), can be NULL
 #'
+#' @return The new class.
 #' @examples
 #' addNode(type = "Child",
 #'         pp = "gamma",
