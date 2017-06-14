@@ -144,7 +144,32 @@ The \emph{copula} package implements serveral very effective functions to constr
 
 \section{Hierarchical Archimedean copulas through compounding}
 
-(...)
+(...) \\
+
+<<echo=FALSE, results='hide'>>=
+library(nCopula)
+@
+
+Let us consider a two level tree $\lambda = \{(0,1,1), (0,1,2), (0,2)\}$, as illustrated in Figure~\ref{fig:ex1}.
+
+\begin{figure}[!h]
+\[
+\begin{tikzpicture}[scale=1, level distance=12mm, sibling distance=12mm]
+\Tree [.\fbox{$M^{(0)}\,\sim\,\mathrm{Geo}_1(0.1,1)$}
+        [.\fbox{$N^{(0,1)}\,\sim\,\mathrm{Log}(0.5)$} $B^{(0,1,1)}\,\sim\,\mathrm{Gamma}(0.1,1)$ $B^{(0,1,2)}\,\sim\,\mathrm{Gamma}(1,1)$ ]
+      [.$B^{(0,2)}\,\sim\,\mathrm{Gamma}(10,1)$ ] ]
+\end{tikzpicture}
+\]
+\caption{Two level structure}\label{fig:ex1}
+\end{figure}
+
+<<size="scriptsize">>=
+str <- GEO(0.1, NULL, list(LOG(0.5, NULL, list(GAMMA(0.1, 1:2, NULL),
+                                               GAMMA(1, 3:4, NULL))),
+                           GAMMA(10, 5:6, NULL)))
+
+str
+@
 
 
 \newpage

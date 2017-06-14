@@ -194,7 +194,57 @@ The \emph{copula} package implements serveral very effective functions to constr
 
 \section{Hierarchical Archimedean copulas through compounding}
 
-(...)
+(...) \\
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: copula}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'copula' was built under R version 3.3.2}}\end{kframe}
+\end{knitrout}
+
+Let us consider a two level tree $\lambda = \{(0,1,1), (0,1,2), (0,2)\}$, as illustrated in Figure~\ref{fig:ex1}.
+
+\begin{figure}[!h]
+\[
+\begin{tikzpicture}[scale=1, level distance=12mm, sibling distance=12mm]
+\Tree [.\fbox{$M^{(0)}\,\sim\,\mathrm{Geo}_1(0.1,1)$}
+        [.\fbox{$N^{(0,1)}\,\sim\,\mathrm{Log}(0.5)$} $B^{(0,1,1)}\,\sim\,\mathrm{Gamma}(0.1,1)$ $B^{(0,1,2)}\,\sim\,\mathrm{Gamma}(1,1)$ ]
+      [.$B^{(0,2)}\,\sim\,\mathrm{Gamma}(10,1)$ ] ]
+\end{tikzpicture}
+\]
+\caption{Two level structure}\label{fig:ex1}
+\end{figure}
+
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{str} \hlkwb{<-} \hlkwd{GEO}\hlstd{(}\hlnum{0.1}\hlstd{,} \hlkwa{NULL}\hlstd{,} \hlkwd{list}\hlstd{(}\hlkwd{LOG}\hlstd{(}\hlnum{0.5}\hlstd{,} \hlkwa{NULL}\hlstd{,} \hlkwd{list}\hlstd{(}\hlkwd{GAMMA}\hlstd{(}\hlnum{0.1}\hlstd{,} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,} \hlkwa{NULL}\hlstd{),}
+                                               \hlkwd{GAMMA}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,} \hlkwa{NULL}\hlstd{))),}
+                           \hlkwd{GAMMA}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{5}\hlopt{:}\hlnum{6}\hlstd{,} \hlkwa{NULL}\hlstd{)))}
+
+\hlstd{str}
+\end{alltt}
+\begin{verbatim}
+##  Shifted geometric distribution: 2-dimensional 'Mother' function with parameter 0.1
+##  composed of (2) children: 
+## 
+##     1) Logarithmic distribution: 2-dimensional 'Mother' function with parameter 0.5
+##        composed of (2) children: 
+## 
+##        1) Gamma distribution: 2-dimensional 'Child' function with parameter 0.1 
+##           composed of (u1, u2) 
+## 
+##        2) Gamma distribution: 2-dimensional 'Child' function with parameter 1 
+##           composed of (u3, u4) 
+## 
+##     2) Gamma distribution: 2-dimensional 'Child' function with parameter 10 
+##        composed of (u5, u6)
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 \newpage
