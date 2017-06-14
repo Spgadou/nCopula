@@ -4,19 +4,12 @@
 \alias{pCop}
 \title{Cdf, and Random Number Generator for Copulas}
 \usage{
-pCop(copula, vector = TRUE, express = FALSE, code = FALSE,
-  operator = "")
+pCop(copula, vector = TRUE)
 }
 \arguments{
 \item{copula}{An Archimedean copula class object}
 
-\item{vector}{If false, returns a function with (x_1, x_2, ..., x_dim, alpha) as arguments.}
-
-\item{express}{If true, returns an expression.}
-
-\item{code}{If true, copies the LaTeX code to clipboard.}
-
-\item{operator}{Type of cumputer used (only necessary in the case of internal problem)}
+\item{vector}{If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else, just (u)}
 }
 \value{
 Either an expression, function, code, or sampled data.

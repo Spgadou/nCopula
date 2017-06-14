@@ -39,6 +39,7 @@
 #' @author Simon-Pierre Gadoury
 #'
 #' @importFrom methods new
+#'
 #' @examples
 #' GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                     GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
