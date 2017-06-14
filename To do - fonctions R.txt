@@ -10,7 +10,9 @@ pCompCop: Optimization
 
 **Checker si on peut pas ajouter des fonctions utiles qui seraient nice**
 
-separer le script par fonction
+separer le script par fonction 
+ -divers
+ -archimedian copulas
 ajouter header en introduction des scripts
 verifier fichier namespace pour les objets
 comparaison avec d'autres packages existant et différence
@@ -22,7 +24,6 @@ Verifier porté de gamma (namespace)
 Voir groupement des catégories pour help
 Correction compatibilité de stringr avec situation
 Retirer rCompCop et remplacer le nom de rCompCop2
-Retirer Sebuya
 
 Enlever Sibuya : ne fonctionne pas dans rStruc
 

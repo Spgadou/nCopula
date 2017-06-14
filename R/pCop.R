@@ -1,4 +1,4 @@
-#' Cdf function for Archimedean copulas (archm) class objects
+#' Cdf Function for Archimedean Copulas (archm) Class Objects
 #'
 #' @description The cdf function for Archimedean copulas (arcm) class objetcs.
 #' @param copula An Archimedean copula (archm) class object
