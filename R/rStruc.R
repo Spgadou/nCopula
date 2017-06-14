@@ -1,8 +1,12 @@
+
+
 #' Sampling for compound rvs
 #'
 #' @param n Number of realisations
 #' @param str Object of class Mother (the structure)
 #'
+#' @example 
+#' 
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
