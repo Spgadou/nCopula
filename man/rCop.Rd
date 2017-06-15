@@ -2,6 +2,7 @@
 % Please edit documentation in R/rCop.R
 \name{rCop}
 \alias{rCop}
+\title{Random number generator for Archimedean copula class objects}
 \usage{
 rCop(n, copula)
 }
