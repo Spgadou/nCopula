@@ -2,7 +2,7 @@
 % Please edit documentation in R/rCompCop2.R
 \name{rCompCop2}
 \alias{rCompCop2}
-\title{Random Number Generator for Copulas Constructed Through Compounding}
+\title{Random}
 \usage{
 rCompCop2(n, str)
 }
@@ -11,8 +11,12 @@ rCompCop2(n, str)
 
 \item{str}{Object of class Mother}
 }
+\value{
+...
+}
 \description{
-Sample from a known structure (S4 class of type 'Mother').
+The function rCompcop() is a random number generator for copulas constructed
+ through compounding. It sample from a know structure (S4 class of type 'Mother')
 }
 \details{
 rCompCop2 is more general (and easier to use) than rCompCop, but is slower.

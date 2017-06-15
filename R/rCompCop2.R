@@ -1,3 +1,4 @@
+#' Random
 #'
 #' @description The function rCompcop() is a random number generator for copulas constructed
 #'  through compounding. It sample from a know structure (S4 class of type 'Mother')

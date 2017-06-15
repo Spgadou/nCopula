@@ -9,13 +9,14 @@ pCop(copula, vector = TRUE)
 \arguments{
 \item{copula}{An Archimedean copula (archm) class object}
 
-\item{vector}{If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else, just (u)}
+\item{vector}{If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else,
+just (u)}
 }
 \value{
-a function
+A function ...
 }
 \description{
-Cdf function for Archimedean copulas (archm) class objects
+The cdf function for Archimedean copulas (arcm) class objetcs.
 }
 \examples{
 cop <- Clayton(5, 2)

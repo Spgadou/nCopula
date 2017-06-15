@@ -28,8 +28,11 @@ addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
 
 \item{cop}{function to create a corresponding Archimedean copula class (ex.: for a GEO, it is an AMH copula), can be NULL}
 }
+\value{
+The new class.
+}
 \description{
-Add a distribution
+The function addNode() help create and add a class in the global environment.
 }
 \examples{
 addNode(type = "Child",

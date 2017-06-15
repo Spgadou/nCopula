@@ -14,7 +14,8 @@ rCompCop(n, FUN, level)
 \item{level}{Number of imbrications}
 }
 \description{
-Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
+The density, the CDF, and the random number generator for copulas construted
+through compounding.
 }
 \details{
 rCompCop2 is more general (and easier to use) than rCompCop, but is slower.

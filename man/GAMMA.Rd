@@ -25,8 +25,8 @@ be of class Child. For continuous distributions (i.e. GAMMA), struc is
 always NULL.}
 }
 \description{
-Constructs a GAMMA Child class object for
-a given parameter and arguments
+The function GAMMA constructs a gamma Child class object for
+a given parameter and arguments.
 }
 \section{Slots}{
 

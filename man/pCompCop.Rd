@@ -10,10 +10,10 @@ pCompCop(str)
 \item{str}{Object of class Mother}
 }
 \value{
-An expression in terms of u
+An expression in terms of u.
 }
 \description{
-Construction of the copula with a known structure
+The function pCompCop() construct a copula with a know structure.
 }
 \author{
 Simon-Pierre Gadoury
