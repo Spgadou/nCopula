@@ -1,4 +1,4 @@
-#' Random Number Generator for Archimedean Copulas
+#' Random number generator for Archimedean copula class objects
 #'
 #' @description The function rCop is a random number generator for Archimedean copulas.
 #' Sample is compute from an archm class object.

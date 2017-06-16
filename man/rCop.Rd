@@ -2,7 +2,7 @@
 % Please edit documentation in R/rCop.R
 \name{rCop}
 \alias{rCop}
-\title{Random Number Generator for Archimedean Copulas}
+\title{Random number generator for Archimedean copula class objects}
 \usage{
 rCop(n, copula)
 }
@@ -15,7 +15,8 @@ rCop(n, copula)
 A matrix of containing the samples
 }
 \description{
-Compute samples from an archm class object.
+The function rCop is a random number generator for Archimedean copulas.
+Sample is compute from an archm class object.
 }
 \examples{
 cop <- Clayton(5, 3)

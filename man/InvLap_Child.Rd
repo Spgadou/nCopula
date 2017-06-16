@@ -13,9 +13,13 @@ InvLap_Child(code, str, tt = "z")
 
 \item{tt}{Output variable to be used ('z' by default)}
 }
+\value{
+...
+}
 \description{
-With a specific path and a predefined structure (S4 class of a type 'Mother'), this function returns the inverse LST
-expression of the corresponding node with a specific variable.
+The function InvLap_Child() with a specific path and a predefined structure
+(S4 class of a type 'Mother'), returns the inverse Laplace-Stieltjes transform expression of
+the corresponding node with a specific variable.
 }
 \examples{
 
