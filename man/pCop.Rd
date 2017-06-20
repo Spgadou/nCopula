@@ -4,7 +4,7 @@
 \alias{pCop}
 \title{Cdf function for Archimedean copulas (archm) class objects}
 \usage{
-pCop(copula, vector = TRUE)
+pCop(copula, vector = TRUE, express = FALSE)
 }
 \arguments{
 \item{copula}{An Archimedean copula (archm) class object}

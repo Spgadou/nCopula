@@ -34,7 +34,7 @@ pCompCop <- function(str)
         eval(parse(text = paste("e1$M", lvl, " <- numeric(str@dimension - length(str@arg) + length(str@arg) * (sum(str@arg) != 0))", sep = "")))
       }
 
-      for (i in 1:(str@dimension - length(str@arg)))
+      for (i in 1:(str@dimension - str@arg))
       {
         FUN(str@structure[[i]], lvl + 1, i, v = c(v, i))
       }

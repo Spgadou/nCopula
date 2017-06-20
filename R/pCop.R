@@ -17,7 +17,7 @@
 #'
 #' @export
 
-pCop <- compiler::cmpfun(function(copula, vector = TRUE)
+pCop <- compiler::cmpfun(function(copula, vector = TRUE, express = FALSE)
 {
   phi <- copula@phi
   dim <- copula@dimension
@@ -42,6 +42,7 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE)
   {
     tt <- paste(uu, collapse = ", ")
     t2 <- paste(c(tt), collapse = ", ")
+    t3 <- t2
   }
 
   expr2 <- "eval(parse(text = cop))"
@@ -52,5 +53,9 @@ pCop <- compiler::cmpfun(function(copula, vector = TRUE)
   alpha <- copula@parameter
 
   res2 <- parse(text = input2)
-  return(eval(res2))
+
+  if (express == FALSE)
+    return(eval(res2))
+  else
+    return(cop)
 })

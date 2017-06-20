@@ -69,10 +69,15 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
      {
           if (type == "Laplace")
           {
-               expr1 <- paste("(", 0:(k - 1), " + alpha)", collapse = " * ", sep = "")
-               ini <- paste("(-1)^(k) * ", expr1, " * (1 + (z))^(-alpha - (k))", sep = "")
-               ini <- stringr::str_replace_all(ini, "z", tt)
-               stringr::str_replace_all(ini, "k", k)
+            if (k == 0)
+              stringr::str_replace_all(t@Laplace, "z", tt)
+            else
+            {
+             expr1 <- paste("(", 0:(k - 1), " + alpha)", collapse = " * ", sep = "")
+             ini <- paste("(-1)^(k) * ", expr1, " * (1 + (z))^(-alpha - (k))", sep = "")
+             ini <- stringr::str_replace_all(ini, "z", tt)
+             stringr::str_replace_all(ini, "k", k)
+            }
           }
           else if (type == "LaplaceInv")
           {
