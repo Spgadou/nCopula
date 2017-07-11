@@ -2,7 +2,7 @@
 % Please edit documentation in R/rCompCop2.R
 \name{rCompCop2}
 \alias{rCompCop2}
-\title{Random}
+\title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
 \usage{
 rCompCop2(n, str)
 }

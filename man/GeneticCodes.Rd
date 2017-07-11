@@ -2,18 +2,18 @@
 % Please edit documentation in R/GeneticCodes.R
 \name{GeneticCodes}
 \alias{GeneticCodes}
-\title{Obtain the genetic codes of a structure}
+\title{Obtain the Genetic Codes of a Structure}
 \usage{
 GeneticCodes(str)
 }
 \arguments{
-\item{str}{The structure}
+\item{str}{The structure of the compound copula.}
 }
 \value{
 A list of of the structure's genetic codes.
 }
 \description{
-Obtain the genetic codes of a structure
+Obtain the Genetic Codes of a Structure
 }
 \examples{
 str <- GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),

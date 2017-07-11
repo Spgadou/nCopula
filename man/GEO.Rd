@@ -71,6 +71,6 @@ Simon-Pierre Gadoury
 }
 \seealso{
 Other mother.or.child.class.objects: \code{\link{GAMMA}},
-  \code{\link{LOG}}, \code{\link{SIBUYA}}
+  \code{\link{LOG}}
 }
 

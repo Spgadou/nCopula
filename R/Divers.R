@@ -121,53 +121,6 @@ setClass("Log_Mother",
               cop = "function"),
          contains = "Mother", sealed = TRUE)
 
-#' Sibuya-Child Class
-#'
-#' @keywords internal
-#' CompCop structure
-#' @exportClass Sibuya_Child
-
-setClass("Sibuya_Child",
-         list(name = "character",
-              type = "character",
-              dimension = "numeric",
-              parameter = "numeric",
-              arg = "numeric",
-              obj = "character",
-              Param = "character",
-              Laplace = "character",
-              LaplaceInv = "character",
-              PGF = "character",
-              PGFInv = "character",
-              simul = "function",
-              theta = "numeric",
-              LTheta = "character"),
-         contains = "Child", sealed = TRUE)
-
-#' Sibuya-Mother Class
-#'
-#' @keywords internal
-#' CompCop structure
-#' @exportClass Sibuya_Mother
-
-setClass("Sibuya_Mother",
-         list(name = "character",
-              type = "character",
-              dimension = "numeric",
-              parameter = "numeric",
-              arg = "numeric",
-              structure = "list",
-              obj = "character",
-              Param = "character",
-              Laplace = "character",
-              LaplaceInv = "character",
-              PGF = "character",
-              PGFInv = "character",
-              simul = "function",
-              theta = "numeric",
-              PM = "character"),
-         contains = "Mother", sealed = TRUE)
-
 #' Geo-Mother Class
 #'
 #' CompCop structure

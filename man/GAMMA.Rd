@@ -72,6 +72,6 @@ Simon-Pierre Gadoury
 }
 \seealso{
 Other mother.or.child.class.objects: \code{\link{GEO}},
-  \code{\link{LOG}}, \code{\link{SIBUYA}}
+  \code{\link{LOG}}
 }
 

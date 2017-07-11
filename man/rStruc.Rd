@@ -2,7 +2,7 @@
 % Please edit documentation in R/rStruc.R
 \name{rStruc}
 \alias{rStruc}
-\title{Sampling for compound rvs}
+\title{Sampling from compound rvs}
 \usage{
 rStruc(n, str)
 }
@@ -12,10 +12,10 @@ rStruc(n, str)
 \item{str}{Object of class Mother (the structure)}
 }
 \value{
-Return...
+A matrix of sampled values from the specified structure.
 }
 \description{
-The function rStruc() generate n samples from the compound rvs.
+The function rStruc() generates n samples from a structure of compound rvs.
 }
 \examples{
 rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),

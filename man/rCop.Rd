@@ -12,11 +12,10 @@ rCop(n, copula)
 \item{copula}{An Archimedean copula (archm) class object}
 }
 \value{
-A matrix of containing the samples
+A matrix containing the samples
 }
 \description{
-The function rCop is a random number generator for Archimedean copulas.
-Sample is compute from an archm class object.
+The function rCop is a random number generator for archm class object.
 }
 \examples{
 cop <- Clayton(5, 3)

@@ -13,8 +13,12 @@ Clayton(param, dim = 2L, density = FALSE)
 
 \item{density}{Should the expression of the density be computed ?}
 }
+\value{
+...
+}
 \description{
-Constructs a Clayton Archimedean copula object with a given parameter and dimension
+Constructs a Clayton Archimedean copula object with
+a given parameter and dimension
 }
 \author{
 Simon-Pierre Gadoury

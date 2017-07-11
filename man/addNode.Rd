@@ -2,10 +2,10 @@
 % Please edit documentation in R/addNode.R
 \name{addNode}
 \alias{addNode}
-\title{Add a distribution}
+\title{Add a Distribution}
 \usage{
 addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
-  PGFInv = NULL, simul, cop_name)
+  PGFInv = NULL, simul, cop = NULL, cop_name = "The copula")
 }
 \arguments{
 \item{type}{the type of the node (either 'Mother', 'Child' or 'Both')}
@@ -27,12 +27,11 @@ addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
 \item{simul}{function to sample from the distribution}
 
 \item{cop}{function to create a corresponding Archimedean copula class (ex.: for a GEO, it is an AMH copula), can be NULL}
-}
-\value{
-The new class.
+
+\item{cop_name}{the name used for the corresponding Archimedean copula (generated with cop)}
 }
 \description{
-The function addNode() help create and add a class in the global environment.
+The function addNode is used to create and add a class of type "Mother" and/or "Child" in the global environment.
 }
 \examples{
 addNode(type = "Child",
@@ -44,7 +43,7 @@ addNode(type = "Child",
         NULL,
         NULL,
         simul = function(n, gamma) rpois(n, gamma),
-        cop_name = "Poisson")
+        cop_name = NULL)
 
 ## Construct a bivariate Archimedean copula with the distribution
 

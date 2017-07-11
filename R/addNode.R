@@ -1,6 +1,7 @@
 #' Add a Distribution
 #'
-#' @description The function addNode() help create and add a class in the global environment.
+#' @description The function addNode is used to create and add a class of type "Mother" and/or "Child" in the global environment.
+#'
 #' @param type the type of the node (either 'Mother', 'Child' or 'Both')
 #' @param pp the parameter of the distribution used in the character strings
 #' @param name_short the short name of the distribution (ex.: 'log' for the logarithmic distribution)
@@ -11,8 +12,8 @@
 #' @param PGFInv the inverse pgf of the distribution (character), if type is 'Mother' or 'Both'
 #' @param simul function to sample from the distribution
 #' @param cop function to create a corresponding Archimedean copula class (ex.: for a GEO, it is an AMH copula), can be NULL
+#' @param cop_name the name used for the corresponding Archimedean copula (generated with cop)
 #'
-#' @return The new class.
 #' @examples
 #' addNode(type = "Child",
 #'         pp = "gamma",
@@ -23,7 +24,7 @@
 #'         NULL,
 #'         NULL,
 #'         simul = function(n, gamma) rpois(n, gamma),
-#'         cop_name = "Poisson")
+#'         cop_name = NULL)
 #'
 #' ## Construct a bivariate Archimedean copula with the distribution
 #'
@@ -47,7 +48,8 @@ addNode <- function(type,
                     PGF = NULL,
                     PGFInv = NULL,
                     simul,
-                    cop_name)
+                    cop = NULL,
+                    cop_name = "The copula")
 {
   if (type != "Mother" && type != "Child")
     stop("The type should be either 'Child' or 'Mother'")
@@ -192,18 +194,22 @@ addNode <- function(type,
       cop_name <- strsplit(cop_name, "")[[1]]
       cop_name <- paste(toupper(cop_name[1]), paste(cop_name[-1], collapse = ""), sep = "", collapse = "")
 
-      t@cop <- function(param, dim)
-      {
-        new(tolower(cop_name),
-            phi = t@Laplace,
-            phi.inv = t@LaplaceInv,
-            rBiv = function() "not supported",
-            theta = t@simul,
-            depend = if (t@type == "Mother") "gamma" else "alpha",
-            dimension = dim,
-            parameter = param,
-            name = paste(cop_name, " copula", sep = ""))
-      }
+      if (cop)
+        t@cop <- function(param, dim)
+        {
+          new(tolower(cop_name),
+              phi = t@Laplace,
+              phi.inv = t@LaplaceInv,
+              rBiv = function() "not supported",
+              theta = t@simul,
+              depend = if (t@type == "Mother") "gamma" else "alpha",
+              dimension = dim,
+              parameter = param,
+              name = paste(cop_name, " copula", sep = ""))
+        }
+      else
+        t@cop <- function(param, dim)
+          "Not supported"
 
       t
     })

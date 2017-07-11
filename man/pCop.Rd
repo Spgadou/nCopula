@@ -2,9 +2,9 @@
 % Please edit documentation in R/pCop.R
 \name{pCop}
 \alias{pCop}
-\title{Cdf function for Archimedean copulas (archm) class objects}
+\title{Cdf Function for Archimedean Copulas (archm) Class Objects}
 \usage{
-pCop(copula, vector = TRUE, express = FALSE)
+pCop(copula, vector = FALSE, express = TRUE)
 }
 \arguments{
 \item{copula}{An Archimedean copula (archm) class object}

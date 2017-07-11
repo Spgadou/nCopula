@@ -1,6 +1,7 @@
-#' Sampling for compound rvs
+#' Sampling from compound rvs
 #'
-#' @description The function rStruc() generate n samples from the compound rvs.
+#' @description The function rStruc() generates n samples from a structure of compound rvs.
+#'
 #' @param n Number of realisations
 #' @param str Object of class Mother (the structure)
 #'
@@ -9,7 +10,8 @@
 #'                                      GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                                      GAMMA(1/30, c(3,4), NULL))))))
 #'
-#' @return Return...
+#' @return A matrix of sampled values from the specified structure.
+#'
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
@@ -23,7 +25,6 @@ rStruc <- compiler::cmpfun(function(n, str)
 
   for (i in 1:length(gen))
   {
-    ## Ce bloc la est good je pense
     if (length(gen[[i]]) == 2)
     {
       str2 <- Node(gen[[i]], str)
@@ -45,7 +46,6 @@ rStruc <- compiler::cmpfun(function(n, str)
     {
       for (j in 2:(length(gen[[i]]) - 1))
       {
-        ## Sous structure
         str2 <- Node(gen[[i]][1:j], str)
 
         variable0 <- paste("M", paste(gen[[i]][1:(j - 1)], collapse = ""), sep = "") ## Le M au dessus du M

@@ -41,7 +41,7 @@ pCompCop <- function(str)
 
       if (sum(str@arg) != 0)
       {
-        charr <- InvLap_Child(c(v, 0), str_ini)
+        charr <- InvLap(c(v, 0), str_ini)
         uu <- paste("u", str@arg, sep = "")
         res <- numeric(length(uu))
         for (i in 1:length(uu))
@@ -64,7 +64,7 @@ pCompCop <- function(str)
     {
       argum <- str@arg
       uu <- paste("u", argum, sep = "")
-      nu <- InvLap_Child(v, str_ini)
+      nu <- InvLap(v, str_ini)
       res <- numeric(length(argum))
       for (y in 1:length(argum))
         res[y] <- stringr::str_replace_all(nu, "z", uu[y])

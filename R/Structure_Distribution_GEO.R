@@ -49,27 +49,27 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
 {
      if (length(unique(unif)) != length(unif))
           stop("The 'unif' argument must be composed of different values")
-     
+
      if (par > 1 || par < 0)
           stop("Wrong 'param' input")
-     
+
      if (is.null(struc))
      {
           t <- new("Geo_Child", parameter = par, arg = unif, dimension = length(unif), type = "Child", name = "Shifted geometric distribution", obj = "Geo")
      }
-     
+
      else
      {
           if (class(struc) != "list")
                stop("The argument 'struc' must be a list")
-          
+
           if (is.null(unif))
                t <- new("Geo_Mother", parameter = par, structure = struc, arg = 0, dimension = length(struc), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
           else
                t <- new("Geo_Mother", parameter = par, structure = struc, arg = unif, dimension = length(struc) + length(unif), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
-          
+
      }
-     
+
      if (t@type == "Mother")
      {
           t@Param <- "gamma"
@@ -127,7 +127,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
           {
                if (type == "PGF")
                {
-                    ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
+                    ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / alpha * ((z) / (uu))^2 * ((z)/((uu) * alpha) - 1)^(k - 1)", "z",
                                                     t@PGF)
                     ini <- stringr::str_replace_all(ini, "k", k)
                     ini <- stringr::str_replace_all(ini, "uu", tt)
@@ -135,7 +135,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                }
                else if (type == "PGFInv")
                {
-                    ini <- stringr::str_replace_all("(1 - gamma) * (z)^2", "z",
+                    ini <- stringr::str_replace_all("(1 - alpha) * (z)^2", "z",
                                                     t@PGFInv)
                     stringr::str_replace_all(ini, "z", tt)
                }
@@ -144,23 +144,6 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
      t@simul <- function(z, gamma) rgeom(z, gamma) + 1
      t@theta <- vector("numeric")
      t@cop <- function(gamma, dim) AMH(gamma, dim)
-     t@FUN <- function(type)
-     {
-          if (type == "PGF")
-               function(tt, gamma) gamma * (tt) / (1 - (1 - gamma) * (tt))
-          else if (type == "PGFInv")
-               function(tt, gamma) (tt) / (gamma + (tt) * (1 - gamma))
-          else if (type == "PGF.Der")
-          {
-               function(tt, gamma, k)
-                    factorial(k) / (tt)^(k - 1) / gamma * (t@FUN("PGF")(tt, gamma) / (tt))^2 * (t@FUN("PGF")(tt, gamma) / ((tt) * gamma) - 1)^(k - 1)
-          }
-          else if (type == "PGFInv.Der")
-          {
-               function(tt, gamma)
-                    gamma / (gamma + (tt) * (1 - gamma))^2
-          }
-     }
-     
+
      t
 })

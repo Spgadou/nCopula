@@ -62,8 +62,8 @@ a given parameter, arguments, and nesting structure.
 \item{\code{FUN}}{Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'}
 }}
 \examples{
-LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL), 
-                    LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL), 
+LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+                    LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL),
                                         GAMMA(1/30, c(3,4), NULL)))))
 }
 \author{
@@ -71,6 +71,6 @@ Simon-Pierre Gadoury
 }
 \seealso{
 Other mother.or.child.class.objects: \code{\link{GAMMA}},
-  \code{\link{GEO}}, \code{\link{SIBUYA}}
+  \code{\link{GEO}}
 }
 

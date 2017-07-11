@@ -40,8 +40,8 @@
 #'
 #' @importFrom methods new
 #' @examples
-#'LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL), 
-#'                     LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL), 
+#'LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+#'                     LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL),
 #'                                         GAMMA(1/30, c(3,4), NULL)))))
 #' @export
 
@@ -49,26 +49,26 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
 {
      if (length(unique(unif)) != length(unif))
           stop("The 'unif' argument must be composed of different values")
-     
+
      if (par > 1 || par < 0)
           stop("Wrong 'param' input")
-     
+
      if (is.null(struc))
      {
           t <- new("Log_Child", parameter = par, arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
      }
-     
+
      else
      {
           if (class(struc) != "list")
                stop("The argument 'struc' must be a list")
-          
+
           if (is.null(unif))
                t <- new("Log_Mother", parameter = par, dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
           else
                t <- new("Log_Mother", parameter = par, dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
      }
-     
+
      if (t@type == "Mother")
      {
           t@Param <- "gamma"
@@ -76,6 +76,46 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
           t@LaplaceInv <- "-log((1 - (1 - (gamma))^(z)) / (gamma))"
           t@PGF <- "log(1 - (gamma)*(z)) / log(1 - (gamma))"
           t@PGFInv <- "((1 - (1 - (gamma))^(z))/(gamma))"
+          t@Der <- function(tt, k, type)
+          {
+            if (type == "PGF")
+            {
+              if (k >= 1)
+              {
+                ini <- paste("(", -factorial(k - 1), ") / log(1 - gamma) * (gamma / (1 - gamma * (z)))^(", k, ")", sep = "")
+                stringr::str_replace_all(ini, "z", tt)
+              }
+              else
+                t@PGF
+            }
+            else if (type == "PGFInv")
+            {
+              if (k == 1)
+              {
+                ini <- "-log(1 - gamma) / gamma * (1 - gamma)^(z)"
+                stringr::str_replace_all(ini, "z", tt)
+              }
+              else if (k == 0)
+                t@PGFInv
+            }
+          }
+          t@FUN <- function(type)
+          {
+            if (type == "PGF")
+              function(tt, gamma) log(1 - (gamma)*(tt)) / log(1 - (gamma))
+            else if (type == "PGFInv")
+              function(tt, gamma) ((1 - (1 - (gamma))^(tt))/(gamma))
+            else if (type == "PGF.Der")
+            {
+              function(tt, gamma, k)
+                -factorial(k - 1) / log(1 - gamma) * (gamma / (1 - gamma * (tt)))^(k)
+            }
+            else if (type == "PGFInv.Der")
+            {
+              function(tt, gamma)
+                -log(1 - gamma) / gamma * (1 - gamma)^(tt)
+            }
+          }
      }
      else
      {
@@ -84,10 +124,54 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
           t@LaplaceInv <- "-log((1 - (1 - (alpha))^(z)) / (alpha))"
           t@PGF <- "log(1 - (alpha)*(z)) / log(1 - (alpha))"
           t@PGFInv <- "((1 - (1 - (alpha))^(z))/(alpha))"
+          t@Der <- function(tt, k, type)
+          {
+            if (type == "PGF")
+            {
+              if (k >= 1)
+              {
+                ini <- paste("(", -factorial(k - 1), ") / log(1 - gamma) * (gamma / (1 - gamma * (z)))^(", k, ")", sep = "")
+                stringr::str_replace_all(ini, "z", tt)
+              }
+              else
+                t@PGF
+            }
+            else if (type == "PGFInv")
+            {
+              if (k == 1)
+              {
+                ini <- "-log(1 - gamma) / gamma * (1 - gamma)^(z)"
+                stringr::str_replace_all(ini, "z", tt)
+              }
+              else if (k == 0)
+                t@PGFInv
+            }
+          }
+          t@FUN <- function(type)
+          {
+            if (type == "PGF")
+              function(tt, gamma) log(1 - (gamma)*(tt)) / log(1 - (gamma))
+            else if (type == "PGFInv")
+              function(tt, gamma) ((1 - (1 - (gamma))^(tt))/(gamma))
+            else if (type == "Laplace")
+              log(1 - (gamma) * exp(-(tt))) / log(1 - (gamma))
+            else if (type == "LaplaceInv")
+              -log((1 - (1 - (gamma))^(tt)) / (gamma))
+            else if (type == "PGF.Der")
+            {
+              function(tt, gamma, k)
+                -factorial(k - 1) / log(1 - gamma) * (gamma / (1 - gamma * (tt)))^(k)
+            }
+            else if (type == "PGFInv.Der")
+            {
+              function(tt, gamma)
+                -log(1 - gamma) / gamma * (1 - gamma)^(tt)
+            }
+          }
      }
      t@simul <- function(z, gamma) copula::rlog(z, gamma)
      t@theta <- vector("numeric")
      t@cop <- function(gamma, dim) Frank(gamma, dim)
-     
+
      t
 })
