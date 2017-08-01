@@ -4,9 +4,9 @@
 #'
 #' @description Constructs a Frank Archimedean copula object with
 #' a given parameter and dimension.
-#' @param dim Dimension of the copula (>= 2), which is, by default, 2.
-#' @param param Parameter of the copula.
-#' @param density Compute the expression of the density of the copulas.
+#' @param dim dimension of the copula (>= 2), which is, by default, 2.
+#' @param param parameter of the copula.
+#' @param density compute the expression of the density of the copulas.
 #'
 #' @author Simon-Pierre Gadoury
 #'
