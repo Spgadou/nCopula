@@ -14,18 +14,19 @@ separer le script par fonction
  -divers
  -archimedian copulas
 ajouter header en introduction des scripts
-verifier fichier namespace pour les objets
+
 comparaison avec d'autres packages existant et différence
 Vignette
  - Introduction
  - 
- - Link publication
-Verifier porté de gamma (namespace)
+ - Link publication 
+ 
+Verifier porté de gamma (namespace) et verifier fichier namespace pour les objets
 Voir groupement des catégories pour help
-Correction compatibilité de stringr avec situation
-Retirer rCompCop et remplacer le nom de rCompCop2
+Correction compatibilité de stringr avec situation 
+Retirer rCompCop et remplacer le nom de rCompCop2 - fait on a garder rCompCop2 mtn rCompCop1
 
-Enlever Sibuya : ne fonctionne pas dans rStruc
+Enlever Sibuya : ne fonctionne pas dans rStruc  - fait
 
 Commande création bash
 r CMD built
