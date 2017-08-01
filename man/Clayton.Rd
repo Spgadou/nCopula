@@ -14,7 +14,7 @@ Clayton(param, dim = 2L, density = FALSE)
 \item{density}{Should the expression of the density be computed ?}
 }
 \value{
-...
+An archm S4 class object
 }
 \description{
 Constructs a Clayton Archimedean copula object with
