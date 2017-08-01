@@ -1,3 +1,7 @@
+# 'This code is for internal purposes. We defined the internal class for the copulas and some other 
+#' function used in other function for the user.
+# 'This is not code for end user.
+#'
 #' Archimedean copulas family
 #'
 #' Archimedean copulas
