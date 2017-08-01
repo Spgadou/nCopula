@@ -5,7 +5,7 @@
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2
 #' @param param Parameter of the copula
 #' @param density Should the expression of the density be computed ?
-#' @return ...
+#' @return An archm S4 class object
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
@@ -80,6 +80,8 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 #'
 #' @author Simon-Pierre Gadoury
 #'
+#' @return An archm S4 class object
+#'
 #' @importFrom copula rlog
 #' @export
 
@@ -120,6 +122,8 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
 #'
 #' @author Simon-Pierre Gadoury
 #'
+#' @return An archm S4 class object
+#'
 #' @export
 
 AMH <- compiler::cmpfun(function(param, dim = 2L)
@@ -156,6 +160,8 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
 #' @param density Should the expression of the density be computed ?
 #'
 #' @author Simon-Pierre Gadoury
+#'
+#' @return An archm S4 class object
 #'
 #' @importFrom copula rstable1
 #' @export

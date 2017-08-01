@@ -7,7 +7,7 @@
 Lap(code, str, tt = "z", par = "value")
 }
 \arguments{
-\item{code}{Genetic code of the child node (can be a leaf i.e. end by 0)}
+\item{code}{Genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)}
 
 \item{str}{Object of class Mother (the structure)}
 
@@ -19,8 +19,8 @@ Lap(code, str, tt = "z", par = "value")
 A character string giving the LST of the specified node.
 }
 \description{
-The function Lap() with a specific path and a predefined structure
-(S4 calss of a type 'Mother'), returns the Laplace-Stieltjes transform expression of
+With a specific path and a predefined structure
+(S4 class of a type 'Mother'), returns the Laplace-Stieltjes transform expression of
 the corresponding node with a specific variable.
 }
 \examples{
