@@ -1,8 +1,13 @@
-#' Obtain a node with its genetic code
+#' Obtain a node in mother class object
 #'
-#' @description Obtain a node with its genetic code.
-#' @param path Genetic code of the node
-#' @param str The structure
+#' @description Use a path (numeric vector) to obtain a subgroup of a structure (mother class object).
+#'
+#' @param path the path of the node (numeric vector).
+#' @param str a mother class object (S4).
+#'
+#' @details Every node of a mother object (structure) can be identified with a numeric vector that indicates
+#' the path used from the root to the node. The vector is the 'path' argument and is used to find specific
+#' nodes of a given structure. For a complete explanation, we refer to Cossette et al. (2017).
 #'
 #' @examples
 #' # We directly give the path of the desired node.
@@ -11,14 +16,13 @@
 #'                               GAMMA(1/30, c(3,4), NULL))))))
 #'
 #' # Here we provide the path with the GeneticCodes function of this package.
-#' Node(GeneticCodes(LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+#' str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                                      LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-#'                                      GAMMA(1/30, c(3,4), NULL))))))[[3]],
-#'                                  LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
-#'                                  LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-#'                                  GAMMA(1/30, c(3,4), NULL))))))
+#'                                      GAMMA(1/30, c(3,4), NULL)))))
+#' Node(GeneticCodes(str)[[3]], str)
 #'
-#' @return The node distribution, the child dimension, the parameter and the composition.
+#' @return Either a child or mother class object.
+#'
 #' @author Simon-Pierre Gadoury
 #'
 #' @export

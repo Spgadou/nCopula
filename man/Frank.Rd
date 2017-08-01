@@ -7,17 +7,21 @@
 Frank(param, dim = 2L)
 }
 \arguments{
-\item{param}{Parameter of the copula}
+\item{param}{Parameter of the copula.}
 
-\item{dim}{Dimension of the copula (>= 2), which is, by default, 2}
+\item{dim}{Dimension of the copula (>= 2), which is, by default, 2.}
 
-\item{density}{Should the expression of the density be computed ?}
+\item{density}{Compute the expression of the density of the copulas.}
 }
 \value{
-An archm S4 class object
+An archm S4 class object.
 }
 \description{
-Constructs Frank Archimedean copula object with a given parameter and dimension
+Constructs a Frank Archimedean copula object with
+a given parameter and dimension.
+}
+\details{
+Constructs Frank Archimedean copula object with a given parameter and dimension.
 }
 \author{
 Simon-Pierre Gadoury
