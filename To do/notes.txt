@@ -7,4 +7,8 @@ code_pdf_generator.R correspond au code pour généré "help" des fonctions. (g�
 Rajouter une note dans addNodes pour le nom traitement si défini à 0.
 Trop difficile a traiter et seule solution trouver actuellement est le théorème inversion gil-pelaez et les function charastéristique. Intégration irréel, 
 on n'a pas fait confiance au package ou coder le code encore.
+
 Rajouter message lorsque cop = TRUE, avertir pas défini à zéro. 
+
+Evaluation des copules par expression donc plus rapide.
+
