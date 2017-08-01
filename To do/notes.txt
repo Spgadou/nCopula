@@ -1,4 +1,4 @@
 À propos du dépôt:
 
 document correspond à la vignette. Elle doit être écrit en tex "manuellement".
-code_pdf_generator.R correspond au code pour généré "help" des fonctions. (génère le fichier nCopula.pdf)
+code_pdf_generator.R correspond au code pour généré "help" des fonctions. (génère le fichier nCopula.pdf) document de référence
