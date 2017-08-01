@@ -2,13 +2,15 @@
 #'
 #' Constructs Frank Archimedean copula object with a given parameter and dimension.
 #'
+#' @description Constructs a Frank Archimedean copula object with
+#' a given parameter and dimension.
 #' @param dim Dimension of the copula (>= 2), which is, by default, 2.
 #' @param param Parameter of the copula.
 #' @param density Compute the expression of the density of the copulas.
 #'
 #' @author Simon-Pierre Gadoury
 #'
-#' @return An archm S4 class object
+#' @return An archm S4 class object.
 #'
 #' @importFrom copula rlog
 #' @export
