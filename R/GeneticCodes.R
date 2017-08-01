@@ -1,6 +1,7 @@
 #' Obtain the Genetic Codes of a Structure
 #'
-#' @param str The structure of the compound copula.
+#' @description Function to obtain the genetic codes of a structure.
+#' @param str the structure of the compound copula.
 #'
 #' @return A list of of the structure's genetic codes.
 #'
