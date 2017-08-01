@@ -1,16 +1,24 @@
 #' Random number generator for Archimedean copula class objects
 #'
-#' @description The function rCop is a random number generator for archm class object.
+#' @description Random number generator for archm class objects.
 #'
 #' @param n Number of realisations
 #' @param copula An Archimedean copula (archm) class object
 #'
-#' @return A matrix containing the samples
+#' @details For bivariate archm copula objects, the function uses the conditional approach.
+#' As for dimensions higher than 2, the Marshall-Olkin (1988) approach is chosen instead.
+#'
+#' @return A numeric matrix containing the samples.
 #'
 #' @examples
+#' ## Create the trivariate archm copula object
 #' cop <- Clayton(5, 3)
 #'
-#' rCop(1000, cop)
+#' ## Generate the samples
+#' res <- rCop(10000, cop)
+#'
+#' ## Plot the values
+#' pairs(res, pch = 16, cex = 0.7)
 #'
 #' @seealso \link{pCop}, \link{Clayton}, \link{AMH}, \link{Frank}, \link{Gumbel}
 #'
