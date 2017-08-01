@@ -1,7 +1,3 @@
-#
-# Missing the density computation
-#
-
 #' Construction of an Archimedean Copula Class Object.
 #'
 #' Constructs an AMH Archimedean copula object with a given parameter and dimension.
