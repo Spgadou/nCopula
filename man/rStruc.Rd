@@ -2,25 +2,27 @@
 % Please edit documentation in R/rStruc.R
 \name{rStruc}
 \alias{rStruc}
-\title{Sampling from compound rvs}
+\title{Sampling From Compound Random Variables}
 \usage{
 rStruc(n, str)
 }
 \arguments{
-\item{n}{Number of realisations}
+\item{n}{the number of realisations}
 
-\item{str}{Object of class Mother (the structure)}
+\item{str}{a S4 object of class Mother (the structure)}
 }
 \value{
-A matrix of sampled values from the specified structure.
+A numeric matrix of sampled values from the specified structure.
+For every child node, the sampled values are repeated d times, where d
+is the length of the node's 'unif' argument.
 }
 \description{
-The function rStruc() generates n samples from a structure of compound rvs.
+Generate n samples from a structure of compound rvs.
 }
 \examples{
-rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
-                                     GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-                                     GAMMA(1/30, c(3,4), NULL))))))
+rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(1), NULL),
+                                     GEO(0.1, NULL, list(GAMMA(1/30, c(2), NULL),
+                                     GAMMA(1/30, c(3), NULL))))))
 
 }
 \author{

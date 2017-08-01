@@ -1,4 +1,4 @@
-#' Sampling from compound rvs
+#' Sampling From Compound Random Variables
 #'
 #' @description Generate n samples from a structure of compound rvs.
 #'
@@ -6,11 +6,13 @@
 #' @param str a S4 object of class Mother (the structure)
 #'
 #' @examples
-#' rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
-#'                                      GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-#'                                      GAMMA(1/30, c(3,4), NULL))))))
+#' rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(1), NULL),
+#'                                      GEO(0.1, NULL, list(GAMMA(1/30, c(2), NULL),
+#'                                      GAMMA(1/30, c(3), NULL))))))
 #'
-#' @return A numeric matrix of sampled values from the specified structure
+#' @return A numeric matrix of sampled values from the specified structure.
+#' For every child node, the sampled values are repeated d times, where d
+#' is the length of the node's 'unif' argument.
 #'
 #' @author Simon-Pierre Gadoury
 #'
