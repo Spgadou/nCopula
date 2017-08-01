@@ -13,8 +13,8 @@
 #'
 #' @examples
 #' cop <- Clayton(5, 2)
-#' pCop(cop, vector = TRUE)(c(0.1, 1))
-#' pCop(cop, vector = FALSE)(0.1, 0.1)
+#' pCop(cop, vector = TRUE, express = TRUE)
+#' pCop(cop, vector = FALSE, express = TRUE)
 #'
 #' @seealso \link{rCop}, \link{Clayton}, \link{AMH}, \link{Gumbel}, \link{Frank}
 #'

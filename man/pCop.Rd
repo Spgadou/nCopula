@@ -22,8 +22,8 @@ Distribution function of an Archimedean copula (archm) class object.
 }
 \examples{
 cop <- Clayton(5, 2)
-pCop(cop, vector = TRUE)(c(0.1, 1))
-pCop(cop, vector = FALSE)(0.1, 0.1)
+pCop(cop, vector = TRUE, express = TRUE)
+pCop(cop, vector = FALSE, express = TRUE)
 
 }
 \author{
