@@ -1,16 +1,16 @@
 #' Sampling from compound rvs
 #'
-#' @description The function rStruc() generates n samples from a structure of compound rvs.
+#' @description Generate n samples from a structure of compound rvs.
 #'
-#' @param n Number of realisations
-#' @param str Object of class Mother (the structure)
+#' @param n the number of realisations
+#' @param str a S4 object of class Mother (the structure)
 #'
 #' @examples
 #' rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                                      GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                                      GAMMA(1/30, c(3,4), NULL))))))
 #'
-#' @return A matrix of sampled values from the specified structure.
+#' @return A numeric matrix of sampled values from the specified structure
 #'
 #' @author Simon-Pierre Gadoury
 #'
