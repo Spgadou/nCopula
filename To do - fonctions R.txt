@@ -1,33 +1,31 @@
 ﻿Trucs à faire
 
-dCompCop: À faire (cas spécial seulement -> les sous-groupes)
-
-dCop: Vérification
 pCop: Vérification
 
-rCompCop2: Optimization
-pCompCop: Optimization
+Verifier les descriptions
 
-**Checker si on peut pas ajouter des fonctions utiles qui seraient nice**
-
-separer le script par fonction 
- -divers
- -archimedian copulas
-ajouter header en introduction des scripts
-
-comparaison avec d'autres packages existant et différence
-Vignette
+Vignette:
  - Introduction
- - 
+ - comparaison avec d'autres packages existant et différence
  - Link publication 
  
 Verifier porté de gamma (namespace) et verifier fichier namespace pour les objets
 Voir groupement des catégories pour help
 Correction compatibilité de stringr avec situation 
+
+Fait:
 Retirer rCompCop et remplacer le nom de rCompCop2 - fait on a garder rCompCop2 mtn rCompCop1
 
 Enlever Sibuya : ne fonctionne pas dans rStruc  - fait
 
-Commande création bash
-r CMD built
-r CMD check
+separer le script par fonction 
+ -divers -fait
+ -archimedian copulas - fait 
+ 
+rCompCop2: Optimization - fait
+pCompCop: Optimization -supprimer par rCompCop2
+
+dCop: Vérification - retirer beaucoup trop long
+dCompCop: À faire (cas spécial seulement -> les sous-groupes) - retirer trop long
+
+**Checker si on peut pas ajouter des fonctions utiles qui seraient nice** - tout fait
