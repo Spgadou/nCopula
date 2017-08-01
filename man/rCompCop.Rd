@@ -4,21 +4,28 @@
 \alias{rCompCop}
 \title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
 \usage{
-rCompCop(n, FUN, level)
+rCompCop(n, str)
 }
 \arguments{
 \item{n}{Number of realisations}
 
-\item{FUN}{Object of class Mother}
-
-\item{level}{Number of imbrications}
+\item{str}{Object of class Mother}
+}
+\value{
+...
 }
 \description{
-The density, the CDF, and the random number generator for copulas construted
-through compounding.
+The function rCompCop() is a random number generator for copulas constructed
+ through compounding. It sample from a know structure (S4 class of type 'Mother')
 }
 \details{
 rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+}
+\examples{
+str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
+                        GEO(0.3, 4:5, NULL)))
+rCompComp(1000, str)
+
 }
 \author{
 Simon-Pierre Gadoury

@@ -13,6 +13,9 @@ Gumbel(param, dim = 2L)
 
 \item{density}{Should the expression of the density be computed ?}
 }
+\value{
+An archm S4 class object
+}
 \description{
 Constructs a Gumbel Archimedean copula object with a given parameter and dimension
 }
