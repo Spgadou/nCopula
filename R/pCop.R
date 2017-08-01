@@ -1,10 +1,13 @@
-#' Cdf Function for Archimedean Copulas (archm) Class Objects
+#' Distribution function of archm class objects
 #'
-#' @description The cdf function for Archimedean copulas (arcm) class objetcs.
-#' @param copula An Archimedean copula (archm) class object
-#' @param vector If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else,
-#' just (u)
-#' @return A function ...
+#' @description Distribution function of an Archimedean copula (archm) class object.
+#'
+#' @param copula an Archimedean copula (archm) class object.
+#' @param vector logical. If false, returns a function or expression with (u_1, u_2, ..., u_dim) as arguments, else,
+#' just (u).
+#' @param express logical. If false, returns a function, else, an expression.
+#'
+#' @return The distribution function in the form of either a function or an expression.
 #'
 #' @author Simon-Pierre Gadoury
 #'

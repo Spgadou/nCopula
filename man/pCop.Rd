@@ -2,21 +2,23 @@
 % Please edit documentation in R/pCop.R
 \name{pCop}
 \alias{pCop}
-\title{Cdf Function for Archimedean Copulas (archm) Class Objects}
+\title{Distribution function of archm class objects}
 \usage{
 pCop(copula, vector = FALSE, express = TRUE)
 }
 \arguments{
-\item{copula}{An Archimedean copula (archm) class object}
+\item{copula}{an Archimedean copula (archm) class object.}
 
-\item{vector}{If false, returns a function with (u_1, u_2, ..., u_dim) as arguments, else,
-just (u)}
+\item{vector}{logical. If false, returns a function or expression with (u_1, u_2, ..., u_dim) as arguments, else,
+just (u).}
+
+\item{express}{logical. If false, returns a function, else, an expression.}
 }
 \value{
-A function ...
+The distribution function in the form of either a function or an expression.
 }
 \description{
-The cdf function for Archimedean copulas (arcm) class objetcs.
+Distribution function of an Archimedean copula (archm) class object.
 }
 \examples{
 cop <- Clayton(5, 2)
