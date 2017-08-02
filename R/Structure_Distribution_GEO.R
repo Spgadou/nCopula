@@ -69,7 +69,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                     {
                          ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
                                                          t@PGF)
-                         ini <- stringr::str_replace_all(ini, "k", k)
+                         ini <- stringr::str_replace_all(ini, "k", as.character(k))
                          ini <- stringr::str_replace_all(ini, "uu", tt)
                          stringr::str_replace_all(ini, "z", tt)
                     }
@@ -113,7 +113,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                {
                     ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / alpha * ((z) / (uu))^2 * ((z)/((uu) * alpha) - 1)^(k - 1)", "z",
                                                     t@PGF)
-                    ini <- stringr::str_replace_all(ini, "k", k)
+                    ini <- stringr::str_replace_all(ini, "k", as.character(k))
                     ini <- stringr::str_replace_all(ini, "uu", tt)
                     stringr::str_replace_all(ini, "z", tt)
                }

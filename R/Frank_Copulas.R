@@ -42,6 +42,7 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
       dimension = dim,
       parameter = param,
       name = "Frank copula")
+
   if (density)
   {
        tt <- LOG(1/10, 1:dim, NULL)

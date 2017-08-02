@@ -60,7 +60,7 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
              expr1 <- paste("(", 0:(k - 1), " + alpha)", collapse = " * ", sep = "")
              ini <- paste("(-1)^(k) * ", expr1, " * (1 + (z))^(-alpha - (k))", sep = "")
              ini <- stringr::str_replace_all(ini, "z", tt)
-             stringr::str_replace_all(ini, "k", k)
+             stringr::str_replace_all(ini, "k", as.character(k))
             }
           }
           else if (type == "LaplaceInv")

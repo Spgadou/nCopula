@@ -185,7 +185,7 @@ In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
 
 \subsection{Comparison with the \texttt{copula} package}
 
-\begin{knitrout}
+\begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(nCopula)}
@@ -205,33 +205,23 @@ In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
   \hlopt{-}\hlkwd{sum}\hlstd{(}\hlkwd{log}\hlstd{(}\hlkwd{dCopula}\hlstd{(data, cop2)))}
 \hlstd{\}}
 
-\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1)}
+\hlkwd{suppressWarnings}\hlstd{(}\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1))}
 \end{alltt}
 \begin{verbatim}
 ## $minimum
-## [1] 4.9965
+## [1] 5.012968
 ## 
 ## $objective
-## [1] -106671.5
+## [1] -104552.6
 \end{verbatim}
 \begin{alltt}
 \hlcom{## nCopula package ##}
 
 \hlstd{cop} \hlkwb{<-} \hlkwd{Clayton}\hlstd{(}\hlnum{5}\hlstd{,} \hlnum{10}\hlstd{,} \hlkwc{density} \hlstd{=} \hlnum{TRUE}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: `replacement` must be a character vector}}\begin{alltt}
 \hlstd{res1} \hlkwb{<-} \hlkwd{rCop}\hlstd{(}\hlnum{10000}\hlstd{, cop)}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in rCop(10000, cop): no slot of name "{}theta"{} for this object of class "{}claytonCopula"{}}}\begin{alltt}
 \hlstd{dens} \hlkwb{<-} \hlstd{cop}\hlopt{@}\hlkwc{dens}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): no slot of name "{}dens"{} for this object of class "{}claytonCopula"{}}}\begin{alltt}
 \hlstd{logv} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,} \hlkwc{data}\hlstd{)}
 \hlstd{\{}
   \hlstd{alpha} \hlkwb{<-} \hlstd{x}
@@ -240,11 +230,16 @@ In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
   \hlopt{-}\hlkwd{sum}\hlstd{(}\hlkwd{log}\hlstd{(}\hlkwd{eval}\hlstd{(}\hlkwd{parse}\hlstd{(}\hlkwc{text} \hlstd{= dens))))}
 \hlstd{\}}
 
-\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1)}
+\hlkwd{suppressWarnings}\hlstd{(}\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1))}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in parse(text = dens): object 'dens' not found}}\end{kframe}
+\begin{verbatim}
+## $minimum
+## [1] 4.997334
+## 
+## $objective
+## [1] -105620.7
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 \newpage

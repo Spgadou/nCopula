@@ -135,7 +135,7 @@ In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
 
 \subsection{Comparison with the \texttt{copula} package}
 
-<<>>=
+<<size="small">>=
 library(nCopula)
 
 ## Copula package ##
@@ -148,7 +148,7 @@ logv <- function(x, data)
   -sum(log(dCopula(data, cop2)))
 }
 
-optimize(logv, c(1e-5, 10), data = res1)
+suppressWarnings(optimize(logv, c(1e-5, 10), data = res1))
 
 ## nCopula package ##
 
@@ -165,7 +165,7 @@ logv <- function(x, data)
   -sum(log(eval(parse(text = dens))))
 }
 
-optimize(logv, c(1e-5, 10), data = res1)
+suppressWarnings(optimize(logv, c(1e-5, 10), data = res1))
 @
 
 \newpage
