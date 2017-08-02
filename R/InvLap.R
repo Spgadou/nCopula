@@ -4,9 +4,9 @@
 #' (S4 class of a type 'Mother'), returns the inverse Laplace-Stieltjes Transform expression of
 #' the corresponding node with a specific variable.
 #'
-#' @param code the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)
-#' @param str an object of class Mother (the structure)
-#' @param tt the output variable to be used ('z' by default)
+#' @param code the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).
+#' @param str an object of class Mother (the structure).
+#' @param tt the output variable to be used ('z' by default).
 #' @param par logical. Should the parameters be values ('value') or variables ('variable') ?
 #'
 #' @seealso \link{Lap}
