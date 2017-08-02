@@ -1,7 +1,3 @@
-#
-# Missing the par code for eval or not
-#
-
 #' LST of a Node
 #'
 #' @description With a specific path and a predefined structure
