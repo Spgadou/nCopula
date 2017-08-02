@@ -18,22 +18,6 @@
 #' be of class Child. For continuous distributions (i.e. GAMMA), struc is
 #' always NULL.
 #'
-#' @slot Param The name of the parameter used
-#' @slot parameter The value of the parameter
-#' @slot dimension The dimension
-#' @slot type The type of function (either child or mother)
-#' @slot arguments The corresponding arguments (ex.: arguments 1 and 2 imply 'u1' and 'u2')
-#' @slot structure The structure below the node of type 'Mother'
-#' @slot Laplace Expression of the LST
-#' @slot LaplaceInv Expression of the inverse LST
-#' @slot PGF Expression of the pgf
-#' @slot PGFInv Expression of the inverse pgf
-#' @slot simul Fonction to sample from the distribution
-#' @slot theta I don't know honestly
-#' @slot cop Construct an Archimedean copula with this distribution
-#' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#'
 #' @author Simon-Pierre Gadoury
 #'
 #' @family mother or child class objects
@@ -58,7 +42,7 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
      if (!is.null(struc))
           stop("Argument 'struc' must be NULL for a 'Child' class")
 
-     t <- new("Gamma_Child", parameter = par, arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
+     t <- new("Gamma_Child", parameter = as.character(par), arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
 
      t@Param <- "alpha"
      t@Laplace <- "(1 / (1 + (z)))^(alpha)"
@@ -76,7 +60,7 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
              expr1 <- paste("(", 0:(k - 1), " + alpha)", collapse = " * ", sep = "")
              ini <- paste("(-1)^(k) * ", expr1, " * (1 + (z))^(-alpha - (k))", sep = "")
              ini <- stringr::str_replace_all(ini, "z", tt)
-             stringr::str_replace_all(ini, "k", k)
+             stringr::str_replace_all(ini, "k", as.character(k))
             }
           }
           else if (type == "LaplaceInv")

@@ -18,27 +18,12 @@
 #' be of class Child. For continuous distributions (i.e. GAMMA), struc is
 #' always NULL.
 #'
-#' @slot Param The name of the parameter used
-#' @slot parameter The value of the parameter
-#' @slot dimension The dimension
-#' @slot type The type of function (either child or mother)
-#' @slot arguments The corresponding arguments (ex.: arguments 1 and 2 imply 'u1' and 'u2')
-#' @slot structure The structure below the node of type 'Mother'
-#' @slot Laplace Expression of the LST
-#' @slot LaplaceInv Expression of the inverse LST
-#' @slot PGF Expression of the pgf
-#' @slot PGFInv Expression of the inverse pgf
-#' @slot simul Fonction to sample from the distribution
-#' @slot theta I don't know honestly
-#' @slot cop Construct an Archimedean copula with this distribution
-#' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#'
 #' @family mother or child class objects
 #'
 #' @author Simon-Pierre Gadoury
 #'
 #' @importFrom methods new
+#'
 #' @examples
 #'LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                     LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL),
@@ -55,7 +40,7 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
 
      if (is.null(struc))
      {
-          t <- new("Log_Child", parameter = par, arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
+          t <- new("Log_Child", parameter = as.character(par), arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
      }
 
      else
@@ -64,9 +49,9 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
                stop("The argument 'struc' must be a list")
 
           if (is.null(unif))
-               t <- new("Log_Mother", parameter = par, dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
           else
-               t <- new("Log_Mother", parameter = par, dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
      }
 
      if (t@type == "Mother")
@@ -145,6 +130,39 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
               }
               else if (k == 0)
                 t@PGFInv
+            }
+            else if (type == "Laplace")
+            {
+              if (k > 1)
+              {
+                res <- numeric(k)
+                for (r in 1:k)
+                {
+                  ini <- t@Der("exp(-(z))", r, "PGF")
+                  ini <- paste("(", ini, ") * (exp(-", r, " * (z)) * (-1)^(", k, "))", sep = "")
+
+                  input <- (-1)^(r - 1) / factorial(1) / factorial(r - 1) * 1^k
+                  for (s in 1:r)
+                  {
+                    input <- input + ((-1)^(r - s) / factorial(s) / factorial(r - s) * s^k)
+                  }
+
+                  res[r] <- paste("(", ini, ") * (", input, ")", sep = "")
+                }
+                res <- paste("(", res, ")", sep = "", collapse = " + ")
+                stringr::str_replace_all(res, "z", tt)
+              }
+              else
+              {
+                stringr::str_replace_all(t@Laplace, "z", tt)
+              }
+            }
+            else if (type == "LaplaceInv")
+            {
+              ini <- paste("-(", t@Der(tt, 1, "PGFInv"), ") / (", stringr::str_replace_all(t@PGFInv,
+                                                                                           "z",
+                                                                                           tt), ")")
+              ini
             }
           }
           t@FUN <- function(type)

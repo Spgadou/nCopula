@@ -2,7 +2,7 @@
 % Please edit documentation in R/Lap.R
 \name{Lap}
 \alias{Lap}
-\title{LST of a node}
+\title{LST of a Node}
 \usage{
 Lap(code, str, tt = "z", par = "value")
 }
@@ -20,8 +20,13 @@ A character string giving the LST of the specified node.
 }
 \description{
 With a specific path and a predefined structure
-(S4 class of a type 'Mother'), returns the Laplace-Stieltjes transform expression of
+(S4 class of a type 'Mother'), returns the Laplace-Stieltjes Transform expression of
 the corresponding node with a specific variable.
+}
+\details{
+For mother nodes, parameters are always called 'gamma' and for child nodes, parameters are
+always called 'alpha'. Furthermore, to recognize the parameters, the path is inserted at the end.
+For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
 }
 \examples{
 

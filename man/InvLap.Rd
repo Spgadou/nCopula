@@ -2,18 +2,18 @@
 % Please edit documentation in R/InvLap.R
 \name{InvLap}
 \alias{InvLap}
-\title{Inverse LST of a node}
+\title{Inverse LST of a Node}
 \usage{
 InvLap(code, str, tt = "z", par = "value")
 }
 \arguments{
-\item{code}{Genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)}
+\item{code}{the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)}
 
-\item{str}{Object of class Mother (the structure)}
+\item{str}{an object of class Mother (the structure)}
 
-\item{tt}{Output variable to be used ('z' by default)}
+\item{tt}{the output variable to be used ('z' by default)}
 
-\item{par}{Should the parameters be values ('value') or variables ('variable') ?}
+\item{par}{logical. Should the parameters be values ('value') or variables ('variable') ?}
 }
 \value{
 A character string giving the inverse LST of the specified node.
@@ -22,6 +22,11 @@ A character string giving the inverse LST of the specified node.
 With a specific path and a predefined structure
 (S4 class of a type 'Mother'), returns the inverse Laplace-Stieltjes Transform expression of
 the corresponding node with a specific variable.
+}
+\details{
+For mother nodes, parameters are always called 'gamma' and for child nodes, parameters are
+always called 'alpha'. Furthermore, to recognize the parameters, the path is inserted at the end.
+For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
 }
 \examples{
 

@@ -28,39 +28,6 @@ always NULL.}
 The function GAMMA constructs a gamma Child class object for
 a given parameter and arguments.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{Param}}{The name of the parameter used}
-
-\item{\code{parameter}}{The value of the parameter}
-
-\item{\code{dimension}}{The dimension}
-
-\item{\code{type}}{The type of function (either child or mother)}
-
-\item{\code{arguments}}{The corresponding arguments (ex.: arguments 1 and 2 imply 'u1' and 'u2')}
-
-\item{\code{structure}}{The structure below the node of type 'Mother'}
-
-\item{\code{Laplace}}{Expression of the LST}
-
-\item{\code{LaplaceInv}}{Expression of the inverse LST}
-
-\item{\code{PGF}}{Expression of the pgf}
-
-\item{\code{PGFInv}}{Expression of the inverse pgf}
-
-\item{\code{simul}}{Fonction to sample from the distribution}
-
-\item{\code{theta}}{I don't know honestly}
-
-\item{\code{cop}}{Construct an Archimedean copula with this distribution}
-
-\item{\code{Der}}{Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'}
-
-\item{\code{FUN}}{Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'}
-}}
 \examples{
 We recall that since GAMMA is continuous, the structure is exclusively a child.
 GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),

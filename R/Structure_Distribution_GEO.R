@@ -18,22 +18,6 @@
 #' be of class Child. For continuous distributions (i.e. GAMMA), struc is
 #' always NULL.
 #'
-#' @slot Param The name of the parameter used
-#' @slot parameter The value of the parameter
-#' @slot dimension The dimension
-#' @slot type The type of function (either child or mother)
-#' @slot arguments The corresponding arguments (ex.: arguments 1 and 2 imply 'u1' and 'u2')
-#' @slot structure The structure below the node of type 'Mother'
-#' @slot Laplace Expression of the LST
-#' @slot LaplaceInv Expression of the inverse LST
-#' @slot PGF Expression of the pgf
-#' @slot PGFInv Expression of the inverse pgf
-#' @slot simul Fonction to sample from the distribution
-#' @slot theta I don't know honestly
-#' @slot cop Construct an Archimedean copula with this distribution
-#' @slot Der Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#' @slot FUN Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'
-#'
 #' @family mother or child class objects
 #'
 #' @author Simon-Pierre Gadoury
@@ -55,7 +39,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
 
      if (is.null(struc))
      {
-          t <- new("Geo_Child", parameter = par, arg = unif, dimension = length(unif), type = "Child", name = "Shifted geometric distribution", obj = "Geo")
+          t <- new("Geo_Child", parameter = as.character(par), arg = unif, dimension = length(unif), type = "Child", name = "Shifted geometric distribution", obj = "Geo")
      }
 
      else
@@ -64,9 +48,9 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                stop("The argument 'struc' must be a list")
 
           if (is.null(unif))
-               t <- new("Geo_Mother", parameter = par, structure = struc, arg = 0, dimension = length(struc), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
+               t <- new("Geo_Mother", parameter = as.character(par), structure = struc, arg = 0, dimension = length(struc), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
           else
-               t <- new("Geo_Mother", parameter = par, structure = struc, arg = unif, dimension = length(struc) + length(unif), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
+               t <- new("Geo_Mother", parameter = as.character(par), structure = struc, arg = unif, dimension = length(struc) + length(unif), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
 
      }
 
@@ -85,7 +69,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                     {
                          ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / gamma * ((z) / (uu))^2 * ((z)/((uu) * gamma) - 1)^(k - 1)", "z",
                                                          t@PGF)
-                         ini <- stringr::str_replace_all(ini, "k", k)
+                         ini <- stringr::str_replace_all(ini, "k", as.character(k))
                          ini <- stringr::str_replace_all(ini, "uu", tt)
                          stringr::str_replace_all(ini, "z", tt)
                     }
@@ -129,7 +113,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                {
                     ini <- stringr::str_replace_all("factorial(k) / (uu)^(k - 1) / alpha * ((z) / (uu))^2 * ((z)/((uu) * alpha) - 1)^(k - 1)", "z",
                                                     t@PGF)
-                    ini <- stringr::str_replace_all(ini, "k", k)
+                    ini <- stringr::str_replace_all(ini, "k", as.character(k))
                     ini <- stringr::str_replace_all(ini, "uu", tt)
                     stringr::str_replace_all(ini, "z", tt)
                }
@@ -139,6 +123,39 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                                                     t@PGFInv)
                     stringr::str_replace_all(ini, "z", tt)
                }
+            else if (type == "Laplace")
+            {
+              if (k > 1)
+              {
+                res <- numeric(k)
+                for (r in 1:k)
+                {
+                  ini <- t@Der("exp(-(z))", r, "PGF")
+                  ini <- paste("(", ini, ") * (exp(-", r, " * (z)) * (-1)^(", k, "))", sep = "")
+
+                  input <- (-1)^(r - 1) / factorial(1) / factorial(r - 1) * 1^k
+                  for (s in 1:r)
+                  {
+                    input <- input + ((-1)^(r - s) / factorial(s) / factorial(r - s) * s^k)
+                  }
+
+                  res[r] <- paste("(", ini, ") * (", input, ")", sep = "")
+                }
+                res <- paste("(", res, ")", sep = "", collapse = " + ")
+                stringr::str_replace_all(res, "z", tt)
+              }
+              else
+              {
+                stringr::str_replace_all(t@Laplace, "z", tt)
+              }
+            }
+            else if (type == "LaplaceInv")
+            {
+              ini <- paste("-(", t@Der(tt, 1, "PGFInv"), ") / (", stringr::str_replace_all(t@PGFInv,
+                                                                                           "z",
+                                                                                           tt), ")")
+              ini
+            }
           }
      }
      t@simul <- function(z, gamma) rgeom(z, gamma) + 1

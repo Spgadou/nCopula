@@ -3,11 +3,11 @@
 #' @description Distribution function of an Archimedean copula (archm) class object.
 #'
 #' @param copula an Archimedean copula (archm) class object.
-#' @param vector logical. If false, returns a function or expression with (u_1, u_2, ..., u_dim) as arguments, else,
+#' @param vector logical. If false, returns a function or a character string with (u_1, u_2, ..., u_dim) as arguments, else,
 #' just (u).
-#' @param express logical. If false, returns a function, else, an expression.
+#' @param express logical. If false, returns a function, else, a character string.
 #'
-#' @return The distribution function in the form of either a function or an expression.
+#' @return The distribution function in the form of either a function or a character string.
 #'
 #' @author Simon-Pierre Gadoury
 #'

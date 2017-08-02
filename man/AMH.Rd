@@ -7,11 +7,11 @@
 AMH(param, dim = 2L)
 }
 \arguments{
-\item{param}{Parameter of the copula.}
+\item{param}{parameter of the copula.}
 
-\item{dim}{Dimension of the copula (>= 2), which is, by default, 2.}
+\item{dim}{dimension of the copula (>= 2), which is, by default, 2.}
 
-\item{density}{Compute the expression of the density of the copulas.}
+\item{density}{compute the expression of the density of the copulas.}
 }
 \value{
 An archm S4 class object.

@@ -1,27 +1,48 @@
-#' Construction of the Copula With a Known Structure
+#' Distribution function of Mother class objects
 #'
-#' @description The function pCompCop() construct a copula with a know structure.
+#' @description Distribution function of a Mother class object.
+#'
 #' @param str Object of class Mother
+#' @param vector logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
+#' just (u).
+#' @param express logical. If false, returns a function, else, a character string.
 #'
-#' @return An expression in terms of u.
+#' @return The distribution function in the form of either a function or a character string.
+#'
 #' @examples
-#' pCompCop(LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+#' ## Create the structure
+#' str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                               LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-#'                               GAMMA(1/30, c(3,4), NULL))))))
-#' @author Simon-Pierre Gadoury
+#'                               GAMMA(1/30, c(3,4), NULL)))))
+#'
+#' ## Character string
+#' pCompCop(str, vector = TRUE, express = TRUE)
+#' pCompCop(str, vector = FALSE, express = TRUE)
+#'
+#' ## Function
+#' pCompCop(str, vector = TRUE, express = FALSE)
+#' pCompCop(str, vector = FALSE, express = FALSE)
 #'
 #' @export
 
-pCompCop <- function(str)
+pCompCop <- function(str, vector = FALSE, express = TRUE)
 {
   e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
   e1$gen <- GeneticCodes(str)
+  e1$argmax <- 0
   str_ini <- str
 
   FUN <- function(str, lvl = 0, j = 1, v = 0)
   {
     if (str@type == "Mother")
     {
+      argum <- str@arg
+      for (kk in 1:length(argum))
+      {
+        if (argum[kk] > e1$argmax)
+          e1$argmax <- argum[kk]
+      }
+
       if (lvl == 0)
       {
         e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
@@ -63,6 +84,12 @@ pCompCop <- function(str)
     else
     {
       argum <- str@arg
+      for (kk in 1:length(argum))
+      {
+        if (argum[kk] > e1$argmax)
+          e1$argmax <- argum[kk]
+      }
+
       uu <- paste("u", argum, sep = "")
       nu <- InvLap(v, str_ini)
       res <- numeric(length(argum))
@@ -77,12 +104,37 @@ pCompCop <- function(str)
   }
 
   FUN(str)
-  e1$C
+
+  cop <- e1$C
+  dim <- e1$argmax
+
+  if (express)
+  {
+    if (vector)
+    {
+      for (i in dim:1)
+        cop <- stringr::str_replace_all(cop, paste("u", i, sep = ""), paste("u[", i, "]", sep = ""))
+      cop
+    }
+    else
+      cop
+  }
+  else
+  {
+    if (vector)
+    {
+      for (i in dim:1)
+        cop <- stringr::str_replace_all(cop, paste("u", i, sep = ""), paste("u[", i, "]", sep = ""))
+      eval(parse(text = "function(u) eval(parse(text = cop))"))
+    }
+    else
+    {
+      ff <- "function(z) eval(parse(text = cop))"
+      uu <- paste("u", 1:dim, sep = "", collapse = ", ")
+      eval(parse(text = stringr::str_replace_all(ff, "z", uu)))
+    }
+  }
 }
-
-
-
-
 
 
 

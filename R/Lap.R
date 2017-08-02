@@ -1,8 +1,9 @@
-#' LST of a node
+#' LST of a Node
 #'
 #' @description With a specific path and a predefined structure
-#' (S4 class of a type 'Mother'), returns the Laplace-Stieltjes transform expression of
+#' (S4 class of a type 'Mother'), returns the Laplace-Stieltjes Transform expression of
 #' the corresponding node with a specific variable.
+#'
 #' @param code Genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)
 #' @param str Object of class Mother (the structure)
 #' @param tt Output variable to be used ('z' by default)
@@ -13,6 +14,10 @@
 #' @seealso \link{InvLap}
 #'
 #' @return A character string giving the LST of the specified node.
+#'
+#' @details For mother nodes, parameters are always called 'gamma' and for child nodes, parameters are
+#' always called 'alpha'. Furthermore, to recognize the parameters, the path is inserted at the end.
+#' For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
 #'
 #' @examples
 #'
