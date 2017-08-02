@@ -148,7 +148,7 @@ Archimedean copulas are a very interesting family of copulas. Bla bla bla (...).
 Let the copula's \emph{generator} be defined as a decreasing function $\psi : [0, \infty) \to [0, 1]$, where $\psi(0) = 1$ and $\lim_{t \to \infty} \psi(t) = 0$. In the same manner, $\psi^{-1} : [0, 1] \to [0, \infty)$, for which $\psi^{-1}(0) = \inf\{t : \psi(t) = 0\}$, where $\psi^{-1}$ is the inverse of the generator. The set of all such functions is denoted by $\psi_\infty$. Then, we can defined an Archimedean copulas $C$ as
 
 \begin{equation}
-  C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots, \psi^{-1}(u_d) \right).
+  C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots + \psi^{-1}(u_d) \right).
 \end{equation}
 
 \subsection{Sampling}
@@ -181,11 +181,71 @@ In the case where the corresponding distribution is discrete, it is often easier
   &= \sum_{r = 1}^d \mathcal{P}^{(r)}\left(e^{-t}\right) \, e^{-td} \, \sum_{s = 1}^t \frac{(-1)^{r - s}}{s! (r - s)!} (-s)^d.
 \end{align}
 
-In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}. 
+In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
 
 \subsection{Comparison with the \texttt{copula} package}
 
-(faire des comparaisons de temps pour l'estimation, etc...)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(nCopula)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: copula}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'copula' was built under R version 3.3.2}}\begin{alltt}
+\hlcom{## Copula package ##}
+\hlstd{cop} \hlkwb{<-} \hlkwd{claytonCopula}\hlstd{(}\hlnum{5}\hlstd{,} \hlnum{10}\hlstd{)}
+\hlstd{res1} \hlkwb{<-} \hlkwd{rCopula}\hlstd{(}\hlnum{10000}\hlstd{, cop)}
+
+\hlstd{logv} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,} \hlkwc{data}\hlstd{)}
+\hlstd{\{}
+  \hlstd{cop2} \hlkwb{<-} \hlkwd{claytonCopula}\hlstd{(x,} \hlnum{10}\hlstd{)}
+  \hlopt{-}\hlkwd{sum}\hlstd{(}\hlkwd{log}\hlstd{(}\hlkwd{dCopula}\hlstd{(data, cop2)))}
+\hlstd{\}}
+
+\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1)}
+\end{alltt}
+\begin{verbatim}
+## $minimum
+## [1] 4.9965
+## 
+## $objective
+## [1] -106671.5
+\end{verbatim}
+\begin{alltt}
+\hlcom{## nCopula package ##}
+
+\hlstd{cop} \hlkwb{<-} \hlkwd{Clayton}\hlstd{(}\hlnum{5}\hlstd{,} \hlnum{10}\hlstd{,} \hlkwc{density} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: `replacement` must be a character vector}}\begin{alltt}
+\hlstd{res1} \hlkwb{<-} \hlkwd{rCop}\hlstd{(}\hlnum{10000}\hlstd{, cop)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in rCop(10000, cop): no slot of name "{}theta"{} for this object of class "{}claytonCopula"{}}}\begin{alltt}
+\hlstd{dens} \hlkwb{<-} \hlstd{cop}\hlopt{@}\hlkwc{dens}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): no slot of name "{}dens"{} for this object of class "{}claytonCopula"{}}}\begin{alltt}
+\hlstd{logv} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,} \hlkwc{data}\hlstd{)}
+\hlstd{\{}
+  \hlstd{alpha} \hlkwb{<-} \hlstd{x}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)}
+    \hlkwd{eval}\hlstd{(}\hlkwd{parse}\hlstd{(}\hlkwc{text} \hlstd{=} \hlkwd{paste}\hlstd{(}\hlstr{"u"}\hlstd{, i,} \hlstr{" <- data[,"}\hlstd{, i,} \hlstr{"]"}\hlstd{,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)))}
+  \hlopt{-}\hlkwd{sum}\hlstd{(}\hlkwd{log}\hlstd{(}\hlkwd{eval}\hlstd{(}\hlkwd{parse}\hlstd{(}\hlkwc{text} \hlstd{= dens))))}
+\hlstd{\}}
+
+\hlkwd{optimize}\hlstd{(logv,} \hlkwd{c}\hlstd{(}\hlnum{1e-5}\hlstd{,} \hlnum{10}\hlstd{),} \hlkwc{data} \hlstd{= res1)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in parse(text = dens): object 'dens' not found}}\end{kframe}
+\end{knitrout}
 
 \newpage
 

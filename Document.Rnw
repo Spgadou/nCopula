@@ -98,7 +98,7 @@ Archimedean copulas are a very interesting family of copulas. Bla bla bla (...).
 Let the copula's \emph{generator} be defined as a decreasing function $\psi : [0, \infty) \to [0, 1]$, where $\psi(0) = 1$ and $\lim_{t \to \infty} \psi(t) = 0$. In the same manner, $\psi^{-1} : [0, 1] \to [0, \infty)$, for which $\psi^{-1}(0) = \inf\{t : \psi(t) = 0\}$, where $\psi^{-1}$ is the inverse of the generator. The set of all such functions is denoted by $\psi_\infty$. Then, we can defined an Archimedean copulas $C$ as
 
 \begin{equation}
-  C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots, \psi^{-1}(u_d) \right).
+  C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots + \psi^{-1}(u_d) \right).
 \end{equation}
 
 \subsection{Sampling}
@@ -131,11 +131,42 @@ In the case where the corresponding distribution is discrete, it is often easier
   &= \sum_{r = 1}^d \mathcal{P}^{(r)}\left(e^{-t}\right) \, e^{-td} \, \sum_{s = 1}^t \frac{(-1)^{r - s}}{s! (r - s)!} (-s)^d.
 \end{align}
 
-In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}. 
+In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}.
 
 \subsection{Comparison with the \texttt{copula} package}
 
-(faire des comparaisons de temps pour l'estimation, etc...)
+<<>>=
+library(nCopula)
+
+## Copula package ##
+cop <- claytonCopula(5, 10)
+res1 <- rCopula(10000, cop)
+
+logv <- function(x, data)
+{
+  cop2 <- claytonCopula(x, 10)
+  -sum(log(dCopula(data, cop2)))
+}
+
+optimize(logv, c(1e-5, 10), data = res1)
+
+## nCopula package ##
+
+cop <- Clayton(5, 10, density = TRUE)
+res1 <- rCop(10000, cop)
+
+dens <- cop@dens
+
+logv <- function(x, data)
+{
+  alpha <- x
+  for (i in 1:10)
+    eval(parse(text = paste("u", i, " <- data[,", i, "]", sep = "")))
+  -sum(log(eval(parse(text = dens))))
+}
+
+optimize(logv, c(1e-5, 10), data = res1)
+@
 
 \newpage
 
