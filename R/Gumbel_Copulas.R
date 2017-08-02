@@ -25,6 +25,7 @@ Gumbel <- compiler::cmpfun(function(param, dim = 2L)
      phi <- "exp(-(z)^(1/alpha))"
      phi.inv <- "(-log(z))^alpha"
      dep.param <- "alpha"
+     par.th <- "alpha"
      th <- function(z, alpha) copula::rstable1(z, 1/alpha, 1, cos(pi/(2*alpha))^alpha, 0, 1)
 
      param <- as.character(param)
@@ -36,5 +37,6 @@ Gumbel <- compiler::cmpfun(function(param, dim = 2L)
          depend = dep.param,
          dimension = dim,
          parameter = param,
+         par.th = param.th,
          name = "Gumbel copula")
 })

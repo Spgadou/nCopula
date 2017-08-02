@@ -4,7 +4,7 @@
 \alias{AMH}
 \title{Construction of an Archimedean Copula Class Object.}
 \usage{
-AMH(param, dim = 2L)
+AMH(param, dim = 2L, density = FALSE)
 }
 \arguments{
 \item{param}{parameter of the copula.}

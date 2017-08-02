@@ -115,25 +115,25 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
             {
               if (k >= 1)
               {
-                ini <- paste("(", -factorial(k - 1), ") / log(1 - gamma) * (gamma / (1 - gamma * (z)))^(", k, ")", sep = "")
+                ini <- paste("(", -factorial(k - 1), ") / log(1 - alpha) * (alpha / (1 - alpha * (z)))^(", k, ")", sep = "")
                 stringr::str_replace_all(ini, "z", tt)
               }
               else
-                t@PGF
+                stringr::str_replace_all(t@PGF, "z", tt)
             }
             else if (type == "PGFInv")
             {
               if (k == 1)
               {
-                ini <- "-log(1 - gamma) / gamma * (1 - gamma)^(z)"
+                ini <- "-log(1 - alpha) / alpha * (1 - alpha)^(z)"
                 stringr::str_replace_all(ini, "z", tt)
               }
               else if (k == 0)
-                t@PGFInv
+                stringr::str_replace_all(t@PGFInv, "z", tt)
             }
             else if (type == "Laplace")
             {
-              if (k > 1)
+              if (k >= 1)
               {
                 res <- numeric(k)
                 for (r in 1:k)
@@ -142,9 +142,12 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
                   ini <- paste("(", ini, ") * (exp(-", r, " * (z)) * (-1)^(", k, "))", sep = "")
 
                   input <- (-1)^(r - 1) / factorial(1) / factorial(r - 1) * 1^k
-                  for (s in 1:r)
+                  if (r > 1)
                   {
-                    input <- input + ((-1)^(r - s) / factorial(s) / factorial(r - s) * s^k)
+                    for (s in 2:r)
+                    {
+                      input <- input + ((-1)^(r - s) / factorial(s) / factorial(r - s) * s^k)
+                    }
                   }
 
                   res[r] <- paste("(", ini, ") * (", input, ")", sep = "")
@@ -161,7 +164,7 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
             {
               ini <- paste("-(", t@Der(tt, 1, "PGFInv"), ") / (", stringr::str_replace_all(t@PGFInv,
                                                                                            "z",
-                                                                                           tt), ")")
+                                                                                           tt), ")", sep = "")
               ini
             }
           }

@@ -4,7 +4,7 @@
 \alias{Frank}
 \title{Construction of an Archimedean Copula Class Object}
 \usage{
-Frank(param, dim = 2L)
+Frank(param, dim = 2L, density = FALSE)
 }
 \arguments{
 \item{param}{parameter of the copula.}

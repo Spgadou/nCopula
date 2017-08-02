@@ -14,7 +14,7 @@
 #'
 #' @export
 
-AMH <- compiler::cmpfun(function(param, dim = 2L)
+AMH <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 {
      if (param < 0 || param >= 1)
           stop("Wrong 'param' input")
@@ -27,18 +27,10 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
      phi <- "(alpha) / (exp(z) - (1 - alpha))"
      phi.inv <- "log((alpha + (z) * (1 - alpha)) / (z))"
      dep.param <- "alpha"
+     param.th <- "alpha"
      th <- function(z, alpha) rgeom(z, alpha) + 1
 
      param <- as.character(param)
-
-     new("amh",
-         phi = phi,
-         phi.inv = phi.inv,
-         theta = th,
-         depend = dep.param,
-         dimension = dim,
-         parameter = param,
-         name = "AMH copula")
 
      if (density)
      {
@@ -57,7 +49,7 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
 
           expr2 <- stringr::str_replace_all(tt@Der("z", dim, "Laplace"), "z", nu)
           densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
-          densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
+          densit <- stringr::str_replace_all(densit, "gamma", "alpha")
 
           new("amh",
               phi = phi,
@@ -68,6 +60,7 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
               dimension = dim,
               parameter = param,
               dens = densit,
+              par.th = param.th,
               name = "AMH copula")
      }
      else
@@ -80,6 +73,7 @@ AMH <- compiler::cmpfun(function(param, dim = 2L)
               depend = dep.param,
               dimension = dim,
               parameter = param,
+              par.th = param.th,
               name = "AMH copula")
      }
 })

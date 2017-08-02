@@ -8,7 +8,7 @@
 #' @keywords internal
 #' @exportClass archm
 
-setClass("archm", list(phi = "character", phi.inv = "character", theta = "function", depend = "character", dimension = "numeric", parameter = "character", name = "character"),
+setClass("archm", list(phi = "character", phi.inv = "character", par.th = "character", theta = "function", depend = "character", dimension = "numeric", parameter = "character", name = "character"),
          sealed = TRUE)
 
 #' Clayton copula class
@@ -21,6 +21,7 @@ setClass("archm", list(phi = "character", phi.inv = "character", theta = "functi
 setClass("clayton",
          list(theta = "function",
               depend = "character",
+              par.th = "character",
               phi = "character",
               dens = "character",
               phi.inv = "character",
@@ -36,7 +37,9 @@ setClass("clayton",
 #' @exportClass frank
 
 setClass("frank",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
+         list(theta = "function",
+              dens = "character",
+              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 #' AMH copula class
@@ -46,7 +49,9 @@ setClass("frank",
 #' @exportClass amh
 
 setClass("amh",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
+         list(theta = "function",
+              dens = "character",
+              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 #' Gumvel copula class
@@ -56,7 +61,8 @@ setClass("amh",
 #' @exportClass gumbel
 
 setClass("gumbel",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
+         list(theta = "function",
+              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 
@@ -97,7 +103,9 @@ setClass("Log_Child",
               simul = "function",
               theta = "numeric",
               LTheta = "character",
-              cop = "function"),
+              Der = "function",
+              cop = "function",
+              FUN = "function"),
          contains = "Child", sealed = TRUE)
 
 #' Log-Mother Class
@@ -122,7 +130,9 @@ setClass("Log_Mother",
               simul = "function",
               theta = "numeric",
               PM = "character",
-              cop = "function"),
+              Der = "function",
+              cop = "function",
+              FUN = "function"),
          contains = "Mother", sealed = TRUE)
 
 #' Geo-Mother Class

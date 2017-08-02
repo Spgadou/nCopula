@@ -25,7 +25,8 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 
      phi <- "exp(log((z) + 1)*(-1/alpha))"
      phi.inv <- "((z)^(-alpha) - 1)"
-     dep.param <- "1/alpha"
+     dep.param <- "alpha"
+     param.th <- "(1/alpha)"
      rBiv <- function(n, alpha, u) (u^(-alpha) * (runif(n)^(-alpha / (alpha + 1)) - 1) + 1)^(-1/alpha)
      th <- function(z, alpha) rgamma(z, alpha, 1)
 
@@ -48,7 +49,7 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 
           expr2 <- stringr::str_replace_all(tt@Der("z", dim, "Laplace"), "z", nu)
           densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
-          densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
+          densit <- stringr::str_replace_all(densit, "alpha", dep.param)
 
           new("clayton",
               phi = phi,
@@ -59,6 +60,7 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
               dimension = dim,
               parameter = param,
               dens = densit,
+              par.th = param.th,
               name = "Clayton copula")
      }
      else
@@ -71,6 +73,7 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
               depend = dep.param,
               dimension = dim,
               parameter = param,
+              par.th = param.th,
               name = "Clayton copula")
      }
 })

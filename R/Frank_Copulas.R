@@ -15,7 +15,7 @@
 #' @importFrom copula rlog
 #' @export
 
-Frank <- compiler::cmpfun(function(param, dim = 2L)
+Frank <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
 {
   if (param < 0)
     stop("Wrong 'param' input")
@@ -27,21 +27,16 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
 
   phi <- "log(1 - (alpha) * exp(-(z))) / log(1 - (alpha))"
   phi.inv <- "-log((1 - (1 - (alpha))^(z)) / (alpha))"
-  dep.param <- "alpha"
+  dep.param <- "(1 - exp(-alpha))"
+  param.th <- "(1 - exp(-alpha))"
+
+  phi <- stringr::str_replace_all(phi, "alpha", dep.param)
+  phi.inv <- stringr::str_replace_all(phi.inv, "alpha", dep.param)
+
   rBiv <- function(n, alpha, u) -log(1 - (runif(n) * (exp(-alpha) - 1)) / (runif(n) * (exp(-alpha * u) - 1) - exp(-alpha * u))) / alpha
   th <- function(z, alpha) copula::rlog(z, alpha)
 
   param <- as.character(param)
-
-  new("frank",
-      phi = phi,
-      phi.inv = phi.inv,
-      theta = th,
-      rBiv = rBiv,
-      depend = dep.param,
-      dimension = dim,
-      parameter = param,
-      name = "Frank copula")
 
   if (density)
   {
@@ -60,7 +55,7 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
 
        expr2 <- stringr::str_replace_all(tt@Der("z", dim, "Laplace"), "z", nu)
        densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
-       densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
+       densit <- stringr::str_replace_all(densit, "alpha", dep.param)
 
        new("frank",
            phi = phi,
@@ -71,6 +66,7 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
            dimension = dim,
            parameter = param,
            dens = densit,
+           par.th = param.th,
            name = "Frank copula")
   }
   else
@@ -83,6 +79,7 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
            depend = dep.param,
            dimension = dim,
            parameter = param,
+           par.th = param.th,
            name = "Frank copula")
   }
 })
