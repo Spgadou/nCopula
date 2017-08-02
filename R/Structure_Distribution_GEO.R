@@ -39,7 +39,7 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
 
      if (is.null(struc))
      {
-          t <- new("Geo_Child", parameter = par, arg = unif, dimension = length(unif), type = "Child", name = "Shifted geometric distribution", obj = "Geo")
+          t <- new("Geo_Child", parameter = as.character(par), arg = unif, dimension = length(unif), type = "Child", name = "Shifted geometric distribution", obj = "Geo")
      }
 
      else
@@ -48,9 +48,9 @@ GEO <- compiler::cmpfun(function(par, unif, struc)
                stop("The argument 'struc' must be a list")
 
           if (is.null(unif))
-               t <- new("Geo_Mother", parameter = par, structure = struc, arg = 0, dimension = length(struc), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
+               t <- new("Geo_Mother", parameter = as.character(par), structure = struc, arg = 0, dimension = length(struc), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
           else
-               t <- new("Geo_Mother", parameter = par, structure = struc, arg = unif, dimension = length(struc) + length(unif), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
+               t <- new("Geo_Mother", parameter = as.character(par), structure = struc, arg = unif, dimension = length(struc) + length(unif), type = "Mother", name = "Shifted geometric distribution", obj = "Geo")
 
      }
 

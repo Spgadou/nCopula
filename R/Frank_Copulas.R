@@ -31,6 +31,8 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
   rBiv <- function(n, alpha, u) -log(1 - (runif(n) * (exp(-alpha) - 1)) / (runif(n) * (exp(-alpha * u) - 1) - exp(-alpha * u))) / alpha
   th <- function(z, alpha) copula::rlog(z, alpha)
 
+  param <- as.character(param)
+
   new("frank",
       phi = phi,
       phi.inv = phi.inv,

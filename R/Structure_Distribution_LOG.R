@@ -40,7 +40,7 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
 
      if (is.null(struc))
      {
-          t <- new("Log_Child", parameter = par, arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
+          t <- new("Log_Child", parameter = as.character(par), arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
      }
 
      else
@@ -49,9 +49,9 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
                stop("The argument 'struc' must be a list")
 
           if (is.null(unif))
-               t <- new("Log_Mother", parameter = par, dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
           else
-               t <- new("Log_Mother", parameter = par, dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
      }
 
      if (t@type == "Mother")
