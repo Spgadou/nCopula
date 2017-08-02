@@ -2,8 +2,8 @@
 #'
 #' @description Generate n samples from a structure of compound rvs.
 #'
-#' @param n the number of realisations
-#' @param str a S4 object of class Mother (the structure)
+#' @param n the number of realisations.
+#' @param str a S4 object of class Mother (the structure).
 #'
 #' @examples
 #' rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(1), NULL),

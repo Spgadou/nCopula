@@ -2,7 +2,7 @@
 #'
 #' @description Distribution function of a Mother class object.
 #'
-#' @param str Object of class Mother
+#' @param str object of class Mother.
 #' @param vector logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
 #' just (u).
 #' @param express logical. If false, returns a function, else, a character string.

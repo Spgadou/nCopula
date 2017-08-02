@@ -3,8 +3,8 @@
 #' @description Random number generator for copulas constructed
 #'  through compounding.
 #'
-#' @param n the number of realisations
-#' @param str an object of class Mother
+#' @param n the number of realisations.
+#' @param str an object of class Mother.
 #'
 #' @return A numeric matrix of sampled data from the structure
 #'

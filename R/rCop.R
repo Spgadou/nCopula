@@ -2,8 +2,8 @@
 #'
 #' @description Random number generator for archm class objects.
 #'
-#' @param n Number of realisations
-#' @param copula An Archimedean copula (archm) class object
+#' @param n number of realisations.
+#' @param copula an Archimedean copula (archm) class object.
 #'
 #' @details For bivariate archm copula objects, the function uses the conditional approach.
 #' As for dimensions higher than 2, the Marshall-Olkin (1988) approach is chosen instead.
