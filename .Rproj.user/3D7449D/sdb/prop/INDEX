@@ -142,7 +142,11 @@
 ~%2FnCopula%2FR%2FFrank_Copulas.R="E34111FC"
 ~%2FnCopula%2FR%2FGeneticCodes.R="33AE6E33"
 ~%2FnCopula%2FR%2FGumbel_Copulas.R="4E4EAD33"
+<<<<<<< Updated upstream
 ~%2FnCopula%2FR%2FInternal_Code.R="470C932"
+=======
+~%2FnCopula%2FR%2FInternal_Code.R="92B3869F"
+>>>>>>> Stashed changes
 ~%2FnCopula%2FR%2FInvLap.R="483F06F3"
 ~%2FnCopula%2FR%2FInvLap_Child.R="719890B6"
 ~%2FnCopula%2FR%2FLap.R="72F943FB"
