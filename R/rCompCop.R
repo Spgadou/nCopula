@@ -1,17 +1,19 @@
 #' Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
 #'
-#' @description The function rCompCop() is a random number generator for copulas constructed
-#'  through compounding. It sample from a know structure (S4 class of type 'Mother')
-#' @param n Number of realisations
-#' @param str Object of class Mother
+#' @description Random number generator for copulas constructed
+#'  through compounding.
 #'
-#' @details rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+#' @param n the number of realisations
+#' @param str an object of class Mother
 #'
-#' @return ...
+#' @return A numeric matrix of sampled data from the structure
 #'
 #' @examples
+#' ## Create the structure
 #' str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
 #'                         GEO(0.3, 4:5, NULL)))
+#'
+#' ## Sample from the structure
 #' rCompComp(1000, str)
 #'
 #' @author Simon-Pierre Gadoury
@@ -26,7 +28,6 @@ rCompCop <- compiler::cmpfun(function(n, str)
 
   for (i in 1:length(gen))
   {
-    ## Ce bloc la est good je pense
     if (length(gen[[i]]) == 2)
     {
       str2 <- Node(gen[[i]], str)
@@ -56,15 +57,12 @@ rCompCop <- compiler::cmpfun(function(n, str)
     }
     else if (length(gen[[i]]) > 2)
     {
-      ## Initialiser la Laplace du Theta final
       Lap <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
 
       for (j in 2:(length(gen[[i]]) - 1))
       {
-        ## Sous structure
         str2 <- Node(gen[[i]][1:j], str)
 
-        ## Conditions pour bâtir la Laplace
         if (gen[[i]][length(gen[[i]])] != 0)
         {
           ini <- stringr::str_replace_all(str2@PGF, str2@Param, str2@parameter)
@@ -84,12 +82,11 @@ rCompCop <- compiler::cmpfun(function(n, str)
           }
         }
 
-        variable0 <- paste("M", paste(gen[[i]][1:(j - 1)], collapse = ""), sep = "") ## Le M au dessus du M
-        variable1 <- paste("M", paste(gen[[i]][1:j], collapse = ""), sep = "") ## Le M
+        variable0 <- paste("M", paste(gen[[i]][1:(j - 1)], collapse = ""), sep = "")
+        variable1 <- paste("M", paste(gen[[i]][1:j], collapse = ""), sep = "")
 
         if (!exists(variable1, envir = e1))
         {
-          ## C'est important de bien le sentir
           eval(parse(text = paste("e1$", variable1, " <- vapply(1:length(", paste("e1$", variable0, sep = ""), "),
                                   function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "str2@parameter)), 0)", sep = "")))
         }

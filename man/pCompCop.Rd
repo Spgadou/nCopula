@@ -2,25 +2,37 @@
 % Please edit documentation in R/pCompCop.R
 \name{pCompCop}
 \alias{pCompCop}
-\title{Construction of the Copula With a Known Structure}
+\title{Distribution function of Mother class objects}
 \usage{
-pCompCop(str)
+pCompCop(str, vector = FALSE, express = TRUE)
 }
 \arguments{
 \item{str}{Object of class Mother}
+
+\item{vector}{logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
+just (u).}
+
+\item{express}{logical. If false, returns a function, else, a character string.}
 }
 \value{
-An expression in terms of u.
+The distribution function in the form of either a function or a character string.
 }
 \description{
-The function pCompCop() construct a copula with a know structure.
+Distribution function of a Mother class object.
 }
 \examples{
-pCompCop(LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+## Create the structure
+str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                               LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
-                              GAMMA(1/30, c(3,4), NULL))))))
-}
-\author{
-Simon-Pierre Gadoury
+                              GAMMA(1/30, c(3,4), NULL)))))
+
+## Character string
+pCompCop(str, vector = TRUE, express = TRUE)
+pCompCop(str, vector = FALSE, express = TRUE)
+
+## Function
+pCompCop(str, vector = TRUE, express = FALSE)
+pCompCop(str, vector = FALSE, express = FALSE)
+
 }
 

@@ -9,13 +9,13 @@ pCop(copula, vector = FALSE, express = TRUE)
 \arguments{
 \item{copula}{an Archimedean copula (archm) class object.}
 
-\item{vector}{logical. If false, returns a function or expression with (u_1, u_2, ..., u_dim) as arguments, else,
+\item{vector}{logical. If false, returns a function or a character string with (u_1, u_2, ..., u_dim) as arguments, else,
 just (u).}
 
-\item{express}{logical. If false, returns a function, else, an expression.}
+\item{express}{logical. If false, returns a function, else, a character string.}
 }
 \value{
-The distribution function in the form of either a function or an expression.
+The distribution function in the form of either a function or a character string.
 }
 \description{
 Distribution function of an Archimedean copula (archm) class object.

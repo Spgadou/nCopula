@@ -7,18 +7,20 @@
 GeneticCodes(str)
 }
 \arguments{
-\item{str}{The structure of the compound copula.}
+\item{str}{an object of class Mother (the structure)}
 }
 \value{
-A list of of the structure's genetic codes.
+A list of the structure's genetic codes.
 }
 \description{
-Obtain the Genetic Codes of a Structure
+Function to obtain the list of all genetic codes of a structure.
 }
 \examples{
+## Create the structure
 str <- GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                            GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
                                                GAMMA(1/30, c(3,4), NULL)))))
+## Get the genetic codes
 GeneticCodes(str)
 
 }

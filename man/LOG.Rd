@@ -28,39 +28,6 @@ always NULL.}
 Constructs either a LOG Mother or Child class object for
 a given parameter, arguments, and nesting structure.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{Param}}{The name of the parameter used}
-
-\item{\code{parameter}}{The value of the parameter}
-
-\item{\code{dimension}}{The dimension}
-
-\item{\code{type}}{The type of function (either child or mother)}
-
-\item{\code{arguments}}{The corresponding arguments (ex.: arguments 1 and 2 imply 'u1' and 'u2')}
-
-\item{\code{structure}}{The structure below the node of type 'Mother'}
-
-\item{\code{Laplace}}{Expression of the LST}
-
-\item{\code{LaplaceInv}}{Expression of the inverse LST}
-
-\item{\code{PGF}}{Expression of the pgf}
-
-\item{\code{PGFInv}}{Expression of the inverse pgf}
-
-\item{\code{simul}}{Fonction to sample from the distribution}
-
-\item{\code{theta}}{I don't know honestly}
-
-\item{\code{cop}}{Construct an Archimedean copula with this distribution}
-
-\item{\code{Der}}{Fonction to compute the expression of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'}
-
-\item{\code{FUN}}{Fonction to compute the function of the 'k'th derivative of either the 'PGF', 'PGFInv', 'Laplace' or 'LaplaceInv'}
-}}
 \examples{
 LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                     LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL),

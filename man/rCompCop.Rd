@@ -7,23 +7,23 @@
 rCompCop(n, str)
 }
 \arguments{
-\item{n}{Number of realisations}
+\item{n}{the number of realisations}
 
-\item{str}{Object of class Mother}
+\item{str}{an object of class Mother}
 }
 \value{
-...
+A numeric matrix of sampled data from the structure
 }
 \description{
-The function rCompCop() is a random number generator for copulas constructed
- through compounding. It sample from a know structure (S4 class of type 'Mother')
-}
-\details{
-rCompCop2 is more general (and easier to use) than rCompCop, but is slower.
+Random number generator for copulas constructed
+ through compounding.
 }
 \examples{
+## Create the structure
 str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
                         GEO(0.3, 4:5, NULL)))
+
+## Sample from the structure
 rCompComp(1000, str)
 
 }

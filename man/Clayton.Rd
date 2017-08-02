@@ -7,11 +7,11 @@
 Clayton(param, dim = 2L, density = FALSE)
 }
 \arguments{
-\item{param}{Parameter of the copula.}
+\item{param}{the parameter of the copula.}
 
-\item{dim}{Dimension of the copula (>= 2), which is, by default, 2.}
+\item{dim}{the dimension of the copula (>= 2), which is, by default, 2.}
 
-\item{density}{Compute the expression of the density of the copulas.}
+\item{density}{logical. Should the expression of the density of the copula be computed?}
 }
 \value{
 An archm S4 class object.
@@ -19,9 +19,6 @@ An archm S4 class object.
 \description{
 Constructs a Clayton Archimedean copula object with
 a given parameter and dimension.
-}
-\details{
-Constructs Clayton Archimedean copula object with a given parameter and dimension
 }
 \author{
 Simon-Pierre Gadoury

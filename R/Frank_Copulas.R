@@ -42,23 +42,23 @@ Frank <- compiler::cmpfun(function(param, dim = 2L)
       name = "Frank copula")
   if (density)
   {
-       tt <- GAMMA(1/10, 1:dim, NULL)
-       
+       tt <- LOG(1/10, 1:dim, NULL)
+
        uu <- paste("u", 1:dim, sep = "")
        expr1 <- numeric(dim)
        for (i in 1:dim)
             expr1[i] <- stringr::str_replace_all(tt@Der("z", 1, "LaplaceInv"), "z", uu[i])
        expr1 <- paste("(", expr1, ")", sep = "", collapse = " * ")
-       
+
        nu <- numeric(dim)
        for(i in 1:dim)
             nu[i] <- stringr::str_replace_all(tt@LaplaceInv, "z", uu[i])
        nu <- paste("(", nu, ")", sep = "", collapse = " + ")
-       
+
        expr2 <- stringr::str_replace_all(tt@Der("z", dim, "Laplace"), "z", nu)
        densit <- paste("(", expr1, ") * (", expr2, ")", sep = "")
        densit <- stringr::str_replace_all(densit, "alpha", "(1/alpha)")
-       
+
        new("frank",
            phi = phi,
            phi.inv = phi.inv,

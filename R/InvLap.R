@@ -1,12 +1,13 @@
-#' Inverse LST of a node
+#' Inverse LST of a Node
 #'
 #' @description With a specific path and a predefined structure
 #' (S4 class of a type 'Mother'), returns the inverse Laplace-Stieltjes Transform expression of
 #' the corresponding node with a specific variable.
-#' @param code Genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)
-#' @param str Object of class Mother (the structure)
-#' @param tt Output variable to be used ('z' by default)
-#' @param par Should the parameters be values ('value') or variables ('variable') ?
+#'
+#' @param code the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)
+#' @param str an object of class Mother (the structure)
+#' @param tt the output variable to be used ('z' by default)
+#' @param par logical. Should the parameters be values ('value') or variables ('variable') ?
 #'
 #' @seealso \link{Lap}
 #'
