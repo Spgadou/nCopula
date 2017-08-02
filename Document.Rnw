@@ -80,39 +80,137 @@
 \maketitle
 
 \begin{abstract}
-The \emph{nCopula} package aims to simplify the construction process and usage of hiearchical Archimedean copulas through compound distributions in \texttt{R}. Is is possible to build structures with clear representations, obtain expressions for Archimedean copulas, wether they are hiearchical or not, as well as other important functions (i.e. Laplace Stieltjes Transform, pgf, etc.), given a certain path and structure. Furthermore, the generation of random vectors is possible from any given structure.
+The \emph{nCopula} package aims to simplify the construction process and usage of hierarchical Archimedean copulas through compound distributions in \texttt{R}. Is is possible to build structures with clear representations, obtain expressions for Archimedean copulas, wether they are hierarchical or not, as well as other important functions (i.e. Laplace Stieltjes Transform, pgf, etc.), given a certain path and structure. Furthermore, the generation of random vectors is possible from any given structure.
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}
 
-Let us consider different situations to illustrate how one can use the various functions in the package \texttt{nCopula}.
+(...)
 
-\section{Generating vectors from defined structures}
+\section{Archimedean copulas}
 
-\begin{figure}[!h]
-  \centering
-  \begin{tabular}{cccc}
-    \textbf{Node} & \textbf{Distribution} & \textbf{Parameter} & \textbf{Dimension} \\
-    \hline
-    $M^{(0)}$ & Geometric & $0.5$ & 3 \\
-    $M^{(0,1)}$ & Geometric & $0.1$ & 2 \\
-    $\Theta^{(0,1,1)}$ & Gamma & $0.1$ & 2 \\
-    $\Theta^{(0,1,2)}$ & Gamma & $0.2$ & 2 \\
-    $\Theta^{(0,2)}$ & Gamma & $0.01$ & 2 \\
-    $M^{(0,3)}$ & Geometric & $0.5$ & 2 \\
-    $\Theta^{(0,3,1)}$ & Geometric & $0.01$ & 2\\
-    $\Theta^{(0,3,1)}$ & Logarithmic & $0.9$ & 2\\
-    \hline
-  \end{tabular}
-\end{figure}
+\subsection{Definition}
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=1, level distance=12mm, sibling distance=5mm]
-  \Tree [.\fbox{$M^{(0)}$} [.\fbox{$M^{(0,1)}$} $\Theta^{(0,1,1)}$ $\Theta^{(0,1,2)}$ ] $\Theta^{(0,2)}$ [.\fbox{$M^{(0,3)}$} $\Theta^{(0,3,1)}$ $\Theta^{(0,3,2)}$ ] ]
-\end{tikzpicture}
-\caption{}
-\end{figure}
+Archimedean copulas are a very interesting family of copulas. Bla bla bla (...). \\
+
+Let the copula's \emph{generator} be defined as a decreasing function $\psi : [0, \infty) \to [0, 1]$, where $\psi(0) = 1$ and $\lim_{t \to \infty} \psi(t) = 0$. In the same manner, $\psi^{-1} : [0, 1] \to [0, \infty)$, for which $\psi^{-1}(0) = \inf\{t : \psi(t) = 0\}$, where $\psi^{-1}$ is the inverse of the generator. The set of all such functions is denoted by $\psi_\infty$. Then, we can defined an Archimedean copulas $C$ as
+
+\begin{equation}
+  C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots, \psi^{-1}(u_d) \right).
+\end{equation}
+
+
+
+\subsection{Sampling}
+
+
+
+\subsection{Symbolical derivatives}
+
+To obtain symbolical expressions of Archimedean copulas, one only needs to known the derivatives of the corresponding distribution's LST and inverse LST. Indeed, an Archimedean copula can be written as follows:
+
+\begin{equation}\label{archm:cop}
+  C(u_1, \ldots, u_d) = \psi \left( \sum_{i = 1}^d \psi^{-1}(u_i) \right),
+\end{equation}
+
+where $\psi$ is the generator of the copula. To compute its corresponding density, one should take the  derivatives with respect to $u_1$ up to $u_d$ of (\ref{archm:cop}). Doing so, we obtain that
+
+\begin{equation}
+  c(u_1, \ldots, u_d) = \prod_{i = 1}^d \left(\psi^{-1}\right)^\prime (u_i) \, \psi^{(d)}(\nu),
+\end{equation}
+
+where $\nu = \sum_{i = 1}^d \psi^{-1}(u_i)$. This expression is often easily computable, since it only requires the $d^{\text{th}}$ derivative of a Laplace Stieltjes Transform (LST) and the first derivative of its inverse.
+
+\begin{rem} Here, $\psi^{(d)}(\nu)$ implies that we take the $d^\text{th}$ derivative of the \textbf{univariate} function $\psi$, and then evaluate it at $\nu$.
+\end{rem}
+
+In the case where the corresponding distribution is discrete, it is often easier to find the derivatives of the pgf. Thus, the following relation can be useful:
+
+\begin{align}\label{discrete:rel1}
+  \mathcal{L}^{(d)}(t) &= \frac{\partial^d}{\partial^d t} \mathcal{P} \left(e^{-t}\right) \nonumber \\
+  &= \sum_{r = 1}^d \mathcal{P}^{(r)}\left(e^{-t}\right) \, e^{-td} \, \sum_{s = 1}^t \frac{(-1)^{r - s}}{s! (r - s)!} (-s)^d.
+\end{align}
+
+In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}. 
+
+\newpage
+
+\appendix
+
+\section{Discrete distributions}
+
+\subsection{Geometric}
+
+Let $M \sim \mathrm{Geo}(p)$, such that
+
+\begin{equation*}
+  \mathcal{P}_M(t) = \frac{p t}{1 - (1 - p) t}.
+\end{equation*}
+
+Then,
+
+$$ \mathcal{P}_M^{(k)}(t) = \frac{k!}{t^{k-1}} \frac{1}{p} \left(\frac{\mathcal{P}_M(t)}{t}\right)^2 \left(\frac{\mathcal{P}_M(t)}{t p} - 1\right)^{k - 1}. $$
+
+
+Furthermore,
+
+$$ \left(\mathcal{P}_M^{-1}\right)^\prime(t) = \frac{p}{(p + t (1 - p))^2}. $$
+
+\subsection{Logarithmic}
+
+Let $M \sim \mathrm{Log}(p)$, such that
+
+$$ \mathcal{P}_M(t) = \frac{\ln(1 - pt)}{\ln(1 - p)}. $$
+
+Then,
+
+$$ \mathcal{P}_M^{(k)}(t) = -\frac{(k - 1)!}{\ln(1 - p)} \left(\frac{p}{1 - pt}\right)^k. $$
+
+Furthermore,
+
+$$ \left( \mathcal{P}_M^{-1} \right)^\prime (t) = -\frac{\ln(1 - p)}{p} (1 - p)^t. $$
+
+\section{Continuous distributions}
+
+\subsection{Gamma}
+
+Let $B \sim \mathrm{Gamma}\left(\frac{1}{\alpha}, 1\right)$, such that
+
+\begin{equation}
+  \mathcal{L}_B(t) = (1 + t)^{-\frac{1}{\alpha}}.
+\end{equation}
+
+Then,
+
+$$ \mathcal{L}_B^{(k)}(t) = (-1)^k \prod_{j = 0}^{k - 1} \left(j + \frac{1}{\alpha}\right) (1 + t)^{-\frac{1}{\alpha} - k}. $$
+
+Furthermore,
+
+$$ \left(\mathcal{L}_B^{-1}\right)^\prime(t) = -\alpha t^{-\alpha - 1}. $$
+
+\subsection{Stable}
+
+Let $B \sim \mathrm{Stable}(..., ...)$, such that
+
+\begin{equation}
+  \mathcal{L}_B(t) = e^{-t^\alpha}.
+\end{equation}
+
+Then,
+
+\begin{align*}
+  \mathcal{L}^{(k)}_B(t) &= \sum_{r = 1}^k \sum_{s = 1}^r \mathcal{L}_B(t) (-1)^s \frac{t^{(r - s) \alpha}}{s! (r - s)!} \frac{\Gamma(\alpha s + 1)}{\Gamma(\alpha s + 1 - k)} t^{\alpha s - k} \mathbbm{1}_{\{k - \alpha s \, \not\in \, \mathbbm{N}^+\}} \\
+  &= \sum_{s = 1}^k (-1)^s \left( \sum_{r = 0}^{k - s} \frac{\left(t^{\alpha}\right)^r}{r!} \mathcal{L}_B(t) \right) \frac{\Gamma(\alpha s + 1)}{s! \Gamma(\alpha s + 1 - k)} t^{\alpha s - k} \mathbbm{1}_{\{k - \alpha s \, \not\in \, \mathbbm{N}^+\}} \\
+  &= \sum_{s = 1}^k (-1)^s \frac{\Gamma(\alpha s + 1)}{s! \Gamma(\alpha s + 1 - k)} t^{\alpha s - k} \mathbbm{P}(N \le k - s) \mathbbm{1}_{\{k - \alpha s \, \not\in \, \mathbbm{N}^+\}}, \, \, N \sim \mathrm{Poisson}\left(t^\alpha\right) \\
+  &= \mathbbm{E} \left[ \sum_{s = 1}^{k - N}(-1)^s \frac{\Gamma(\alpha s + 1)}{s! \Gamma(\alpha s + 1 - k)} t^{\alpha s - k} \times \mathbbm{1}_{\{N \le k - 1 \, \cap \, k - \alpha s \, \not\in \, \mathbbm{N}^+\}} \right] \\
+  &= \mathbbm{E} \left[ g(N) \right],
+\end{align*}
+
+where $g(t) = \sum_{s = 1}^{k - t}(-1)^s \frac{\Gamma(\alpha s + 1)}{s! \Gamma(\alpha s + 1 - k)} t^{\alpha s - k} \times \mathbbm{1}_{\{t \le k - 1 \, \cap \, k - \alpha s \, \not\in \, \mathbbm{N}^+\}}$. Furthermore,
+
+$$ \left(\mathcal{L}_B^{-1}\right)^{\prime}(t) = -\frac{1}{\alpha} \frac{(-\ln(t))^{\frac{1}{\alpha} - 1}}{t}. $$
 
 \newpage
 

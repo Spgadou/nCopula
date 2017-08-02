@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 JUL 2017 12:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 AUG 2017 12:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1606,62 +1606,83 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 6.43999pt on input line 131.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10> not available
 (Font)              Font shape `T1/futs/b/n' tried instead on input line 132.
-
-Overfull \hbox (30.76445pt too wide) in paragraph at lines 133--134
-[]\T1/futs/m/n/10 The \T1/futs/m/it/10 nCop-ula \T1/futs/m/n/10 pack-age aims t
-o sim-plify the con-struc-tion pro-cess and us-age of hiearchi-cal Archimedean
- []
-
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/futs/b/n' tried instead on input line 136.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 144.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 144.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 144.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 144.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 144.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 144.
+ (./Document.toc
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 145.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 2.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 4.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 4.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 4.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 4.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 4.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 4.
+)
+\tf@toc=\write5
+\openout5 = `Document.toc'.
+
+LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <12> not available
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 144.
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+
+ []
+
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./Document.bbl) [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 172.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 172.
+LaTeX Font Info:    Font shape `T1/futs/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/futs/b/it' tried instead on input line 176.
+
+[2] [3]
+LaTeX Font Info:    Try loading font information for U+bbm on input line 259.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+[4] (./Document.bbl) [5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
  (./Document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 172.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 172.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `Document.out' has not changed.
-(rerunfilecheck)             Checksum: ED67A0A455A258EECF1A907C5745EB0F;124.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 172.
+(rerunfilecheck)             Checksum: BC5D800194B63512A17776CD793004F4;639.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
  ) 
 Here is how much of TeX's memory you used:
- 25484 strings out of 493089
- 512094 string characters out of 6134842
- 609794 words of memory out of 5000000
- 28409 multiletter control sequences out of 15000+600000
- 90924 words of font info for 106 fonts, out of 8000000 for 9000
+ 25374 strings out of 493089
+ 510013 string characters out of 6134842
+ 605890 words of memory out of 5000000
+ 28255 multiletter control sequences out of 15000+600000
+ 111294 words of font info for 129 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,13n,69p,918b,894s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2015/texmf-dist/fo
-nts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2015/texmf-dist/font
-s/type1/public/cm-super/sftt1728.pfb>
-Output written on Document.pdf (2 pages, 100783 bytes).
+ 62i,11n,69p,918b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/Simon-Pierre/Library/texlive/2015/texmf-var/fonts/pk/ljfour/public/b
+bm/bbm8.600pk> </Users/Simon-Pierre/Library/texlive/2015/texmf-var/fonts/pk/ljf
+our/public/bbm/bbm10.657pk>{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/
+cm-super/cm-super-t1.enc}{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/ba
+se/8r.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/fourier/fourie
+r-mcl.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/fourier/fourie
+r-mex.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/fourier/fourie
+r-ml.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/fourier/fourier
+-mlit.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/fourier/fourie
+r-ms.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/adobe/utopia/putb8a.pf
+b></usr/local/texlive/2015/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/cm-super/sftt1728.pfb>
+Output written on Document.pdf (5 pages, 122906 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
- 18 named destinations out of 1000 (max. 500000)
- 29 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 178 PDF objects out of 1000 (max. 8388607)
+ 153 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
