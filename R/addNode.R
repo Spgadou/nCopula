@@ -2,7 +2,7 @@
 #'
 #' @description The function addNode is used to create and add a class of type "Mother" and/or "Child" in the global environment.
 #'
-#' @param type the type of the node (either 'Mother', 'Child' or 'Both')
+#' @param type the type of the node (either 'Mother', 'Child' or 'Both').
 #' @param pp the parameter of the distribution used in the character strings
 #' @param name_short the short name of the distribution (ex.: 'log' for the logarithmic distribution)
 #' @param name_long the long name of the distribution (ex.: 'logarithmic' for the logarithmic distribution)
