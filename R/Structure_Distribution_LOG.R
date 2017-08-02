@@ -131,6 +131,39 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
               else if (k == 0)
                 t@PGFInv
             }
+            else if (type == "Laplace")
+            {
+              if (k > 1)
+              {
+                res <- numeric(k)
+                for (r in 1:k)
+                {
+                  ini <- t@Der("exp(-(z))", r, "PGF")
+                  ini <- paste("(", ini, ") * (exp(-", r, " * (z)) * (-1)^(", k, "))", sep = "")
+
+                  input <- (-1)^(r - 1) / factorial(1) / factorial(r - 1) * 1^k
+                  for (s in 1:r)
+                  {
+                    input <- input + ((-1)^(r - s) / factorial(s) / factorial(r - s) * s^k)
+                  }
+
+                  res[r] <- paste("(", ini, ") * (", input, ")", sep = "")
+                }
+                res <- paste("(", res, ")", sep = "", collapse = " + ")
+                stringr::str_replace_all(res, "z", tt)
+              }
+              else
+              {
+                stringr::str_replace_all(t@Laplace, "z", tt)
+              }
+            }
+            else if (type == "LaplaceInv")
+            {
+              ini <- paste("-(", t@Der(tt, 1, "PGFInv"), ") / (", stringr::str_replace_all(t@PGFInv,
+                                                                                           "z",
+                                                                                           tt), ")")
+              ini
+            }
           }
           t@FUN <- function(type)
           {
