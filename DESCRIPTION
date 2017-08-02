@@ -8,7 +8,6 @@ Depends: R (>= 3.3), copula
 Imports: Deriv, gtools, mgcv, stringr, stringi, compiler, gsl, Ryacas, methods, Matrix, stabledist, beepr
 License: GPL (>= 2)
 LazyData: FALSE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-
