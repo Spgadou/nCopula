@@ -17,7 +17,7 @@
 GNU GENERAL PUBLIC LICENSE (GPL-3)
 
 ## Authors
-David Beauchemin <david.beauchemin.5@ulaval.ca>, Simon-Pierre Gaboury <hotmail>
+David Beauchemin <david.beauchemin.5@ulaval.ca>, Simon-Pierre Gaboury <simon-pierre.gadoury.1@ulaval.ca>
 
 ## Documentation
 
