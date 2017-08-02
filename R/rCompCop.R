@@ -24,7 +24,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
   e1 <- new.env()
   e1$res <- list()
   gen <- GeneticCodes(str)
-  e1$M0 <- str@simul(n, str@parameter)
+  e1$M0 <- str@simul(n, as.numeric(str@parameter))
 
   for (i in 1:length(gen))
   {
@@ -45,7 +45,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
       }
       else
       {
-        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], as.numeric(str2@parameter))), 0), length(str2@arg)),
                         ncol = length(str2@arg), nrow = n)
 
         ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
@@ -88,7 +88,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
         if (!exists(variable1, envir = e1))
         {
           eval(parse(text = paste("e1$", variable1, " <- vapply(1:length(", paste("e1$", variable0, sep = ""), "),
-                                  function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "str2@parameter)), 0)", sep = "")))
+                                  function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "as.numeric(str2@parameter))), 0)", sep = "")))
         }
       }
 
@@ -100,7 +100,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
         ini <- stringr::str_replace_all(str2@Laplace, str2@Param, str2@parameter)
         Lap <- stringr::str_replace_all(Lap, "z", ini)
 
-        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], as.numeric(str2@parameter))), 0), length(str2@arg)),
                         ncol = length(str2@arg), nrow = n)
       }
       else

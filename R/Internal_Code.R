@@ -1,4 +1,4 @@
-# 'This code is for internal purposes. We defined the internal class for the copulas and some other 
+# 'This code is for internal purposes. We defined the internal class for the copulas and some other
 #' function used in other function for the user.
 # 'This is not code for end user.
 #'
@@ -8,7 +8,7 @@
 #' @keywords internal
 #' @exportClass archm
 
-setClass("archm", list(phi = "character", phi.inv = "character", theta = "function", depend = "character", dimension = "numeric", parameter = "numeric", name = "character"),
+setClass("archm", list(phi = "character", phi.inv = "character", theta = "function", depend = "character", dimension = "numeric", parameter = "character", name = "character"),
          sealed = TRUE)
 
 #' Clayton copula class
@@ -25,7 +25,7 @@ setClass("clayton",
               dens = "character",
               phi.inv = "character",
               rBiv = "function",
-              dimension = "numeric", parameter = "numeric", name = "character"),
+              dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 
@@ -36,7 +36,7 @@ setClass("clayton",
 #' @exportClass frank
 
 setClass("frank",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "numeric", name = "character"),
+         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 #' AMH copula class
@@ -46,7 +46,7 @@ setClass("frank",
 #' @exportClass amh
 
 setClass("amh",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "numeric", name = "character"),
+         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 #' Gumvel copula class
@@ -56,7 +56,7 @@ setClass("amh",
 #' @exportClass gumbel
 
 setClass("gumbel",
-         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "numeric", name = "character"),
+         list(theta = "function", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
          contains = "archm", sealed = TRUE)
 
 
@@ -66,7 +66,7 @@ setClass("gumbel",
 #' CompCop structure
 #' @exportClass Mother
 
-setClass("Mother", list(parameter = "numeric", structure = "list", arg = "numeric", dimension = "numeric"), sealed = TRUE)
+setClass("Mother", list(parameter = "character", structure = "list", arg = "numeric", dimension = "numeric"), sealed = TRUE)
 
 #' Child Class
 #'
@@ -74,7 +74,7 @@ setClass("Mother", list(parameter = "numeric", structure = "list", arg = "numeri
 #' CompCop structure
 #' @exportClass Child
 
-setClass("Child", list(parameter = "numeric", arg = "numeric", dimension = "numeric"), sealed = TRUE)
+setClass("Child", list(parameter = "character", arg = "numeric", dimension = "numeric"), sealed = TRUE)
 
 #' Log-Child Class
 #'
@@ -86,7 +86,7 @@ setClass("Log_Child",
          list(name = "character",
               type = "character",
               dimension = "numeric",
-              parameter = "numeric",
+              parameter = "character",
               arg = "numeric",
               obj = "character",
               Param = "character",
@@ -110,7 +110,7 @@ setClass("Log_Mother",
          list(name = "character",
               type = "character",
               dimension = "numeric",
-              parameter = "numeric",
+              parameter = "character",
               arg = "numeric",
               structure = "list",
               obj = "character",
@@ -135,7 +135,7 @@ setClass("Geo_Mother",
          list(name = "character",
               type = "character",
               dimension = "numeric",
-              parameter = "numeric",
+              parameter = "character",
               structure = "list",
               arg = "numeric",
               obj = "character",
@@ -163,7 +163,7 @@ setClass("Geo_Child",
          list(name = "character",
               type = "character",
               dimension = "numeric",
-              parameter = "numeric",
+              parameter = "character",
               arg = "numeric",
               obj = "character",
               Param = "character",
@@ -190,7 +190,7 @@ setClass("Gamma_Child",
          list(name = "character",
               type = "character",
               dimension = "numeric",
-              parameter = "numeric",
+              parameter = "character",
               arg = "numeric",
               obj = "character",
               Param = "character",
@@ -294,7 +294,7 @@ Moth2 <- compiler::cmpfun(function(object, indent = "", delta.indent = 3, label 
     else
       cat(space,label,paste0(object@name, ":"), paste0(object@dimension, "-dimensional "))
 
-    cat(paste0("'", object@type, "'"), "function", "with parameter", round(object@parameter, 4))
+    cat(paste0("'", object@type, "'"), "function", "with parameter", round(as.numeric(object@parameter), 4))
     if (object@type == "Mother")
     {
       cat("\n")
@@ -323,7 +323,7 @@ Moth2 <- compiler::cmpfun(function(object, indent = "", delta.indent = 3, label 
 
     cat(space, label, paste0(object@name, ":"), "")
     cat(paste0(object@dimension, "-dimensional "))
-    cat(paste0("'", object@type, "'"), "function", "with parameter", round(object@parameter, 4), "\n")
+    cat(paste0("'", object@type, "'"), "function", "with parameter", round(as.numeric(object@parameter), 4), "\n")
     cat(space, "  ", "composed of", paste0("(",paste(ui, collapse = ", "), ")"), "\n")
     cat("\n")
   }
@@ -338,7 +338,7 @@ Chil <- compiler::cmpfun(function(object, space = ""){
 
     cat(space, paste0(object@name, ":"), "")
     cat(paste0(object@dimension, "-dimensional "))
-    cat(paste0("'", object@type, "'"), "function", "with parameter", round(object@parameter, 4), "\n")
+    cat(paste0("'", object@type, "'"), "function", "with parameter", round(as.numeric(object@parameter), 4), "\n")
     cat(space, "composed of", paste0("(",paste(ui, collapse = ", "), ")"), "\n")
   }
 )

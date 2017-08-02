@@ -29,6 +29,8 @@ Clayton <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
      rBiv <- function(n, alpha, u) (u^(-alpha) * (runif(n)^(-alpha / (alpha + 1)) - 1) + 1)^(-1/alpha)
      th <- function(z, alpha) rgamma(z, alpha, 1)
 
+     param <- as.character(param)
+
      if (density)
      {
           tt <- GAMMA(1/10, 1:dim, NULL)

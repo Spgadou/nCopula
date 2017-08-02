@@ -42,7 +42,7 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
      if (!is.null(struc))
           stop("Argument 'struc' must be NULL for a 'Child' class")
 
-     t <- new("Gamma_Child", parameter = par, arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
+     t <- new("Gamma_Child", parameter = as.character(par), arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
 
      t@Param <- "alpha"
      t@Laplace <- "(1 / (1 + (z)))^(alpha)"

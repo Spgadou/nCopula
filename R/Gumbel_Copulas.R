@@ -27,6 +27,8 @@ Gumbel <- compiler::cmpfun(function(param, dim = 2L)
      dep.param <- "alpha"
      th <- function(z, alpha) copula::rstable1(z, 1/alpha, 1, cos(pi/(2*alpha))^alpha, 0, 1)
 
+     param <- as.character(param)
+
      new("gumbel",
          phi = phi,
          phi.inv = phi.inv,
