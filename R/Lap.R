@@ -15,6 +15,10 @@
 #'
 #' @return A character string giving the LST of the specified node.
 #'
+#' @details For mother nodes, parameters are always called 'gamma' and for child nodes, parameters are
+#' always called 'alpha'. Furthermore, to recognize the parameters, the path is inserted at the end.
+#' For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
+#'
 #' @examples
 #'
 #' str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
