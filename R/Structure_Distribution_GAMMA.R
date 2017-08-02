@@ -3,12 +3,12 @@
 #' @description The function GAMMA constructs a gamma Child class object for
 #' a given parameter and arguments.
 #'
-#' @param par Dimension of the distribution
-#' @param unif Uniform structure, a numeric vector of grouped
+#' @param par dimension of the distribution.
+#' @param unif uniform structure, a numeric vector of grouped
 #' numbers.
 #'
 #' i.e. c(1,2,3) is translated as being c(u1, u2, u3).
-#' @param struc Nesting structure of the form
+#' @param struc nesting structure of the form
 #'
 #' X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
 #'                        Z(par3, c(k,...), NULL))),
@@ -20,7 +20,7 @@
 #'
 #' @author Simon-Pierre Gadoury
 #'
-#' @family mother or child class objects
+#' @family mother or child class objects.
 #'
 #' @importFrom methods new
 #'
