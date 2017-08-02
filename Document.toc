@@ -4,6 +4,7 @@
 \contentsline {subsection}{\numberline {2.1}Definition}{1}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Sampling}{2}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Symbolical derivatives}{2}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Comparison with the \texttt {copula} package}{2}{subsection.2.4}
 \contentsline {section}{\numberline {A}Discrete distributions}{3}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}Geometric}{3}{subsection.A.1}
 \contentsline {subsection}{\numberline {A.2}Logarithmic}{3}{subsection.A.2}

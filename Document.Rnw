@@ -101,11 +101,9 @@ Let the copula's \emph{generator} be defined as a decreasing function $\psi : [0
   C(u_1, \ldots, u_d) = \psi \left( \psi^{-1}(u_1) + \ldots, \psi^{-1}(u_d) \right).
 \end{equation}
 
-
-
 \subsection{Sampling}
 
-
+(...)
 
 \subsection{Symbolical derivatives}
 
@@ -134,6 +132,10 @@ In the case where the corresponding distribution is discrete, it is often easier
 \end{align}
 
 In the package, (\ref{discrete:rel1}) is used for \texttt{GEO} and \texttt{LOG}. 
+
+\subsection{Comparison with the \texttt{copula} package}
+
+(faire des comparaisons de temps pour l'estimation, etc...)
 
 \newpage
 
