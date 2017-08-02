@@ -8,7 +8,7 @@
 > [Construct and use hiearchical Archimedean copulas with compound distributions](https://github.com/Spgadou/nCopula)
 > page for more detailed information.
 
-# actuarialsymbol
+# nCopula
 
 -- Introduction
 
