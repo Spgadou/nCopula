@@ -127,7 +127,7 @@ where $\nu = \sum_{i = 1}^d \psi^{-1}(u_i)$. This expression is often easily com
 In the case where the corresponding distribution is discrete, it is often easier to find the derivatives of the pgf. Thus, the following relation can be useful:
 
 \begin{align}\label{discrete:rel1}
-  \mathcal{L}^{(d)}(t) &= \frac{\partial^d}{\partial^d t} \mathcal{P} \left(e^{-t}\right) \nonumber \\
+  \mathcal{L}^{(d)}(t) &= \frac{\mathrm{d}^d}{\mathrm{d} t^d} \mathcal{P} \left(e^{-t}\right) \nonumber \\
   &= \sum_{r = 1}^d \mathcal{P}^{(r)}\left(e^{-t}\right) \, e^{-td} \, \sum_{s = 1}^t \frac{(-1)^{r - s}}{s! (r - s)!} (-s)^d.
 \end{align}
 
