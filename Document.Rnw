@@ -80,7 +80,7 @@
 \maketitle
 
 \begin{abstract}
-The \emph{nCopula} package aims to simplify the construction process and usage of hierarchical Archimedean copulas through compound distributions in \texttt{R}. Is is possible to build structures with clear representations, obtain expressions for Archimedean copulas, wether they are hierarchical or not, as well as other important functions (i.e. Laplace Stieltjes Transform, pgf, etc.), given a certain path and structure. Furthermore, the generation of random vectors is possible from any given structure.
+The \emph{nCopula} package aims to simplify the construction process and usage of hierarchical Archimedean copulas through compound distributions in \texttt{R}. It is possible to build structures with clear representations, obtain expressions for Archimedean copulas, wether they are hierarchical or not, as well as other important functions (i.e. Laplace Stieltjes Transform, pgf, etc.), given a certain path and structure. Furthermore, the generation of random vectors is possible from any given structure.
 \end{abstract}
 
 \tableofcontents
