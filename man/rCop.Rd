@@ -7,9 +7,9 @@
 rCop(n, copula)
 }
 \arguments{
-\item{n}{Number of realisations}
+\item{n}{number of realisations.}
 
-\item{copula}{An Archimedean copula (archm) class object}
+\item{copula}{an Archimedean copula (archm) class object.}
 }
 \value{
 A numeric matrix containing the samples.

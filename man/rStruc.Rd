@@ -7,9 +7,9 @@
 rStruc(n, str)
 }
 \arguments{
-\item{n}{the number of realisations}
+\item{n}{the number of realisations.}
 
-\item{str}{a S4 object of class Mother (the structure)}
+\item{str}{a S4 object of class Mother (the structure).}
 }
 \value{
 A numeric matrix of sampled values from the specified structure.

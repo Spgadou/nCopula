@@ -6,8 +6,8 @@
 #' @param pp the parameter of the distribution used in the character strings
 #' @param name_short the short name of the distribution (ex.: 'log' for the logarithmic distribution)
 #' @param name_long the long name of the distribution (ex.: 'logarithmic' for the logarithmic distribution)
-#' @param Laplace the LST of the distribution (character), where
-#' @param LaplaceInv the inverse LST of the distribution (character)
+#' @param Laplace the LST of the distribution (character), evaluated at '(z)'
+#' @param LaplaceInv the inverse LST of the distribution (character), evaluated at '(z)'
 #' @param PGF the pgf of the distribution (character), if type is 'Mother' or 'Both'
 #' @param PGFInv the inverse pgf of the distribution (character), if type is 'Mother' or 'Both'
 #' @param simul function to sample from the distribution
@@ -51,11 +51,10 @@ addNode <- function(type,
                     cop = NULL,
                     cop_name = "The copula")
 {
-  if (type != "Mother" && type != "Child")
-    stop("The type should be either 'Child' or 'Mother'")
+  if (type != "Mother" && type != "Child" && type != "Both")
+    stop("The type should be either 'Child', 'Mother' or 'Both'")
   else
   {
-
     name_long <- tolower(name_long)
     char1 <- strsplit(name_long, "")[[1]]
     char1[1] <- toupper(char1[1])
@@ -74,7 +73,7 @@ addNode <- function(type,
              list(name = "character",
                   type = "character",
                   dimension = "numeric",
-                  parameter = "numeric",
+                  parameter = "character",
                   arg = "numeric",
                   obj = "character",
                   Param = "character",
@@ -88,11 +87,12 @@ addNode <- function(type,
                   cop = "function"),
               contains = type, where = .GlobalEnv)
     else if (type == "Mother")
+    {
       setClass(name_class,
                list(name = "character",
                     type = "character",
                     dimension = "numeric",
-                    parameter = "numeric",
+                    parameter = "character",
                     arg = "numeric",
                     structure = "list",
                     obj = "character",
@@ -106,6 +106,7 @@ addNode <- function(type,
                     PM = "character",
                     cop = "function"),
                contains = type, where = .GlobalEnv)
+    }
     else if (type == "Both")
     {
       type <- "Mother"
@@ -119,7 +120,7 @@ addNode <- function(type,
                list(name = "character",
                     type = "character",
                     dimension = "numeric",
-                    parameter = "numeric",
+                    parameter = "character",
                     arg = "numeric",
                     structure = "list",
                     obj = "character",
@@ -149,7 +150,7 @@ addNode <- function(type,
                   dens = "character",
                   phi.inv = "character",
                   rBiv = "function",
-                  dimension = "numeric", parameter = "numeric", name = "character"),
+                  dimension = "numeric", parameter = "character", name = "character"),
              contains = "archm", where = .GlobalEnv)
 
     FF <- compiler::cmpfun(function(par, unif, struc)
@@ -159,7 +160,7 @@ addNode <- function(type,
 
       if (is.null(struc))
       {
-        t <- new(name_class, parameter = par, arg = unif, dimension = length(unif), name = paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
+        t <- new(name_class, parameter = as.character(par), arg = unif, dimension = length(unif), name = paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
       }
 
       else
@@ -168,9 +169,9 @@ addNode <- function(type,
           stop("The argument 'struc' must be a list")
 
         if (is.null(unif))
-          t <- new(name_class, parameter = par, dimension = length(struc), structure = struc, arg = 0, paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
+          t <- new(name_class, parameter = as.character(par), dimension = length(struc), structure = struc, arg = 0, paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
         else
-          t <- new(name_class, parameter = par, dimension = length(struc) + length(unif), structure = struc, arg = unif, paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
+          t <- new(name_class, parameter = as.character(par), dimension = length(struc) + length(unif), structure = struc, arg = unif, paste(name_long, " distribution", sep = ""), type = type, obj = name_short)
       }
 
       if (t@type == "Mother")
@@ -180,6 +181,14 @@ addNode <- function(type,
         t@LaplaceInv <- stringr::str_replace_all(LaplaceInv, pp, "gamma")
         t@PGF <- stringr::str_replace_all(PGF, pp, "gamma")
         t@PGFInv <- stringr::str_replace_all(PGFInv, pp, "gamma")
+
+        verif <- t@PGF
+        gamma <- par
+        verif2 <- grad(function(z) eval(parse(text = verif)), 0)
+
+        if (abs(verif2 - 1e-8) > 0)
+          stop("The distribution has a probability mass at 0")
+
       }
       else
       {
@@ -204,7 +213,7 @@ addNode <- function(type,
               theta = t@simul,
               depend = if (t@type == "Mother") "gamma" else "alpha",
               dimension = dim,
-              parameter = param,
+              parameter = as.character(param),
               name = paste(cop_name, " copula", sep = ""))
         }
       else

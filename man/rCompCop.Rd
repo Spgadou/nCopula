@@ -7,9 +7,9 @@
 rCompCop(n, str)
 }
 \arguments{
-\item{n}{the number of realisations}
+\item{n}{the number of realisations.}
 
-\item{str}{an object of class Mother}
+\item{str}{an object of class Mother.}
 }
 \value{
 A numeric matrix of sampled data from the structure

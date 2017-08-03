@@ -7,7 +7,7 @@
 pCompCop(str, vector = FALSE, express = TRUE)
 }
 \arguments{
-\item{str}{Object of class Mother}
+\item{str}{object of class Mother.}
 
 \item{vector}{logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
 just (u).}

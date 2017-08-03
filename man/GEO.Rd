@@ -7,14 +7,14 @@
 GEO(par, unif, struc)
 }
 \arguments{
-\item{par}{Dimension of the distribution}
+\item{par}{dimension of the distribution.}
 
-\item{unif}{Uniform structure, a numeric vector of grouped
+\item{unif}{uniform structure, a numeric vector of grouped.
 numbers.
 
 i.e. c(1,2,3) is translated as being c(u1, u2, u3).}
 
-\item{struc}{Nesting structure of the form
+\item{struc}{nesting structure of the form
 
 X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
                        Z(par3, c(k,...), NULL))),
@@ -37,7 +37,7 @@ GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 Simon-Pierre Gadoury
 }
 \seealso{
-Other mother.or.child.class.objects: \code{\link{GAMMA}},
+Other mother.or.child.class.objects.: \code{\link{GAMMA}},
   \code{\link{LOG}}
 }
 

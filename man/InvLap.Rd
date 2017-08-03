@@ -7,11 +7,11 @@
 InvLap(code, str, tt = "z", par = "value")
 }
 \arguments{
-\item{code}{the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)}
+\item{code}{the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).}
 
-\item{str}{an object of class Mother (the structure)}
+\item{str}{an object of class Mother (the structure).}
 
-\item{tt}{the output variable to be used ('z' by default)}
+\item{tt}{the output variable to be used ('z' by default).}
 
 \item{par}{logical. Should the parameters be values ('value') or variables ('variable') ?}
 }

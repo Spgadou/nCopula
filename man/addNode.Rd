@@ -8,7 +8,7 @@ addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
   PGFInv = NULL, simul, cop = NULL, cop_name = "The copula")
 }
 \arguments{
-\item{type}{the type of the node (either 'Mother', 'Child' or 'Both')}
+\item{type}{the type of the node (either 'Mother', 'Child' or 'Both').}
 
 \item{pp}{the parameter of the distribution used in the character strings}
 
@@ -16,9 +16,9 @@ addNode(type, pp, name_short, name_long, Laplace, LaplaceInv, PGF = NULL,
 
 \item{name_long}{the long name of the distribution (ex.: 'logarithmic' for the logarithmic distribution)}
 
-\item{Laplace}{the LST of the distribution (character), where}
+\item{Laplace}{the LST of the distribution (character), evaluated at '(z)'}
 
-\item{LaplaceInv}{the inverse LST of the distribution (character)}
+\item{LaplaceInv}{the inverse LST of the distribution (character), evaluated at '(z)'}
 
 \item{PGF}{the pgf of the distribution (character), if type is 'Mother' or 'Both'}
 

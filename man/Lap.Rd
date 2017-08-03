@@ -7,11 +7,11 @@
 Lap(code, str, tt = "z", par = "value")
 }
 \arguments{
-\item{code}{Genetic code (numeric vector) of the node (can be a leaf i.e. end by 0)}
+\item{code}{genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).}
 
-\item{str}{Object of class Mother (the structure)}
+\item{str}{object of class Mother (the structure).}
 
-\item{tt}{Output variable to be used ('z' by default)}
+\item{tt}{output variable to be used ('z' by default).}
 
 \item{par}{Should the parameters be values ('value') or variables ('variable') ?}
 }
