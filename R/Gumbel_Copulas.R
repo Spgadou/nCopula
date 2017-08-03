@@ -11,6 +11,7 @@
 #' @return An archm S4 class object
 #'
 #' @importFrom copula rstable1
+#'
 #' @export
 
 Gumbel <- compiler::cmpfun(function(param, dim = 2L)

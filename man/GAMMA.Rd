@@ -29,7 +29,6 @@ The function GAMMA constructs a gamma Child class object for
 a given parameter and arguments.
 }
 \examples{
-We recall that since GAMMA is continuous, the structure is exclusively a child.
 GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                     GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
                                         GAMMA(1/30, c(3,4), NULL)))))
