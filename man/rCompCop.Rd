@@ -2,7 +2,7 @@
 % Please edit documentation in R/rCompCop.R
 \name{rCompCop}
 \alias{rCompCop}
-\title{Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding}
+\title{Random number generator for Mother class objects}
 \usage{
 rCompCop(n, str)
 }
@@ -15,8 +15,7 @@ rCompCop(n, str)
 A numeric matrix of sampled data from the structure
 }
 \description{
-Random number generator for copulas constructed
- through compounding.
+Samples from a Mother class object.
 }
 \examples{
 ## Create the structure

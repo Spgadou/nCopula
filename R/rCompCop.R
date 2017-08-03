@@ -1,7 +1,6 @@
-#' Density, Cdf, and Random Number Generator for Copulas Constructed Through Compounding
+#' Random number generator for Mother class objects
 #'
-#' @description Random number generator for copulas constructed
-#'  through compounding.
+#' @description Samples from a Mother class object.
 #'
 #' @param n the number of realisations.
 #' @param str an object of class Mother.
