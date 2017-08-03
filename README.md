@@ -5,8 +5,7 @@
 > [CRAN](https://cran.r-project.org). -- update link
 >
 > See the
-> [Construct and use hiearchical Archimedean copulas with compound distributions](https://github.com/Spgadou/nCopula)
-> page for more detailed information.
+> [Construct and use hiearchical Archimedean copulas with compound distributions](https://github.com/Spgadou/nCopula) page for more detailed information.
 
 # nCopula
 
@@ -21,8 +20,8 @@ David Beauchemin <david.beauchemin.5@ulaval.ca>, Simon-Pierre Gaboury <simon-pie
 
 ## Documentation
 
--- doc
+The package was built for an article. You may find all the mathematics and references in the [article](http://www.sciencedirect.com/science/article/pii/S0167668716304553) and the package [documentation](#ref).
 
 ## Version history
 
-See the documentation.
+See the documentation or the release section.
