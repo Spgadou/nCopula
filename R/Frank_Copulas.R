@@ -1,9 +1,8 @@
 #' Construction of an Archimedean Copula Class Object
 #'
-#' Constructs Frank Archimedean copula object with a given parameter and dimension.
-#'
 #' @description Constructs a Frank Archimedean copula object with
 #' a given parameter and dimension.
+#'
 #' @param dim dimension of the copula (>= 2), which is, by default, 2.
 #' @param param parameter of the copula.
 #' @param density compute the expression of the density of the copulas.

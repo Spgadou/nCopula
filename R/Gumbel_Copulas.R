@@ -1,9 +1,10 @@
 #' Construction of an Archimedean Copula Class Object
 #'
-#' Constructs a Gumbel Archimedean copula object with a given parameter and dimension
+#' @description Constructs a Gumbel Archimedean copula object with
+#' a given parameter and dimension.
 #'
-#' @param dim Dimension of the copula (>= 2), which is, by default, 2
-#' @param param Parameter of the copula
+#' @param dim dimension of the copula (>= 2), which is, by default, 2.
+#' @param param parameter of the copula.
 #'
 #' @author Simon-Pierre Gadoury
 #'

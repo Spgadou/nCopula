@@ -20,9 +20,6 @@ An archm S4 class object.
 Constructs a Frank Archimedean copula object with
 a given parameter and dimension.
 }
-\details{
-Constructs Frank Archimedean copula object with a given parameter and dimension.
-}
 \author{
 Simon-Pierre Gadoury
 }
