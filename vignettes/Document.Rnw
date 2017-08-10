@@ -74,6 +74,7 @@
 \title{The \texttt{nCopula} package}
 \author{David Beauchemin \\ Simon-Pierre Gadoury}
 \date{\today}
+%\VignettePackage{nCopula}
 
 \begin{document}
 
@@ -93,7 +94,7 @@ The \emph{nCopula} package aims to simplify the construction process and usage o
 
 \subsection{Definition}
 
-Archimedean copulas are a very interesting family of copulas. 
+Archimedean copulas are a very interesting family of copulas.
 %%Since most common Archimedean copulas admit an explicit formula.\\
 
 Let the copula's \emph{generator} be defined as a decreasing function $\psi : [0, \infty) \to [0, 1]$, where $\psi(0) = 1$ and $\lim_{t \to \infty} \psi(t) = 0$. In the same manner, $\psi^{-1} : [0, 1] \to [0, \infty)$, for which $\psi^{-1}(0) = \inf\{t : \psi(t) = 0\}$, where $\psi^{-1}$ is the inverse of the generator. The set of all such functions is denoted by $\psi_\infty$. Then, we can defined an Archimedean copulas $C$ as
