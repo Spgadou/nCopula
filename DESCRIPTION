@@ -16,11 +16,9 @@ Imports:
     stringi,
     compiler,
     gsl,
-    Ryacas,
     methods,
     Matrix,
-    stabledist,
-    beepr
+    stabledist
 License: GPL (>= 2)
 LazyData: FALSE
 RoxygenNote: 5.0.1

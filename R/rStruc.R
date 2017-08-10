@@ -23,7 +23,7 @@ rStruc <- compiler::cmpfun(function(n, str)
   e1 <- new.env()
   e1$res <- list()
   gen <- GeneticCodes(str)
-  e1$M0 <- str@simul(n, str@parameter)
+  e1$M0 <- str@simul(n, as.numeric(str@parameter))
 
   for (i in 1:length(gen))
   {
@@ -34,12 +34,12 @@ rStruc <- compiler::cmpfun(function(n, str)
 
       if (gen[[i]][length(gen[[i]])] == 0)
       {
-        Theta <- M.prec
-        e1$res[[i]] <- Theta
+        Theta <- rep(M.prec, length(str2@arg))
+        e1$res[[i]] <- matrix(Theta, ncol = length(str2@arg), nrow = n, byrow = FALSE)
       }
       else
       {
-        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], as.numeric(str2@parameter))), 0), length(str2@arg)),
                         ncol = length(str2@arg), nrow = n)
         e1$res[[i]] <- Theta
       }
@@ -57,7 +57,7 @@ rStruc <- compiler::cmpfun(function(n, str)
         {
           ## C'est important de bien le sentir
           eval(parse(text = paste("e1$", variable1, " <- vapply(1:length(", paste("e1$", variable0, sep = ""), "),
-                                  function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "str2@parameter)), 0)", sep = "")))
+                                  function(t) sum(str2@simul(", paste("e1$", variable0, "[t],", sep = ""), "as.numeric(str2@parameter))), 0)", sep = "")))
         }
       }
 
@@ -66,7 +66,7 @@ rStruc <- compiler::cmpfun(function(n, str)
 
       if (gen[[i]][length(gen[[i]])] != 0)
       {
-        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], str2@parameter)), 0), length(str2@arg)),
+        Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], as.numeric(str2@parameter))), 0), length(str2@arg)),
                         ncol = length(str2@arg), nrow = n)
       }
       else
