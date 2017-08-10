@@ -26,4 +26,3 @@ Constructs an AMH Archimedean copula object with a given parameter and dimension
 \author{
 Simon-Pierre Gadoury
 }
-

@@ -28,4 +28,3 @@ rStruc(10000, GEO(0.5, NULL, list(GAMMA(1/30, c(1), NULL),
 \author{
 Simon-Pierre Gadoury
 }
-

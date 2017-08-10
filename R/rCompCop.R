@@ -13,7 +13,7 @@
 #'                         GEO(0.3, 4:5, NULL)))
 #'
 #' ## Sample from the structure
-#' rCompComp(1000, str)
+#' rCompCop(1000, str)
 #'
 #' @author Simon-Pierre Gadoury
 #' @export

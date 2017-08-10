@@ -35,4 +35,3 @@ pCompCop(str, vector = TRUE, express = FALSE)
 pCompCop(str, vector = FALSE, express = FALSE)
 
 }
-

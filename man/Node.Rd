@@ -38,4 +38,3 @@ Node(GeneticCodes(str)[[3]], str)
 \author{
 Simon-Pierre Gadoury
 }
-

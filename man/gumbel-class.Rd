@@ -8,4 +8,3 @@
 Gumbel copula
 }
 \keyword{internal}
-

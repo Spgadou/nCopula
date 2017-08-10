@@ -10,4 +10,3 @@ Log-Mother Class
 \keyword{CompCop}
 \keyword{internal}
 \keyword{structure}
-

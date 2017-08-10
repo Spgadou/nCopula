@@ -27,4 +27,3 @@ GeneticCodes(str)
 \author{
 Simon-Pierre Gadoury
 }
-

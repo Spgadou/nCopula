@@ -21,4 +21,3 @@ a given parameter and dimension.
 \author{
 Simon-Pierre Gadoury
 }
-

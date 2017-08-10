@@ -8,4 +8,3 @@
 Frank copula
 }
 \keyword{internal}
-

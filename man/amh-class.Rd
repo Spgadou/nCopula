@@ -8,4 +8,3 @@
 AMH copula
 }
 \keyword{internal}
-

@@ -23,10 +23,9 @@ str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
                         GEO(0.3, 4:5, NULL)))
 
 ## Sample from the structure
-rCompComp(1000, str)
+rCompCop(1000, str)
 
 }
 \author{
 Simon-Pierre Gadoury
 }
-

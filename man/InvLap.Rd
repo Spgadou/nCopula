@@ -36,10 +36,9 @@ str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
 InvLap(c(0,2), str, tt = 'z', par = 'value')
 
 }
-\author{
-Simon-Pierre Gadoury
-}
 \seealso{
 \link{Lap}
 }
-
+\author{
+Simon-Pierre Gadoury
+}

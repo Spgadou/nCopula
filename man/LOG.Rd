@@ -33,11 +33,10 @@ LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                     LOG(0.1, NULL, list(GAMMA(1/30, c(1.2), NULL),
                                         GAMMA(1/30, c(3,4), NULL)))))
 }
+\seealso{
+Other mother or child class objects.: \code{\link{GAMMA}},
+  \code{\link{GEO}}
+}
 \author{
 Simon-Pierre Gadoury
 }
-\seealso{
-Other mother.or.child.class.objects.: \code{\link{GAMMA}},
-  \code{\link{GEO}}
-}
-

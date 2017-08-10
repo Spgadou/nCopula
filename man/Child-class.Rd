@@ -10,4 +10,3 @@ Child Class
 \keyword{CompCop}
 \keyword{internal}
 \keyword{structure}
-

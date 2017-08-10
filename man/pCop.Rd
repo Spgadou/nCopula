@@ -26,10 +26,9 @@ pCop(cop, vector = TRUE, express = TRUE)
 pCop(cop, vector = FALSE, express = TRUE)
 
 }
-\author{
-Simon-Pierre Gadoury
-}
 \seealso{
 \link{rCop}, \link{Clayton}, \link{AMH}, \link{Gumbel}, \link{Frank}
 }
-
+\author{
+Simon-Pierre Gadoury
+}

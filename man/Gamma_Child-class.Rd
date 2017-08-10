@@ -8,4 +8,3 @@
 CompCop structure
 }
 \keyword{internal}
-

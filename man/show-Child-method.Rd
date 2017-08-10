@@ -12,4 +12,3 @@ Show Method for Compounding Functions - Child Class
 }
 \keyword{Show}
 \keyword{internal}
-

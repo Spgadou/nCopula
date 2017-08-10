@@ -11,4 +11,3 @@ Archimedean copulas family
 Archimedean copulas
 }
 \keyword{internal}
-

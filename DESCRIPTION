@@ -3,10 +3,10 @@ Type: Package
 Title: Copula Construction Tools
 Version: 0.1.0
 Authors@R: as.person("Simon-Pierre Gadoury <spgadou@me.com> [aut, cre]")
-Description: Construct and use hiearchical Archimedean copulas with multivariate
+Description: Construct and use hierarchical Archimedean copulas with multivariate
     compound distributions
 Depends:
-    R (>= 3.3),
+    R (>= 3.4.1),
     copula
 Imports:
     Deriv,
@@ -21,7 +21,7 @@ Imports:
     stabledist
 License: GPL (>= 2)
 LazyData: FALSE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown

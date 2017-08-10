@@ -32,10 +32,9 @@ res <- rCop(10000, cop)
 pairs(res, pch = 16, cex = 0.7)
 
 }
-\author{
-Simon-Pierre Gadoury
-}
 \seealso{
 \link{pCop}, \link{Clayton}, \link{AMH}, \link{Frank}, \link{Gumbel}
 }
-
+\author{
+Simon-Pierre Gadoury
+}

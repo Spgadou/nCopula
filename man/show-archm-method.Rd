@@ -12,4 +12,3 @@ Show Method for Copulas
 }
 \keyword{Show}
 \keyword{internal}
-

@@ -8,4 +8,3 @@
 Clayton copula
 }
 \keyword{internal}
-
