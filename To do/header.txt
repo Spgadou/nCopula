@@ -1,7 +1,0 @@
-# ==== nCopula: Title
-#
-# Definition of the ...
-#
-# Mathematical reference ...
-#
-# AUTHORS: ... email adress

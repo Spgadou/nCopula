@@ -1,4 +1,0 @@
-Name: Insert FUN
-Description: Inserts `<- function()` at the cursor position.
-Binding: insertFunAddin
-Interactive: false
