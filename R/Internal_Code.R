@@ -8,7 +8,14 @@
 #' @keywords internal
 #' @exportClass archm
 
-setClass("archm", list(phi = "character", phi.inv = "character", par.th = "character", theta = "function", depend = "character", dimension = "numeric", parameter = "character", name = "character"),
+setClass("archm", list(phi = "character",
+                       phi.inv = "character",
+                       par.th = "character",
+                       theta = "function",
+                       depend = "character",
+                       dimension = "numeric",
+                       parameter = "character",
+                       name = "character"),
          sealed = TRUE)
 
 #' Clayton copula class
@@ -26,8 +33,11 @@ setClass("clayton",
               dens = "character",
               phi.inv = "character",
               rBiv = "function",
-              dimension = "numeric", parameter = "character", name = "character"),
-         contains = "archm", sealed = TRUE)
+              dimension = "numeric",
+              parameter = "character",
+              name = "character"),
+         contains = "archm",
+         sealed = TRUE)
 
 
 #' Frank copula class
@@ -39,8 +49,16 @@ setClass("clayton",
 setClass("frank",
          list(theta = "function",
               dens = "character",
-              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
-         contains = "archm", sealed = TRUE)
+              par.th = "character",
+              depend = "character",
+              rBiv = "function",
+              phi = "character",
+              phi.inv = "character",
+              dimension = "numeric",
+              parameter = "character",
+              name = "character"),
+         contains = "archm",
+         sealed = TRUE)
 
 #' AMH copula class
 #'
@@ -51,8 +69,16 @@ setClass("frank",
 setClass("amh",
          list(theta = "function",
               dens = "character",
-              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
-         contains = "archm", sealed = TRUE)
+              par.th = "character",
+              depend = "character",
+              rBiv = "function",
+              phi = "character",
+              phi.inv = "character",
+              dimension = "numeric",
+              parameter = "character",
+              name = "character"),
+         contains = "archm",
+         sealed = TRUE)
 
 #' Gumvel copula class
 #'
@@ -62,8 +88,16 @@ setClass("amh",
 
 setClass("gumbel",
          list(theta = "function",
-              par.th = "character", depend = "character",rBiv = "function",phi = "character", phi.inv = "character", dimension = "numeric", parameter = "character", name = "character"),
-         contains = "archm", sealed = TRUE)
+              par.th = "character",
+              depend = "character",
+              rBiv = "function",
+              phi = "character",
+              phi.inv = "character",
+              dimension = "numeric",
+              parameter = "character",
+              name = "character"),
+         contains = "archm",
+         sealed = TRUE)
 
 
 #' Mother Class
@@ -72,7 +106,12 @@ setClass("gumbel",
 #' CompCop structure
 #' @exportClass Mother
 
-setClass("Mother", list(parameter = "character", structure = "list", arg = "numeric", dimension = "numeric"), sealed = TRUE)
+setClass("Mother",
+         list(parameter = "character",
+              structure = "list",
+              arg = "numeric",
+              dimension = "numeric"),
+         sealed = TRUE)
 
 #' Child Class
 #'
@@ -80,7 +119,11 @@ setClass("Mother", list(parameter = "character", structure = "list", arg = "nume
 #' CompCop structure
 #' @exportClass Child
 
-setClass("Child", list(parameter = "character", arg = "numeric", dimension = "numeric"), sealed = TRUE)
+setClass("Child",
+         list(parameter = "character",
+              arg = "numeric",
+              dimension = "numeric"),
+         sealed = TRUE)
 
 #' Log-Child Class
 #'
@@ -106,7 +149,8 @@ setClass("Log_Child",
               Der = "function",
               cop = "function",
               FUN = "function"),
-         contains = "Child", sealed = TRUE)
+         contains = "Child",
+         sealed = TRUE)
 
 #' Log-Mother Class
 #'
@@ -133,7 +177,8 @@ setClass("Log_Mother",
               Der = "function",
               cop = "function",
               FUN = "function"),
-         contains = "Mother", sealed = TRUE)
+         contains = "Mother",
+         sealed = TRUE)
 
 #' Geo-Mother Class
 #'
@@ -161,7 +206,8 @@ setClass("Geo_Mother",
               cop = "function",
               Der = "function",
               FUN = "function"),
-         contains = "Mother", sealed = TRUE)
+         contains = "Mother",
+         sealed = TRUE)
 
 #' Geo-Child Class
 #'
@@ -187,7 +233,8 @@ setClass("Geo_Child",
               cop = "function",
               Der = "function",
               FUN = "function"),
-         contains = "Child", sealed = TRUE)
+         contains = "Child",
+         sealed = TRUE)
 
 
 #' Gamma-Child Class
@@ -213,7 +260,8 @@ setClass("Gamma_Child",
               LTheta = "character",
               Der = "function",
               FUN = "function"),
-         contains = "Child", sealed = TRUE)
+         contains = "Child",
+         sealed = TRUE)
 
 
 #' Show Method for Copulas
