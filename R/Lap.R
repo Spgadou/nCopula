@@ -13,6 +13,8 @@
 #'
 #' @seealso \link{InvLap}
 #'
+#' @importFrom utils head
+#'
 #' @return A character string giving the LST of the specified node.
 #'
 #' @details For mother nodes, parameters are always called 'gamma' and for child nodes, parameters are

@@ -16,6 +16,8 @@
 
 Gumbel <- compiler::cmpfun(function(param, dim = 2L)
 {
+     param.th <- NULL
+
      if (param < 1)
           stop("Wrong 'param' input")
 

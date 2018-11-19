@@ -12,6 +12,7 @@
 #' @return An archm S4 class object.
 #'
 #' @importFrom copula rlog
+#' @importFrom stats rgamma runif
 #' @export
 
 Frank <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)

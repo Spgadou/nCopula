@@ -15,6 +15,8 @@
 #' ## Sample from the structure
 #' rCompCop(1000, structure)
 #'
+#' @importFrom stats rexp
+#'
 #' @author Simon-Pierre Gadoury
 #' @export
 

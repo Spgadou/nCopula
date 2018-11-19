@@ -10,6 +10,8 @@
 #'
 #' @author Simon-Pierre Gadoury
 #'
+#' @importFrom stats rgeom
+#'
 #' @return An archm S4 class object.
 #'
 #' @export

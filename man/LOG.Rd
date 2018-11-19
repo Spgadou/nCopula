@@ -18,7 +18,7 @@ X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
                        Z(par3, c(k,...), NULL))),
 
 where X, Y, and Z are compatible functions (see 'details').
-It is to note that if structure is NULL, the function will automatically
+It is good to note that if structure is NULL, the function will automatically
 be of class Child. For continuous distributions (i.e. GAMMA), structure is
 always NULL.}
 }

@@ -11,6 +11,8 @@
 #'
 #' @seealso \link{Lap}
 #'
+#' @importFrom utils tail
+#'
 #' @rdname InvLap
 #'
 #' @return A character string giving the inverse LST of the specified node.

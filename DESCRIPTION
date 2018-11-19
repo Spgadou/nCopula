@@ -1,26 +1,21 @@
 Package: nCopula
 Type: Package
-Title: Copula Construction Tools
-Version: 0.1.0
+Title: Hierarchical Archimedean Copulas Constructed with Multivariate Compound Distributions
+Version: 0.1.1
 Authors@R: c(person("Simon-Pierre", "Gadoury", role=c("cre", "aut"),
              email="spgadou@me.com"),
-             person("David", "Beauchemin", role="aut",
+             person("David", "Beauchemin", role="ctb",
              email="david.beauchemin.5@ulaval.ca"))
-Description: Construct and use hierarchical Archimedean copulas with multivariate compound distributions.
+Description: Construct and manipulate hierarchical Archimedean copulas with multivariate compound distributions. The model used is the one of Cossette et al. (2017) <doi:10.1016/j.insmatheco.2017.06.001>. 
 Depends:
     R (>= 3.4.0),
     copula
 Imports:
     Deriv,
-    gtools,
-    mgcv,
     stringr,
     stringi,
     compiler,
-    gsl,
     methods,
-    Matrix,
-    stabledist
 License: GPL (>= 2)
 LazyData: FALSE
 RoxygenNote: 6.0.1

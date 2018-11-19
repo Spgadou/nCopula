@@ -9,6 +9,8 @@
 #'
 #' @return An archm S4 class object.
 #'
+#' @importFrom stats rgamma runif
+#'
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
