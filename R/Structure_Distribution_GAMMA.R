@@ -3,19 +3,17 @@
 #' @description The function GAMMA constructs a gamma Child class object for
 #' a given parameter and arguments.
 #'
-#' @param par dimension of the distribution.
+#' @param par parameter of the distribution.
 #' @param unif uniform structure, a numeric vector of grouped
-#' numbers.
-#'
-#' i.e. c(1,2,3) is translated as being c(u1, u2, u3).
-#' @param struc nesting structure of the form
+#' numbers, i.e. c(1,2,3) is translated as being c(u1, u2, u3).
+#' @param structure nesting structure of the form
 #'
 #' X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
 #'                        Z(par3, c(k,...), NULL))),
 #'
 #' where X, Y, and Z are compatible functions (see 'details').
-#' It is to note that if struc is NULL, the function will automatically
-#' be of class Child. For continuous distributions (i.e. GAMMA), struc is
+#' It is to note that if structure is NULL, the function will automatically
+#' be of class Child. For continuous distributions (i.e. GAMMA), structure is
 #' always NULL.
 #'
 #' @author Simon-Pierre Gadoury
@@ -30,7 +28,7 @@
 #'                                         GAMMA(1/30, c(3,4), NULL)))))
 #' @export
 
-GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
+GAMMA <- compiler::cmpfun(function(par, unif, structure = NULL)
 {
      if (length(unique(unif)) != length(unif))
           stop("The 'unif' argument must be composed of different values")
@@ -38,8 +36,8 @@ GAMMA <- compiler::cmpfun(function(par, unif, struc = NULL)
      if (par < 0)
           stop("Wrong 'param' input")
 
-     if (!is.null(struc))
-          stop("Argument 'struc' must be NULL for a 'Child' class")
+     if (!is.null(structure))
+          stop("Argument 'structure' must be NULL for a 'Child' class")
 
      t <- new("Gamma_Child", parameter = as.character(par), arg = unif, type = "Child", dimension = length(unif), name = "Gamma distribution", obj = "Gamma")
 

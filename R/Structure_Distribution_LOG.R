@@ -3,19 +3,17 @@
 #' @description Constructs either a LOG Mother or Child class object for
 #' a given parameter, arguments, and nesting structure.
 #'
-#' @param par dimension of the distribution.
+#' @param par parameter of the distribution.
 #' @param unif uniform structure, a numeric vector of grouped
-#' numbers.
-#'
-#' i.e. c(1,2,3) is translated as being c(u1, u2, u3).
-#' @param struc nesting structure of the form
+#' numbers, i.e. c(1,2,3) is translated as being c(u1, u2, u3).
+#' @param structure nesting structure of the form
 #'
 #' X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
 #'                        Z(par3, c(k,...), NULL))),
 #'
 #' where X, Y, and Z are compatible functions (see 'details').
-#' It is to note that if struc is NULL, the function will automatically
-#' be of class Child. For continuous distributions (i.e. GAMMA), struc is
+#' It is to note that if structure is NULL, the function will automatically
+#' be of class Child. For continuous distributions (i.e. GAMMA), structure is
 #' always NULL.
 #'
 #' @family mother or child class objects.
@@ -30,7 +28,7 @@
 #'                                         GAMMA(1/30, c(3,4), NULL)))))
 #' @export
 
-LOG <- compiler::cmpfun(function(par, unif, struc)
+LOG <- compiler::cmpfun(function(par, unif, structure)
 {
      if (length(unique(unif)) != length(unif))
           stop("The 'unif' argument must be composed of different values")
@@ -38,20 +36,20 @@ LOG <- compiler::cmpfun(function(par, unif, struc)
      if (par > 1 || par < 0)
           stop("Wrong 'param' input")
 
-     if (is.null(struc))
+     if (is.null(structure))
      {
           t <- new("Log_Child", parameter = as.character(par), arg = unif, dimension = length(unif), name = "Logarithmic distribution", type = "Child", obj = "Log")
      }
 
      else
      {
-          if (class(struc) != "list")
-               stop("The argument 'struc' must be a list")
+          if (class(structure) != "list")
+               stop("The argument 'structure' must be a list")
 
           if (is.null(unif))
-               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc), structure = struc, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(structure), structure = structure, arg = 0, name = "Logarithmic distribution", type = "Mother", obj = "Log")
           else
-               t <- new("Log_Mother", parameter = as.character(par), dimension = length(struc) + length(unif), structure = struc, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
+               t <- new("Log_Mother", parameter = as.character(par), dimension = length(structure) + length(unif), structure = structure, arg = unif, name = "Logarithmic distribution", type = "Mother", obj = "Log")
      }
 
      if (t@type == "Mother")

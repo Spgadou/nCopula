@@ -4,10 +4,10 @@
 \alias{pCompCop}
 \title{Distribution function of Mother class objects}
 \usage{
-pCompCop(str, vector = FALSE, express = TRUE)
+pCompCop(structure, vector = FALSE, express = TRUE)
 }
 \arguments{
-\item{str}{object of class Mother.}
+\item{structure}{object of class Mother.}
 
 \item{vector}{logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
 just (u).}
@@ -22,16 +22,16 @@ Distribution function of a Mother class object.
 }
 \examples{
 ## Create the structure
-str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+structure <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                               LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
                               GAMMA(1/30, c(3,4), NULL)))))
 
 ## Character string
-pCompCop(str, vector = TRUE, express = TRUE)
-pCompCop(str, vector = FALSE, express = TRUE)
+pCompCop(structure, vector = TRUE, express = TRUE)
+pCompCop(structure, vector = FALSE, express = TRUE)
 
 ## Function
-pCompCop(str, vector = TRUE, express = FALSE)
-pCompCop(str, vector = FALSE, express = FALSE)
+pCompCop(structure, vector = TRUE, express = FALSE)
+pCompCop(structure, vector = FALSE, express = FALSE)
 
 }

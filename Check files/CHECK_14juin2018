@@ -1,0 +1,190 @@
+
+Updating nCopula documentation
+Loading nCopula
+It is recommended to use ‘given’ instead of ‘middle’.
+Loading required package: copula
+Setting env vars --------------------------------------------------------------
+CFLAGS  : -Wall -pedantic
+CXXFLAGS: -Wall -pedantic
+Building nCopula --------------------------------------------------------------
+'/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file --no-environ  \
+  --no-save --no-restore --quiet CMD build '/Users/Simon-Pierre/nCopula'  \
+  --no-resave-data --no-manual
+
+* checking for file ‘/Users/Simon-Pierre/nCopula/DESCRIPTION’ ... OK
+* preparing ‘nCopula’:
+* checking DESCRIPTION meta-information ... OK
+It is recommended to use ‘given’ instead of ‘middle’.
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+Removed empty directory ‘nCopula/.Rd2pdf11061’
+Removed empty directory ‘nCopula/To do’
+Removed empty directory ‘nCopula/inst/rstudio’
+Removed empty directory ‘nCopula/inst’
+* building ‘nCopula_0.1.0.tar.gz’
+It is recommended to use ‘given’ instead of ‘middle’.
+
+Setting env vars --------------------------------------------------------------
+_R_CHECK_CRAN_INCOMING_USE_ASPELL_: TRUE
+_R_CHECK_CRAN_INCOMING_           : FALSE
+_R_CHECK_FORCE_SUGGESTS_          : FALSE
+Checking nCopula --------------------------------------------------------------
+'/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file --no-environ  \
+  --no-save --no-restore --quiet CMD check  \
+  '/var/folders/fv/z1k255yd1gg810nssg9f5kh80000gn/T//RtmpUM6edr/nCopula_0.1.0.tar.gz'  \
+  --as-cran --timings --no-manual
+
+* using log directory ‘/Users/Simon-Pierre/nCopula.Rcheck’
+* using R version 3.5.0 (2018-04-23)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘nCopula/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘nCopula’ version ‘0.1.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘nCopula’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+
+
+* checking DESCRIPTION meta-information ... NOTE
+Authors@R field gives persons with no role:
+  David aut Beauchemin <david.beauchemin.5@ulaval.ca>
+
+
+
+* checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  ‘AMH_Function.Rd’ ‘Archives’ ‘LICENSE.txt’ ‘index.html’ ‘stylesheets’
+
+
+
+* checking for left-over files ... NOTE
+The following files look like leftovers:
+  ‘nCopula/AMH_Function.Rd’
+Please remove them from your package.
+
+
+
+* checking index information ... OK
+* checking package subdirectories ...It is recommended to use ‘given’ instead of ‘middle’.
+ OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+
+%% DAVID %%
+
+* checking R code for possible problems ... NOTE
+AMH : th: no visible global function definition for ‘rgeom’
+Clayton : rBiv: no visible global function definition for ‘runif’
+Clayton : th: no visible global function definition for ‘rgamma’
+Frank : rBiv: no visible global function definition for ‘runif’
+GAMMA : <anonymous>: no visible global function definition for ‘rgamma’
+GEO : <anonymous>: no visible global function definition for ‘rgeom’
+Gumbel: no visible binding for global variable ‘param.th’
+InvLap: no visible global function definition for ‘tail’
+
+%% SP %%
+
+InvLap: no visible global function definition for ‘head’
+LOG : <anonymous>: no visible binding for global variable ‘tt’
+Lap: no visible global function definition for ‘head’
+rCompCop: no visible global function definition for ‘rexp’
+rCop: no visible global function definition for ‘runif’
+Undefined global functions or variables:
+  head param.th rexp rgamma rgeom runif tail tt
+Consider adding
+  importFrom("stats", "rexp", "rgamma", "rgeom", "runif")
+  importFrom("utils", "head", "tail")
+to your NAMESPACE file.
+
+
+
+
+
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... OK
+* DONE
+Status: 4 NOTEs
+
+
+
+checking DESCRIPTION meta-information ... NOTE
+Authors@R field gives persons with no role:
+  David aut Beauchemin <david.beauchemin.5@ulaval.ca>
+
+
+
+checking top-level files ... NOTE
+Non-standard files/directories found at top level:
+  ‘AMH_Function.Rd’ ‘Archives’ ‘LICENSE.txt’ ‘index.html’ ‘stylesheets’
+
+
+
+checking for left-over files ... NOTE
+The following files look like leftovers:
+  ‘nCopula/AMH_Function.Rd’
+Please remove them from your package.
+
+
+
+
+checking R code for possible problems ... NOTE
+AMH : th: no visible global function definition for ‘rgeom’
+Clayton : rBiv: no visible global function definition for ‘runif’
+Clayton : th: no visible global function definition for ‘rgamma’
+Frank : rBiv: no visible global function definition for ‘runif’
+GAMMA : <anonymous>: no visible global function definition for ‘rgamma’
+GEO : <anonymous>: no visible global function definition for ‘rgeom’
+Gumbel: no visible binding for global variable ‘param.th’
+InvLap: no visible global function definition for ‘tail’
+InvLap: no visible global function definition for ‘head’
+LOG : <anonymous>: no visible binding for global variable ‘tt’
+Lap: no visible global function definition for ‘head’
+rCompCop: no visible global function definition for ‘rexp’
+rCop: no visible global function definition for ‘runif’
+Undefined global functions or variables:
+  head param.th rexp rgamma rgeom runif tail tt
+Consider adding
+  importFrom("stats", "rexp", "rgamma", "rgeom", "runif")
+  importFrom("utils", "head", "tail")
+to your NAMESPACE file.
+
+
+
+
+See
+  ‘/Users/Simon-Pierre/nCopula.Rcheck/00check.log’
+for details.
+
+
+R CMD check results
+0 errors | 0 warnings | 4 notes
+
+R CMD check succeeded

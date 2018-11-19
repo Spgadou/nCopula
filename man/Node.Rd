@@ -4,12 +4,12 @@
 \alias{Node}
 \title{Obtain a node in mother class object}
 \usage{
-Node(path, str)
+Node(path, structure)
 }
 \arguments{
 \item{path}{the path of the node (numeric vector).}
 
-\item{str}{a mother class object (S4).}
+\item{structure}{a mother class object (S4).}
 }
 \value{
 Either a child or mother class object.
@@ -29,10 +29,10 @@ Node(c(0,2,2), LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                               GAMMA(1/30, c(3,4), NULL))))))
 
 # Here we provide the path with the GeneticCodes function of this package.
-str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+structure <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
                                      LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
                                      GAMMA(1/30, c(3,4), NULL)))))
-Node(GeneticCodes(str)[[3]], str)
+Node(GeneticCodes(structure)[[3]], structure)
 
 }
 \author{

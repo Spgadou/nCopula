@@ -4,12 +4,12 @@
 \alias{rCompCop}
 \title{Random number generator for Mother class objects}
 \usage{
-rCompCop(n, str)
+rCompCop(n, structure)
 }
 \arguments{
 \item{n}{the number of realisations.}
 
-\item{str}{an object of class Mother.}
+\item{structure}{an object of class Mother.}
 }
 \value{
 A numeric matrix of sampled data from the structure
@@ -19,11 +19,11 @@ Samples from a Mother class object.
 }
 \examples{
 ## Create the structure
-str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
+structure <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
                         GEO(0.3, 4:5, NULL)))
 
 ## Sample from the structure
-rCompCop(1000, str)
+rCompCop(1000, structure)
 
 }
 \author{

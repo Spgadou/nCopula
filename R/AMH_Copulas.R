@@ -2,7 +2,7 @@
 #'
 #' Constructs an AMH Archimedean copula object with a given parameter and dimension.
 #'
-#' @description Constructs a AMH Archimedean copula object with
+#' @description Constructs an AMH Archimedean copula object with
 #' a given parameter and dimension.
 #' @param dim dimension of the copula (>= 2), which is, by default, 2.
 #' @param param parameter of the copula.
@@ -54,7 +54,6 @@ AMH <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
           new("amh",
               phi = phi,
               phi.inv = phi.inv,
-              rBiv = rBiv,
               theta = th,
               depend = dep.param,
               dimension = dim,
@@ -68,7 +67,6 @@ AMH <- compiler::cmpfun(function(param, dim = 2L, density = FALSE)
           new("amh",
               phi = phi,
               phi.inv = phi.inv,
-              rBiv = rBiv,
               theta = th,
               depend = dep.param,
               dimension = dim,

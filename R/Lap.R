@@ -5,8 +5,8 @@
 #' the corresponding node with a specific variable.
 #'
 #' @param code genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).
-#' @param str object of class Mother (the structure).
-#' @param tt output variable to be used ('z' by default).
+#' @param structure object of class Mother (the structure).
+#' @param outVar output variable to be used ('z' by default).
 #' @param par Should the parameters be values ('value') or variables ('variable') ?
 #'
 #' @rdname Lap
@@ -21,21 +21,21 @@
 #'
 #' @examples
 #'
-#' str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
+#' structure <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
 #'                            GAMMA(0.2, 3:4, NULL)))
 #'
-#' Lap(c(0,2), str, tt = 'z', par = 'value')
+#' Lap(c(0,2), structure, outVar = 'z', par = 'value')
 #'
 #' @author Simon-Pierre Gadoury
 #' @export
 
-Lap <- function(code, str, tt = "z", par = "value")
+Lap <- function(code, structure, outVar = "z", par = "value")
 {
-  str_ini <- str
+  str_ini <- structure
 
   if (par == "value")
   {
-    lap <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+    lap <- stringr::str_replace_all(structure@PGF, structure@Param, structure@parameter)
     for (i in 2:length(code))
     {
       code2 <- head(code, i)
@@ -51,7 +51,7 @@ Lap <- function(code, str, tt = "z", par = "value")
   }
   else if (par == "variable")
   {
-    lap <- stringr::str_replace_all(str@PGF, str@Param, paste(str@Param, "0", sep = ""))
+    lap <- stringr::str_replace_all(structure@PGF, structure@Param, paste(structure@Param, "0", sep = ""))
     for (i in 2:length(code))
     {
       code2 <- head(code, i)
@@ -67,5 +67,5 @@ Lap <- function(code, str, tt = "z", par = "value")
       lap <- stringr::str_replace_all(lap, "z", ini)
     }
   }
-  stringr::str_replace_all(lap, "z", tt)
+  stringr::str_replace_all(lap, "z", outVar)
 }

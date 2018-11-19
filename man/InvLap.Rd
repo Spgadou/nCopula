@@ -4,14 +4,14 @@
 \alias{InvLap}
 \title{Inverse LST of a Node}
 \usage{
-InvLap(code, str, tt = "z", par = "value")
+InvLap(code, structure, outVar = "z", par = "value")
 }
 \arguments{
 \item{code}{the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).}
 
-\item{str}{an object of class Mother (the structure).}
+\item{structure}{an object of class Mother (the structure).}
 
-\item{tt}{the output variable to be used ('z' by default).}
+\item{outVar}{the output variable to be used ('z' by default).}
 
 \item{par}{logical. Should the parameters be values ('value') or variables ('variable') ?}
 }
@@ -30,10 +30,10 @@ For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
 }
 \examples{
 
-str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
+structure <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
                            GAMMA(0.2, 3:4, NULL)))
 
-InvLap(c(0,2), str, tt = 'z', par = 'value')
+InvLap(c(0,2), structure, outVar = 'z', par = 'value')
 
 }
 \seealso{

@@ -4,24 +4,22 @@
 \alias{GAMMA}
 \title{Construction of a GAMMA Child Class Object}
 \usage{
-GAMMA(par, unif, struc = NULL)
+GAMMA(par, unif, structure = NULL)
 }
 \arguments{
-\item{par}{dimension of the distribution.}
+\item{par}{parameter of the distribution.}
 
 \item{unif}{uniform structure, a numeric vector of grouped
-numbers.
+numbers, i.e. c(1,2,3) is translated as being c(u1, u2, u3).}
 
-i.e. c(1,2,3) is translated as being c(u1, u2, u3).}
-
-\item{struc}{nesting structure of the form
+\item{structure}{nesting structure of the form
 
 X(par1, c(i,...), list(Y(par2, c(j,...), NULL),
                        Z(par3, c(k,...), NULL))),
 
 where X, Y, and Z are compatible functions (see 'details').
-It is to note that if struc is NULL, the function will automatically
-be of class Child. For continuous distributions (i.e. GAMMA), struc is
+It is to note that if structure is NULL, the function will automatically
+be of class Child. For continuous distributions (i.e. GAMMA), structure is
 always NULL.}
 }
 \description{

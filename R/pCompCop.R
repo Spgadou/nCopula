@@ -2,7 +2,7 @@
 #'
 #' @description Distribution function of a Mother class object.
 #'
-#' @param str object of class Mother.
+#' @param structure object of class Mother.
 #' @param vector logical. If false, returns a function or a character string with (u_1, u_2, ...) as arguments, else,
 #' just (u).
 #' @param express logical. If false, returns a function, else, a character string.
@@ -11,32 +11,32 @@
 #'
 #' @examples
 #' ## Create the structure
-#' str <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+#' structure <- LOG(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                               LOG(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                               GAMMA(1/30, c(3,4), NULL)))))
 #'
 #' ## Character string
-#' pCompCop(str, vector = TRUE, express = TRUE)
-#' pCompCop(str, vector = FALSE, express = TRUE)
+#' pCompCop(structure, vector = TRUE, express = TRUE)
+#' pCompCop(structure, vector = FALSE, express = TRUE)
 #'
 #' ## Function
-#' pCompCop(str, vector = TRUE, express = FALSE)
-#' pCompCop(str, vector = FALSE, express = FALSE)
+#' pCompCop(structure, vector = TRUE, express = FALSE)
+#' pCompCop(structure, vector = FALSE, express = FALSE)
 #'
 #' @export
 
-pCompCop <- function(str, vector = FALSE, express = TRUE)
+pCompCop <- function(structure, vector = FALSE, express = TRUE)
 {
   e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
-  e1$gen <- GeneticCodes(str)
+  e1$gen <- GeneticCodes(structure)
   e1$argmax <- 0
-  str_ini <- str
+  str_ini <- structure
 
-  FUN <- function(str, lvl = 0, j = 1, v = 0)
+  FUN <- function(structure, lvl = 0, j = 1, v = 0)
   {
-    if (str@type == "Mother")
+    if (structure@type == "Mother")
     {
-      argum <- str@arg
+      argum <- structure@arg
       for (kk in 1:length(argum))
       {
         if (argum[kk] > e1$argmax)
@@ -45,31 +45,31 @@ pCompCop <- function(str, vector = FALSE, express = TRUE)
 
       if (lvl == 0)
       {
-        e1$C <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
-        e1$M0 <- numeric(str@dimension - length(str@arg) + 1 * (sum(str@arg) != 0))
+        e1$C <- stringr::str_replace_all(structure@PGF, structure@Param, structure@parameter)
+        e1$M0 <- numeric(structure@dimension - length(structure@arg) + 1 * (sum(structure@arg) != 0))
       }
       else
       {
-        ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+        ini <- stringr::str_replace_all(structure@PGF, structure@Param, structure@parameter)
         eval(parse(text = paste("e1$M", lvl - 1, "[j] <- ini", sep = "")))
-        eval(parse(text = paste("e1$M", lvl, " <- numeric(str@dimension - length(str@arg) + length(str@arg) * (sum(str@arg) != 0))", sep = "")))
+        eval(parse(text = paste("e1$M", lvl, " <- numeric(structure@dimension - length(structure@arg) + length(structure@arg) * (sum(structure@arg) != 0))", sep = "")))
       }
 
-      for (i in 1:(str@dimension - str@arg))
+      for (i in 1:(structure@dimension - structure@arg))
       {
-        FUN(str@structure[[i]], lvl + 1, i, v = c(v, i))
+        FUN(structure@structure[[i]], lvl + 1, i, v = c(v, i))
       }
 
-      if (sum(str@arg) != 0)
+      if (sum(structure@arg) != 0)
       {
         charr <- InvLap(c(v, 0), str_ini)
-        uu <- paste("u", str@arg, sep = "")
+        uu <- paste("u", structure@arg, sep = "")
         res <- numeric(length(uu))
         for (i in 1:length(uu))
           res[i] <- stringr::str_replace_all(charr, "z", uu[i])
         res <- paste("(", res, ")", collapse = " * ")
 
-        eval(parse(text = paste("e1$M", lvl, "[str@dimension - length(str@arg) + 1] <- res", sep = "")))
+        eval(parse(text = paste("e1$M", lvl, "[structure@dimension - length(structure@arg) + 1] <- res", sep = "")))
       }
 
       char1 <- paste("(", eval(parse(text = paste("e1$M", lvl, sep = ""))), ")", collapse = " * ")
@@ -83,7 +83,7 @@ pCompCop <- function(str, vector = FALSE, express = TRUE)
     }
     else
     {
-      argum <- str@arg
+      argum <- structure@arg
       for (kk in 1:length(argum))
       {
         if (argum[kk] > e1$argmax)
@@ -97,13 +97,13 @@ pCompCop <- function(str, vector = FALSE, express = TRUE)
         res[y] <- stringr::str_replace_all(nu, "z", uu[y])
       res <- paste("(", res, ")", collapse = " + ")
 
-      ini <- stringr::str_replace_all(str@Laplace, str@Param, str@parameter)
+      ini <- stringr::str_replace_all(structure@Laplace, structure@Param, structure@parameter)
       ini <- stringr::str_replace_all(ini, "z", res)
       eval(parse(text = paste("e1$M", lvl - 1, "[j] <- ini", sep = "")))
     }
   }
 
-  FUN(str)
+  FUN(structure)
 
   cop <- e1$C
   dim <- e1$argmax

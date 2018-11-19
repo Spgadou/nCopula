@@ -3,11 +3,8 @@
 \docType{class}
 \name{archm-class}
 \alias{archm-class}
-\title{function used in other function for the user.}
+\title{Archimedean copulas family}
 \description{
-Archimedean copulas family
-}
-\details{
 Archimedean copulas
 }
 \keyword{internal}

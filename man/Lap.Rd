@@ -4,14 +4,14 @@
 \alias{Lap}
 \title{LST of a Node}
 \usage{
-Lap(code, str, tt = "z", par = "value")
+Lap(code, structure, outVar = "z", par = "value")
 }
 \arguments{
 \item{code}{genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).}
 
-\item{str}{object of class Mother (the structure).}
+\item{structure}{object of class Mother (the structure).}
 
-\item{tt}{output variable to be used ('z' by default).}
+\item{outVar}{output variable to be used ('z' by default).}
 
 \item{par}{Should the parameters be values ('value') or variables ('variable') ?}
 }
@@ -30,10 +30,10 @@ For exemple, a child node with path (0,2,1) will have the parameter 'alpha021'.
 }
 \examples{
 
-str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
+structure <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
                            GAMMA(0.2, 3:4, NULL)))
 
-Lap(c(0,2), str, tt = 'z', par = 'value')
+Lap(c(0,2), structure, outVar = 'z', par = 'value')
 
 }
 \seealso{

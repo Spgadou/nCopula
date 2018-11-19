@@ -3,33 +3,33 @@
 #' @description Samples from a Mother class object.
 #'
 #' @param n the number of realisations.
-#' @param str an object of class Mother.
+#' @param structure an object of class Mother.
 #'
 #' @return A numeric matrix of sampled data from the structure
 #'
 #' @examples
 #' ## Create the structure
-#' str <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
+#' structure <- GEO(0.1, 1, list(GAMMA(0.2, 2:3, NULL),
 #'                         GEO(0.3, 4:5, NULL)))
 #'
 #' ## Sample from the structure
-#' rCompCop(1000, str)
+#' rCompCop(1000, structure)
 #'
 #' @author Simon-Pierre Gadoury
 #' @export
 
-rCompCop <- compiler::cmpfun(function(n, str)
+rCompCop <- compiler::cmpfun(function(n, structure)
 {
   e1 <- new.env()
   e1$res <- list()
-  gen <- GeneticCodes(str)
-  e1$M0 <- str@simul(n, as.numeric(str@parameter))
+  gen <- GeneticCodes(structure)
+  e1$M0 <- structure@simul(n, as.numeric(structure@parameter))
 
   for (i in 1:length(gen))
   {
     if (length(gen[[i]]) == 2)
     {
-      str2 <- Node(gen[[i]], str)
+      str2 <- Node(gen[[i]], structure)
       M.prec <- eval(parse(text = paste("e1$M", paste(gen[[i]][1], collapse = ""), sep = "")))
 
       R <- matrix(rexp(length(str2@arg) * n, 1), ncol = length(str2@arg), nrow = n)
@@ -38,7 +38,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
       {
         Theta <- M.prec
 
-        ini <- stringr::str_replace_all(str@Laplace, str@Param, str@parameter)
+        ini <- stringr::str_replace_all(structure@Laplace, structure@Param, structure@parameter)
         ff <- function(z) eval(parse(text = ini))
         e1$res[[i]] <- ff(R / Theta)
       }
@@ -47,7 +47,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
         Theta <- matrix(rep(vapply(1:length(M.prec), function(t) sum(str2@simul(M.prec[t], as.numeric(str2@parameter))), 0), length(str2@arg)),
                         ncol = length(str2@arg), nrow = n)
 
-        ini <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+        ini <- stringr::str_replace_all(structure@PGF, structure@Param, structure@parameter)
         ini <- stringr::str_replace_all(ini, "z",
                                         stringr::str_replace_all(str2@Laplace, str2@Param, str2@parameter))
         ff <- function(z) eval(parse(text = ini))
@@ -56,11 +56,11 @@ rCompCop <- compiler::cmpfun(function(n, str)
     }
     else if (length(gen[[i]]) > 2)
     {
-      Lap <- stringr::str_replace_all(str@PGF, str@Param, str@parameter)
+      Lap <- stringr::str_replace_all(structure@PGF, structure@Param, structure@parameter)
 
       for (j in 2:(length(gen[[i]]) - 1))
       {
-        str2 <- Node(gen[[i]][1:j], str)
+        str2 <- Node(gen[[i]][1:j], structure)
 
         if (gen[[i]][length(gen[[i]])] != 0)
         {
@@ -91,7 +91,7 @@ rCompCop <- compiler::cmpfun(function(n, str)
         }
       }
 
-      str2 <- Node(gen[[i]], str)
+      str2 <- Node(gen[[i]], structure)
       M.prec <- eval(parse(text = paste("e1$M", paste(gen[[i]][1:(length(gen[[i]]) - 1)], collapse = ""), sep = "")))
 
       if (gen[[i]][length(gen[[i]])] != 0)

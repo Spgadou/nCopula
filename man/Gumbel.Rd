@@ -7,12 +7,12 @@
 Gumbel(param, dim = 2L)
 }
 \arguments{
-\item{param}{parameter of the copula.}
+\item{param}{parameter of the copula}
 
-\item{dim}{dimension of the copula (>= 2), which is, by default, 2.}
+\item{dim}{dimension of the copula (>= 2), which is, by default, 2}
 }
 \value{
-An archm S4 class object
+An archm S4 class object.
 }
 \description{
 Constructs a Gumbel Archimedean copula object with

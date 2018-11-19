@@ -5,8 +5,8 @@
 #' the corresponding node with a specific variable.
 #'
 #' @param code the genetic code (numeric vector) of the node (can be a leaf i.e. end by 0).
-#' @param str an object of class Mother (the structure).
-#' @param tt the output variable to be used ('z' by default).
+#' @param structure an object of class Mother (the structure).
+#' @param outVar the output variable to be used ('z' by default).
 #' @param par logical. Should the parameters be values ('value') or variables ('variable') ?
 #'
 #' @seealso \link{Lap}
@@ -21,17 +21,17 @@
 #'
 #' @examples
 #'
-#' str <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
+#' structure <- GEO(0.1, NULL, list(GAMMA(0.1, 1:2, NULL),
 #'                            GAMMA(0.2, 3:4, NULL)))
 #'
-#' InvLap(c(0,2), str, tt = 'z', par = 'value')
+#' InvLap(c(0,2), structure, outVar = 'z', par = 'value')
 #'
 #' @author Simon-Pierre Gadoury
 #' @export
 
-InvLap <- function(code, str, tt = "z", par = "value")
+InvLap <- function(code, structure, outVar = "z", par = "value")
 {
-  str_next <- Node(code, str)
+  str_next <- Node(code, structure)
 
   if (par == 'value')
   {
@@ -43,7 +43,7 @@ InvLap <- function(code, str, tt = "z", par = "value")
       for (i in (length(code) - 1):1)
       {
         code2 <- head(code, i)
-        str_next <- Node(code2, str)
+        str_next <- Node(code2, structure)
         ini <- stringr::str_replace_all(str_next@PGFInv, str_next@Param, str_next@parameter)
 
         final <- stringr::str_replace_all(final, "z", ini)
@@ -59,7 +59,7 @@ InvLap <- function(code, str, tt = "z", par = "value")
         for (i in (length(code) - 2):1)
         {
           code2 <- head(code, i)
-          str_next <- Node(code2, str)
+          str_next <- Node(code2, structure)
           ini <- stringr::str_replace_all(str_next@PGFInv, str_next@Param, str_next@parameter)
 
           final <- stringr::str_replace_all(final, "z", ini)
@@ -78,7 +78,7 @@ InvLap <- function(code, str, tt = "z", par = "value")
       for (i in (length(code) - 1):1)
       {
         code2 <- head(code, i)
-        str_next <- Node(code2, str)
+        str_next <- Node(code2, structure)
         ini <- stringr::str_replace_all(str_next@PGFInv, str_next@Param,
                                         paste(str_next@Param, paste(code2, collapse = ""), sep = ""))
 
@@ -96,7 +96,7 @@ InvLap <- function(code, str, tt = "z", par = "value")
         for (i in (length(code) - 2):1)
         {
           code2 <- head(code, i)
-          str_next <- Node(code2, str)
+          str_next <- Node(code2, structure)
           ini <- stringr::str_replace_all(str_next@PGFInv, str_next@Param,
                                           paste(str_next@Param, paste(code2, collapse = ""), sep = ""))
 
@@ -106,7 +106,7 @@ InvLap <- function(code, str, tt = "z", par = "value")
     }
   }
 
-  final <- stringr::str_replace_all(final, "z", tt)
+  final <- stringr::str_replace_all(final, "z", outVar)
   final
 }
 

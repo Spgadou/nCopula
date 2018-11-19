@@ -17,7 +17,7 @@ AMH(param, dim = 2L, density = FALSE)
 An archm S4 class object.
 }
 \description{
-Constructs a AMH Archimedean copula object with
+Constructs an AMH Archimedean copula object with
 a given parameter and dimension.
 }
 \details{

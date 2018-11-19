@@ -2,23 +2,23 @@
 #'
 #' @description Function to obtain the list of all genetic codes of a structure.
 #'
-#' @param str an object of class Mother (the structure)
+#' @param structure an object of class Mother (the structure)
 #'
 #' @return A list of the structure's genetic codes.
 #'
 #' @examples
 #' ## Create the structure
-#' str <- GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
+#' structure <- GEO(0.5, NULL, list(GAMMA(1/30, c(5,6), NULL),
 #'                            GEO(0.1, NULL, list(GAMMA(1/30, c(1,2), NULL),
 #'                                                GAMMA(1/30, c(3,4), NULL)))))
 #' ## Get the genetic codes
-#' GeneticCodes(str)
+#' GeneticCodes(structure)
 #'
 #' @author Simon-Pierre Gadoury
 #'
 #' @export
 
-GeneticCodes <- function(str)
+GeneticCodes <- function(structure)
 {
   e1 <- new.env(hash = TRUE, parent = parent.frame(), size = 10L)
 
@@ -26,14 +26,14 @@ GeneticCodes <- function(str)
   e1$k <- 1
   e1$v <- list(c(0))
 
-  FUN <- function(str, l = 1)
+  FUN <- function(structure, l = 1)
   {
-    vk <- length(str@structure)
+    vk <- length(structure@structure)
     type <- numeric(vk)
     for (i in 1:vk)
-      type[i] <- str@structure[[i]]@type
+      type[i] <- structure@structure[[i]]@type
 
-    if (sum(str@arg) != 0)
+    if (sum(structure@arg) != 0)
     {
       e1$ll[[e1$k]] <- c(e1$v[[l]], 0)
       e1$k <- e1$k + 1
@@ -60,12 +60,12 @@ GeneticCodes <- function(str)
         else
         {
           e1$v[[l + 1]] <- c(e1$v[[l]], i)
-          FUN(str@structure[[i]], l + 1)
+          FUN(structure@structure[[i]], l + 1)
         }
       }
     }
   }
 
-  FUN(str)
+  FUN(structure)
   e1$ll
 }

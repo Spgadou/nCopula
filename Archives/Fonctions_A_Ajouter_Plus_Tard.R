@@ -137,58 +137,58 @@ PGF.Power <- function(tt, n, s, str)
   paste("(", ini, ")", sep = "", collapse = " + ")
 }
 
-#' #' Expression for the density of a Theta (level 1)
-#' #'
-#' #' @param str Structure
-#' #' @param grp Position of the group
-#' #' @param dim Dimension of the group
-#' #' @param simplify Should the expression be simply ? (may take time)
-#' #'
-#' #' @details The goal is to soon introduce genetic codes to simplify the process
-#' #'
-#' #' @export
+#' Expression for the density of a Theta (level 1)
 #'
-#' density_level1_EXPR <- function(str, grp, dim, simplify = FALSE)
-#' {
-#'   uu <- paste("u", 1:dim, sep = "")
-#'   yy <- paste("y", 1:dim, sep = "")
-#'   expr1 <- paste("y", 1:dim, sep = "", collapse = " * ")
-#'   nu <- paste(yy, collapse = " + ")
-#'   for (i in 1:dim)
-#'   {
-#'     ini <- paste("(", stringr::str_replace_all(str@structure[[grp]]@Der(str@PGFInv, 1, "LaplaceInv"), "z", uu[i]), ")", sep = "")
-#'     ini <- paste(ini, " * (", str@Der(uu[i], 1, "PGFInv"), ")", sep = "")
-#'     expr1 <- stringr::str_replace_all(expr1, yy[i], ini)
+#' @param str Structure
+#' @param grp Position of the group
+#' @param dim Dimension of the group
+#' @param simplify Should the expression be simply ? (may take time)
 #'
-#'     ini <- stringr::str_replace_all(str@structure[[grp]]@LaplaceInv, "z", str@PGFInv)
-#'     nu <- stringr::str_replace_all(nu, yy[i], ini)
-#'     nu <- stringr::str_replace_all(nu, "z", uu[i])
-#'   }
+#' @details The goal is to soon introduce genetic codes to simplify the process
 #'
-#'   res1 <- numeric(dim)
-#'   for (r in 1:dim)
-#'   {
-#'     expr2 <- str@Der(stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), r, "PGF")
-#'     res2 <- numeric(r)
-#'     for (s in 1:r)
-#'     {
-#'       res2[s] <- paste("((-1)^(", r - s, ") / (", factorial(s) * factorial(r - s), ") * (",
-#'                        stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), ")^(", r - s, ") * (",
-#'                        stringr::str_replace_all(stringr::str_replace_all(str@structure[[grp]]@Der("z", dim, "Laplace"), "alpha", paste("(alpha * ", s, ")", sep = "")),
-#'                                                 "z", nu), "))", sep = "")
-#'     }
-#'     res1[r] <- paste("(", expr2, ") * (", paste(res2, collapse = " + "), ")", sep = "")
-#'   }
-#'   res <- paste(res1, collapse = " + ")
-#'
-#'   expr.final <- paste("(", expr1, ") * (", res, ")", sep = "")
-#'
-#'   if (simplify == TRUE)
-#'     Deriv::Simplify(expr.final)
-#'   else
-#'     expr.final
-#' }
-#'
+#' @export
+
+density_level1_EXPR <- function(str, grp, dim, simplify = FALSE)
+{
+  uu <- paste("u", 1:dim, sep = "")
+  yy <- paste("y", 1:dim, sep = "")
+  expr1 <- paste("y", 1:dim, sep = "", collapse = " * ")
+  nu <- paste(yy, collapse = " + ")
+  for (i in 1:dim)
+  {
+    ini <- paste("(", stringr::str_replace_all(str@structure[[grp]]@Der(str@PGFInv, 1, "LaplaceInv"), "z", uu[i]), ")", sep = "")
+    ini <- paste(ini, " * (", str@Der(uu[i], 1, "PGFInv"), ")", sep = "")
+    expr1 <- stringr::str_replace_all(expr1, yy[i], ini)
+
+    ini <- stringr::str_replace_all(str@structure[[grp]]@LaplaceInv, "z", str@PGFInv)
+    nu <- stringr::str_replace_all(nu, yy[i], ini)
+    nu <- stringr::str_replace_all(nu, "z", uu[i])
+  }
+
+  res1 <- numeric(dim)
+  for (r in 1:dim)
+  {
+    expr2 <- str@Der(stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), r, "PGF")
+    res2 <- numeric(r)
+    for (s in 1:r)
+    {
+      res2[s] <- paste("((-1)^(", r - s, ") / (", factorial(s) * factorial(r - s), ") * (",
+                       stringr::str_replace_all(str@structure[[grp]]@Laplace, "z", nu), ")^(", r - s, ") * (",
+                       stringr::str_replace_all(stringr::str_replace_all(str@structure[[grp]]@Der("z", dim, "Laplace"), "alpha", paste("(alpha * ", s, ")", sep = "")),
+                                                "z", nu), "))", sep = "")
+    }
+    res1[r] <- paste("(", expr2, ") * (", paste(res2, collapse = " + "), ")", sep = "")
+  }
+  res <- paste(res1, collapse = " + ")
+
+  expr.final <- paste("(", expr1, ") * (", res, ")", sep = "")
+
+  if (simplify == TRUE)
+    Deriv::Simplify(expr.final)
+  else
+    expr.final
+}
+
 #' Expression for the density of a Theta (level 2)
 #'
 #' @param str Structure
@@ -305,15 +305,6 @@ density_level2_EXPR <- function(str, grpM, grpB, dim, simplify = FALSE)
   else
     final
 }
-
-#' Get the genetic codes of a structure
-#'
-#' @param str The structure
-#'
-#' @return A list of genetic codes
-#'
-#' @export
-
 
 #' Estimation for one level hierarchical copulas
 #'

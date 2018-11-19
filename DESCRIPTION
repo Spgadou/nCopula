@@ -2,11 +2,13 @@ Package: nCopula
 Type: Package
 Title: Copula Construction Tools
 Version: 0.1.0
-Authors@R: as.person("Simon-Pierre Gadoury <spgadou@me.com> [aut, cre]")
-Description: Construct and use hierarchical Archimedean copulas with multivariate
-    compound distributions
+Authors@R: c(person("Simon-Pierre", "Gadoury", role=c("cre", "aut"),
+             email="spgadou@me.com"),
+             person("David", "Beauchemin", role="aut",
+             email="david.beauchemin.5@ulaval.ca"))
+Description: Construct and use hierarchical Archimedean copulas with multivariate compound distributions.
 Depends:
-    R (>= 3.4.1),
+    R (>= 3.4.0),
     copula
 Imports:
     Deriv,
